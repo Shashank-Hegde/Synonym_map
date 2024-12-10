@@ -6,7 +6,7 @@ This only works with typing in English, and once we can finetune the threshold a
 Here is the link to the webapp for testing
 https://o-health-synonym.streamlit.app/
 
-![Symptom Matching](Screenshu.png)
+![Symptom Matching](Screensoy.jpeg)
 
 1.⁠ ⁠Green arrow: Input  - Hi the morning allergy is bad. What shall I do?
 
