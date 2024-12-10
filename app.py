@@ -206,7 +206,7 @@ def match_symptom(user_input):
     
     # Step 2: Fuzzy matching on known symptoms
     fuzzy_result = process.extractOne(normalized_input, known_symptoms, scorer=fuzz.partial_ratio)
-    if fuzzy_result and fuzzy_result[1] > 80:
+    if fuzzy_result and fuzzy_result[1] > 85:
         return fuzzy_result[0]
     
     # Step 3: Semantic similarity with SBERT
