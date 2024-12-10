@@ -7,22 +7,26 @@ Here is the link to the webapp for testing
 https://o-health-synonym.streamlit.app/
 
 ![Description](Screenshot q.png)
+![Symptom Matching](/Screenshot q.png)
 1.⁠ ⁠Green arrow: Input  - Hi the morning allergy is bad. What shall I do?
 
     Mapped correctly to allergies
     
 2.⁠ ⁠Orange arrow: Input "Hi the skin is peeling, tell a cream to apply"
-       Mapped correctly to skin peeling
+    
+    Mapped correctly to skin peeling
 
 3.⁠ ⁠Blue arrow : Input _ Hi, body is aching quite bad after lifting weights. Give a exercise to do"
-Incorrectly Mapped to weight gain
+
+    Incorrectly Mapped to weight gain
 Solution: Increase threshold from 80 to 85 and test again
 
 4.⁠ ⁠Red arrow, same input
-Correctly Mapped with no clear match, as expected. This is because "body ache" is not a symptom
+
+    Correctly Mapped with no clear match, as expected. This is because "body ache" is not a symptom
 Solution would be to add body ache as a symptom
 
-Please do similar testing thoroughly and check for any further bugs. Adjust the thresholds as required
+Next, should do similar testing thoroughly and check for any further bugs. Adjust the thresholds as required
 Higher threshold : more strict in mapping to synonym
 
 In app.py you have 2 thresholds to change
