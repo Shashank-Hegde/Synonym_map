@@ -7,7 +7,7 @@ Here is the link to the webapp for testing
 https://o-health-synonym.streamlit.app/
 
 ![Description](Screenshot q.png)
-![Symptom Matching](/Screenshot q.png)
+![Symptom Matching](Screenshu.png)
 1.⁠ ⁠Green arrow: Input  - Hi the morning allergy is bad. What shall I do?
 
     Mapped correctly to allergies
