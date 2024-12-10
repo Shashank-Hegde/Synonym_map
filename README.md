@@ -6,7 +6,7 @@ This only works with typing in English, and once we can finetune the threshold a
 Here is the link to the webapp for testing
 https://o-health-synonym.streamlit.app/
 
-![Description](Screenshoy.png)
+![Symptom Matching](Screenshu.png)
 
 1.⁠ ⁠Green arrow: Input  - Hi the morning allergy is bad. What shall I do?
 
@@ -29,7 +29,7 @@ Solution would be to add body ache as a symptom
 Next, should do similar testing thoroughly and check for any further bugs. Adjust the thresholds as required
 Higher threshold : more strict in mapping to synonym
 
-![Symptom Matching](Screenshu.png)
+![Description](Screensoy.png)
 In app.py you have 2 thresholds to change
 Line 209 and 
 216 (max_score is 0 to 1)
