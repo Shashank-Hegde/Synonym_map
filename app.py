@@ -61,12 +61,96 @@ known_symptoms = [
 
 # Symptom synonyms dictionary
 symptom_synonyms = {
-    'depression': ['sad', 'unhappy', 'low mood', 'feeling down', 'depressed', 'feeling sad'],
-    'back spasm': ['back is spasming', 'back spasms', 'back spasm'],
-    'headache': ['head pain', 'head hurts', 'migraine'],
-    'allergies': ['allergy'],
-    'knee pain': ['knee is paining', 'pain in knees'],
-    # Add more symptom synonyms here
+    # General Symptoms:
+    'fever': ['elevated temperature', 'high body temperature', 'pyrexia', 'febrile state', 'raised temperature', 'chills and fever', 'body overheating'],
+    'cold': ['common cold', 'viral cold', 'respiratory infection', 'head cold', 'seasonal cold', 'upper respiratory infection', 'nasal cold'],
+    'runny nose': ['nasal discharge', 'drippy nose', 'clear runny nose', 'watery nose', 'rhinorrhea', 'nose leakage', 'constant dripping nose'],
+    'sneezing': ['frequent sneezing', 'nose clearing', 'repetitive sneezing', 'nasal sneezing'],
+    'rash': ['skin rash', 'skin irritation', 'dermatitis', 'eczema', 'hives', 'itchy rash', 'raised red bumps', 'skin inflammation'],
+    'dizziness': ['feeling lightheaded', 'spinning sensation', 'balance issues', 'vertigo', 'faintness', 'feeling woozy', 'head spinning', 'swaying feeling'],
+    'weakness': ['general weakness', 'muscle weakness', 'feeling drained', 'fatigue', 'lack of strength'],
+    'loss of appetite': ['poor appetite', 'decreased appetite', 'appetite loss', 'reduced hunger', 'lack of desire to eat'],
+    'cough': ['persistent cough', 'dry cough', 'wet cough', 'hacking cough', 'persistent throat clearing', 'productive cough', 'barking cough'],
+    'muscle pain': ['muscle soreness', 'muscle tenderness', 'muscle stiffness', 'muscle strain', 'muscle ache', 'muscle discomfort', 'deep muscle pain'],
+    'joint pain': ['joint discomfort', 'arthralgia', 'joint stiffness', 'joint inflammation', 'pain in the joints', 'swollen joints'],
+    'chest pain': ['sharp chest pain', 'chest discomfort', 'chest pressure', 'pain in chest', 'tightness in chest', 'stabbing chest pain'],
+    'back pain': ['lower back pain', 'upper back pain', 'spinal pain', 'pain in the back', 'chronic back pain', 'lumbar pain', 'muscle pain in back'],
+    'wrist pain': ['wrist discomfort', 'pain in the wrist', 'carpal pain', 'wrist joint pain', 'wrist injury', 'wrist sprain'],
+    'constipation': ['difficult bowel movement', 'hard stools', 'infrequent bowel movement', 'bowel obstruction', 'intestinal blockage'],
+    'throat pain': ['painful throat', 'swollen throat', 'throat irritation', 'swallowing pain', 'inflamed throat'],
+    'flu': ['influenza', 'seasonal flu', 'viral flu', 'flu-like illness', 'grippe'],
+    'breathlessness': ['shortness of breath', 'dyspnea', 'labored breathing', 'air hunger', 'tight chest', 'shallow breathing'],
+    'stomach pain': ['gastric pain', 'abdominal cramps', 'stomach cramps', 'digestive discomfort', 'bellyache'],
+    'migraine': ['throbbing headache', 'severe headache', 'pounding headache', 'intense head pain'],
+    'ache': ['pain', 'discomfort', 'soreness', 'tenderness'],
+    'sore': ['painful', 'tender', 'raw', 'irritated'],
+    'burning': ['scalding pain', 'stinging sensation', 'fiery pain', 'tingling pain'],
+    'itching': ['pruritus', 'skin irritation', 'itchy sensation', 'skin scratching'],
+    'swelling': ['edema', 'fluid retention', 'puffy skin', 'swollen area', 'inflammation'],
+    'infection': ['bacterial infection', 'viral infection', 'pathogenic infection', 'contagion', 'sepsis'],
+    'inflammation': ['swelling', 'redness', 'heat', 'pain', 'immune response'],
+    'cramps': ['muscle cramps', 'spasms', 'twinges', 'sudden pain'],
+    'ulcers': ['open sores', 'lesions', 'wounds', 'erosions'],
+    'bleeding': ['hemorrhaging', 'blood loss', 'blood discharge'],
+    'irritation': ['discomfort', 'agitation', 'sensitivity', 'inflammation', 'reaction'],
+    'anxiety': ['nervousness', 'stress', 'unease', 'worry', 'apprehension'],
+    'depression': ['sadness', 'low mood', 'despair', 'melancholy', 'downheartedness','unhappy','feeling sad', 'depressed'],
+    'insomnia': ['difficulty sleeping', 'sleeplessness', 'restlessness at night', 'lack of sleep', 'sleep deprivation'],
+    
+    # Chronic Diseases:
+    'cancer': ['malignant tumor', 'neoplasm', 'oncological disease'],
+    'diabetes': ['high blood sugar', 'diabetic condition', 'type 1 diabetes', 'type 2 diabetes'],
+    'hypertension': ['high blood pressure', 'elevated blood pressure'],
+    'allergies': ['allergic reaction', 'hay fever', 'immune response', 'hypersensitivity', 'seasonal allergies'],
+    'weight loss': ['unexplained weight loss', 'weight reduction', 'loss of body mass'],
+    'weight gain': ['increase in weight', 'gain in body mass'],
+    'hair loss': ['alopecia', 'thinning hair', 'balding', 'hair shedding'],
+    
+    # Sensory Issues:
+    'blurred vision': ['fuzzy vision', 'impaired vision', 'visual distortion', 'cloudy vision'],
+    'ear pain': ['otalgia', 'ear discomfort', 'pain in the ear', 'ear pressure', 'ear ache'],
+    'palpitations': ['heart palpitations', 'rapid heartbeats', 'heart racing', 'fluttering in the chest'],
+    'urinary frequency': ['frequent urination', 'urinary urgency', 'increased urination'],
+    'numbness': ['lack of sensation', 'tingling', 'loss of feeling', 'pins and needles'],
+    'tingling': ['pins and needles', 'numbness', 'prickling sensation'],
+    'night sweats': ['excessive sweating at night', 'nighttime perspiration', 'sweating during sleep'],
+    'dry mouth': ['xerostomia', 'cottonmouth', 'thirsty mouth'],
+    'excessive thirst': ['polydipsia', 'increased thirst'],
+    'frequent urination': ['urinary frequency', 'increased urination'],
+    'acne': ['pimples', 'blemishes', 'skin breakouts', 'zits'],
+    'bruising': ['contusion', 'hematoma', 'skin discoloration from injury'],
+    'confusion': ['disorientation', 'mental fog', 'cognitive impairment', 'lack of clarity'],
+    'memory loss': ['amnesia', 'forgetfulness', 'memory impairment'],
+    'hearing loss': ['No sound hearing', 'Nothing listening', 'unable to hear'],
+    'hoarseness': ['raspy voice', 'voice change', 'laryngeal discomfort'],
+    'wheezing': ['whistling breath', 'labored breathing', 'asthmatic wheeze'],
+    
+    # Eye Issues:
+    'itchy eyes': ['eye irritation', 'allergic eyes', 'dry eyes', 'burning eyes'],
+    'dry eyes': ['ocular dryness', 'eye irritation', 'burning sensation in eyes'],
+    'difficulty swallowing': ['dysphagia', 'trouble swallowing', 'painful swallowing'],
+    
+    # Miscellaneous Symptoms:
+    'restlessness': ['anxiety', 'unease', 'nervousness', 'inability to relax'],
+    'yellow skin': ['jaundice', 'yellowish skin tone'],
+    'yellow eyes': ['scleral jaundice', 'yellowing of the eyes'],
+    'bloating': ['abdominal bloating', 'swollen abdomen', 'fullness'],
+    'gas': ['flatulence', 'intestinal gas', 'bloating', 'belching'],
+    'hiccups': ['singultus', 'involuntary contractions of diaphragm'],
+    'indigestion': ['dyspepsia', 'upset stomach', 'acid reflux', 'heartburn'],
+    'heartburn': ['acid reflux', 'gastric reflux', 'burning sensation in chest'],
+    
+    # Urinary and GI Symptoms:
+    'mouth sores': ['canker sores', 'oral ulcers', 'blisters in the mouth'],
+    'nosebleeds': ['epistaxis', 'bleeding from the nose'],
+    'ear ringing': ['tinnitus', 'ringing in the ears', 'buzzing in ears'],
+    'decreased appetite': ['loss of appetite', 'reduced hunger', 'poor appetite'],
+    'unusual sweating': ['excessive sweating', 'hyperhidrosis'],
+    'dark urine': ['brown urine', 'tea-colored urine', 'concentrated urine'],
+    'light-colored stools': ['pale stools', 'clay-colored stools'],
+    'blood in urine': ['hematuria', 'bloody urine'],
+    'blood in stool': ['hematochezia', 'melena'], 
+
 }
 
 # Precompute embeddings
