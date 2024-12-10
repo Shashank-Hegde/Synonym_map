@@ -3,6 +3,7 @@
 Developed a new webapp explicitly for testing the synonym mapping like we discussed earlier, with a LLM. This app is ONLY for testing different inputs and seeing how it maps to the symptoms. I have given access to you for this code, and we need to do testing to see its efficiency and any bugs.
 This only works with typing in English, and once we can finetune the threshold and other parameters I will implement it on the main streamlit app and then we can migrate it to the android app.
 
+
 Here is the link to the webapp for testing
 https://o-health-synonym.streamlit.app/
 
