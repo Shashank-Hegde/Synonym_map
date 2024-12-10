@@ -7,6 +7,14 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
+# Ensure required NLTK resources are downloaded
+nltk_resources = ['stopwords', 'wordnet']
+for resource in nltk_resources:
+    try:
+        nltk.data.find(f'corpora/{resource}')
+    except LookupError:
+        nltk.download(resource)
+
 # Download NLTK stopwords if not present
 try:
     stop_words = set(stopwords.words('english'))
