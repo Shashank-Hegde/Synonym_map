@@ -6,7 +6,11 @@ This only works with typing in English, and once we can finetune the threshold a
 Here is the link to the webapp for testing
 https://o-health-synonym.streamlit.app/
 
-1.⁠ ⁠Green arrow: Input  - Hi the morning allergy is bad. What shall I do?Mapped correctly to allergies
+![Description](Screenshot q.png)
+1.⁠ ⁠Green arrow: Input  - Hi the morning allergy is bad. What shall I do?
+
+    Mapped correctly to allergies
+    
 2.⁠ ⁠Orange arrow: Input "Hi the skin is peeling, tell a cream to apply"
        Mapped correctly to skin peeling
 
