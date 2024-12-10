@@ -29,7 +29,7 @@ Solution would be to add body ache as a symptom
 Next, should do similar testing thoroughly and check for any further bugs. Adjust the thresholds as required
 Higher threshold : more strict in mapping to synonym
 
-![Description](Screensoy.png)
+![Description](Screenshoy.png)
 In app.py you have 2 thresholds to change
 Line 209 and 
 216 (max_score is 0 to 1)
