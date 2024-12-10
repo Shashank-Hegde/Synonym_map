@@ -60,6 +60,7 @@ known_symptoms = [
 ]
 
 # Symptom synonyms dictionary
+"""
 symptom_synonyms = {
     # General Symptoms:
     'fever': ['elevated temperature', 'high body temperature', 'pyrexia', 'febrile state', 'raised temperature', 'chills and fever', 'body overheating'],
@@ -150,7 +151,15 @@ symptom_synonyms = {
     'light-colored stools': ['pale stools', 'clay-colored stools'],
     'blood in urine': ['hematuria', 'bloody urine'],
     'blood in stool': ['hematochezia', 'melena'], 
+}
+"""
 
+symptom_synonyms = {
+    'depression': ['sad', 'unhappy', 'low mood', 'feeling down', 'depressed', 'feeling sad'],
+    'back spasm': ['back is spasming', 'back spasms', 'back spasm'],
+    'headache': ['head pain', 'head hurts', 'migraine'],
+    'allergies': ['allergy'],
+    'knee pain': ['knee is paining', 'pain in knees'],
 }
 
 # Precompute embeddings
