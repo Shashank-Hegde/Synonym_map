@@ -163,6 +163,15 @@ intensity_words = {
 body_parts = [
     'leg', 'eye', 'hand', 'arm', 'head', 'back', 'chest', 'wrist', 'throat', 'stomach',
     'neck', 'knee', 'foot', 'shoulder', 'ear', 'nail', 'bone', 'joint', 'skin','abdomen',
+    #Add more
+    'mouth', 'nose', 'mouth', 'tooth', 'tongue', 'lips', 'cheeks', 'chin', 'forehead',
+    'elbow', 'ankle', 'heel', 'toe', 'finger', 'thumb', 'palm', 'fingers', 'soles',
+    'palms', 'fingertips', 'instep', 'calf', 'shin', 'ankle', 'heel', 'toes', 'fingers',
+    'fingertips', 'instep', 'calf', 'shin', 'heel', 'toes', 'fingertips', 'instep', 'calf', 'shin',
+    'lumbar', 'thoracic', 'cervical', 'gastrointestinal', 'abdominal', 'rectal', 'genital',
+    'urinary', 'respiratory', 'cardiac', 'pulmonary', 'digestive', 'cranial', 'facial',
+    'ocular', 'otologic', 'nasal', 'oral', 'buccal', 'lingual', 'pharyngeal', 'laryngeal',
+    'trigeminal', 'spinal', 'peripheral', 'visceral', 'biliary', 'renal', 'hepatic'
 ]
 
 def normalize_text(text):
