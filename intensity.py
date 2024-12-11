@@ -105,7 +105,7 @@ symptom_synonyms = {
     'weight gain': ['increase in weight', 'gain in body mass'],
     'hair loss': ['alopecia', 'thinning hair', 'balding', 'hair shedding'],
     'blurred vision': ['fuzzy vision', 'impaired vision', 'visual distortion', 'cloudy vision'],
-    'ear pain': ['otalgia', 'ear discomfort', 'pain in the ear', 'ear pressure', 'ear ache'],
+    'ear pain': ['otalgia', 'ear discomfort', 'pain in the ear', 'ear pressure', 'ear ache', 'trouble in the ear', 'ear discomfort', 'ear ache', 'ear issues', 'ear trouble'],
     'palpitations': ['heart palpitations', 'rapid heartbeats', 'heart racing', 'fluttering in the chest'],
     'urinary frequency': ['frequent urination', 'urinary urgency', 'increased urination'],
     'numbness': ['lack of sensation', 'tingling', 'loss of feeling', 'pins and needles'],
@@ -158,7 +158,7 @@ symptom_keywords = ['pain', 'discomfort', 'ache', 'sore', 'burning', 'itching', 
 intensity_words = {
     'horrible': 100, 'terrible': 95, 'extremely':90, 'very':85, 'really':85, 'worse':85, 'intense':85, 'severe':80,
     'quite':70, 'high':70, 'really bad':70, 'moderate':50, 'somewhat':50, 'fairly':50, 'trouble':40,
-    'mild':30, 'slight':30, 'a bit':30, 'a little':30, 'not too severe':30, 'low':20
+    'mild':30, 'slight':30, 'a bit':30, 'a little':30, 'not too severe':30, 'low':20, 'continuous': 60, 'persistent': 60, 'ongoing': 60, 'constant': 70
 }
 body_parts = [
     'leg', 'eye', 'hand', 'arm', 'head', 'back', 'chest', 'wrist', 'throat', 'stomach',
