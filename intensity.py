@@ -256,9 +256,9 @@ def detect_symptoms_in_clause(clause):
     normalized_input = normalize_text(clause)
 
     # Synonym match
-    synonym_matches = map_synonym(clause)
-    if synonym_matches:
-        results.extend(synonym_matches)
+    synonym_match = map_synonym(clause)
+    if synonym_match:
+        results.extend(synonym_match)
 
     # Body part + keyword
     kw_found = extract_symptom_keywords_clause(normalized_input)
@@ -281,11 +281,10 @@ def detect_symptoms_in_clause(clause):
         final_res = try_all_methods(normalized_input)
         if final_res:
             results.append(final_res)
-
+    return list(set(results))
     # Remove redundant symptoms that are substrings of longer symptoms
-    filtered_results = remove_redundant_symptoms(results)
-
-    return list(set(filtered_results))  # unique symptoms
+    #filtered_results = remove_redundant_symptoms(results)
+    #return list(set(filtered_results))  # unique symptoms
 
 def detect_symptoms_and_intensity(user_input):
     """
