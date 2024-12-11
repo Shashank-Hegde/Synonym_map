@@ -153,147 +153,136 @@ stop_words = set(stopwords.words('english'))
 
 # Symptom keywords, body parts, and intensity words
 symptom_keywords = ['pain', 'discomfort', 'ache', 'sore', 'burning', 'itching', 'tingling', 'numbness']
+
+# Intensity words with weights
+intensity_words = {
+    'severe': 3, 'very': 3, 'really': 3, 'extremely': 3, 'intense': 3,
+    'worse': 3, 'terrible': 3, 'horrible': 3, 'mild': 1, 'slight': 1,
+    'a bit': 1, 'a little': 1, 'not too severe': 1, 'somewhat': 2,
+    'moderate': 2, 'chronic': 2, 'persistent': 2, 'constant': 2, 'high': 3,
+    'low': 1, 'fairly': 2, 'quite': 2
+}
 body_parts = [
     'leg', 'eye', 'hand', 'arm', 'head', 'back', 'chest', 'wrist', 'throat', 'stomach',
     'neck', 'knee', 'foot', 'shoulder', 'ear', 'nail', 'bone', 'joint', 'skin'
 ]
-intensity_words = {
-    'severe': 3,
-    'intense': 3,
-    'moderate': 2,
-    'slight': 1,
-    'mild': 1,
-    'extreme': 3,
-    'chronic': 2,
-    'persistent': 2,
-    'constant': 2,
-    'high': 3,
-    'low': 1
-}
 
-# Function to extract symptom keywords
+def normalize_text(text):
+    text = re.sub(r'[^a-zA-Z\s]', '', text.lower())
+    tokens = text.split()
+    tokens = [lemmatizer.lemmatize(word) for word in tokens if word not in stop_words]
+    return ' '.join(tokens)
+
+def extract_intensity(text):
+    text_lower = text.lower()
+    found_intensities = [(word, intensity_words[word]) for word in intensity_words if word in text_lower]
+    if not found_intensities:
+        return None
+    # Return the intensity with the highest weight
+    return max(found_intensities, key=lambda x: x[1])[0]
+
 def extract_symptom_keywords(text):
     keywords_found = [kw for kw in symptom_keywords if re.search(r'\b' + re.escape(kw) + r'\b', text)]
     return keywords_found
 
-# Function to extract body parts
-def extract_body_parts(text):
+def extract_body_parts_func(text):
     body_parts_found = [bp for bp in body_parts if re.search(r'\b' + re.escape(bp) + r'\b', text)]
     return body_parts_found
 
-# Function to extract intensity
-def extract_intensity(text):
-    intensities_found = [word for word in intensity_words if re.search(r'\b' + re.escape(word) + r'\b', text)]
-    if intensities_found:
-        # Return the intensity with the highest weight
-        highest_intensity = max(intensities_found, key=lambda x: intensity_words[x])
-        return highest_intensity
-    return None
-
-# Function to map synonyms to standardized symptoms
 def map_synonym(user_input):
-    """
-    Check if any synonym of known symptoms is present in the user input.
-    Returns the standardized symptom if a synonym is found, else None.
-    """
     for symptom, synonyms in symptom_synonyms.items():
         for synonym in synonyms:
-            # Use regular expression to match whole words
             pattern = r'\b' + re.escape(synonym.lower()) + r'\b'
             if re.search(pattern, user_input.lower()):
                 return symptom
     return None
 
-# Function to match user input to known symptoms
-def match_symptom(user_input):
-    """
-    Matches the user input to the best-known symptom using:
-    1. Synonym mapping
-    2. Keyword + Body part extraction and mapping
-    3. Fuzzy matching
-    4. Semantic similarity with SBERT
-    Also extracts the intensity of the symptom.
-    """
-    # Normalize user input
-    normalized_input = normalize_text(user_input)
-    
-    # Step 1: Synonym mapping
-    synonym_match = map_synonym(user_input)
-    if synonym_match:
-        intensity = extract_intensity(user_input)
-        return synonym_match, intensity
-    
-    # Step 2: Keyword + Body part mapping
-    symptom_kw = extract_symptom_keywords(normalized_input)
-    body_part = extract_body_parts(normalized_input)
-    if symptom_kw and body_part:
-        # Assuming one symptom keyword and one body part for simplicity
-        # You can modify to handle multiple
-        symptom_keyword = symptom_kw[0]
-        body_part_found = body_part[0]
-        # Form 'body part + symptom keyword' e.g., 'leg pain'
-        combined_symptom = f"{body_part_found} {symptom_keyword}"
-        # Check if combined_symptom is in known_symptoms
-        if combined_symptom in known_symptoms:
-            intensity = extract_intensity(user_input)
-            return combined_symptom, intensity
-        else:
-            # If not, try to map to closest known symptom using fuzzy matching
-            fuzzy_result = process.extractOne(combined_symptom, known_symptoms, scorer=fuzz.partial_ratio)
-            if fuzzy_result and fuzzy_result[1] > 80:
-                intensity = extract_intensity(user_input)
-                return fuzzy_result[0], intensity
-    
-    # Step 3: Fuzzy matching on known symptoms
+def try_all_methods(normalized_input):
+    # Attempt fuzzy matching
     fuzzy_result = process.extractOne(normalized_input, known_symptoms, scorer=fuzz.partial_ratio)
     if fuzzy_result and fuzzy_result[1] > 85:
-        intensity = extract_intensity(user_input)
-        return fuzzy_result[0], intensity
-    
-    # Step 4: Semantic similarity with SBERT
+        return fuzzy_result[0]
+
+    # Attempt SBERT embeddings
     user_embedding = model.encode(normalized_input, convert_to_tensor=True)
     cos_scores = util.cos_sim(user_embedding, symptom_embeddings)
     max_score = torch.max(cos_scores).item()
     if max_score > 0.6:
         best_match_idx = torch.argmax(cos_scores)
-        matched_symptom = known_symptoms[best_match_idx]
-        intensity = extract_intensity(user_input)
-        return matched_symptom, intensity
-    
-    return "No clear match found", None
+        return known_symptoms[best_match_idx]
 
-# Helper function for text normalization
-def normalize_text(text):
+    return None
+
+def detect_symptoms_and_intensity(user_input):
     """
-    Normalize the input text by:
-    - Converting to lowercase
-    - Removing non-alphabetic characters
-    - Removing stopwords
-    - Lemmatizing words
+    Identify multiple symptoms and their intensities from user input.
+    Steps:
+    1. Split input into sentences or clauses.
+    2. For each clause, attempt:
+       - Synonym mapping
+       - Keyword + body part combination
+       - Fuzzy + SBERT fallback
+    3. Extract intensity per clause or overall.
+    4. Return a list of (symptom, intensity) tuples.
     """
-    text = re.sub(r'[^a-zA-Z\s]', '', text.lower())  # Lowercase and remove non-alphabetic characters
-    tokens = text.split()
-    tokens = [lemmatizer.lemmatize(word) for word in tokens if word not in stop_words]
-    return ' '.join(tokens)
 
-# Streamlit App UI
-st.title("🩺 Symptom Matcher App")
-st.write("Enter a description of your symptoms, and the app will try to match it to a known symptom and determine the intensity.")
+    # Split by periods, commas, or "and"
+    clauses = re.split(r'[.,;]|\band\b', user_input, flags=re.IGNORECASE)
+    clauses = [c.strip() for c in clauses if c.strip()]
 
-# User input
-user_input = st.text_input("Describe your symptom:")
+    results = []
+    # Determine overall intensity if multiple appear, pick strongest
+    overall_intensity = extract_intensity(user_input)  # Overall intensity
 
-# Match button
-if st.button("Find Match"):
-    if user_input.strip():
-        matched_symptom, intensity = match_symptom(user_input)
-        if matched_symptom != "No clear match found":
-            st.write(f"**Best Matched Symptom:** {matched_symptom}")
-            if intensity:
-                st.write(f"**Intensity:** {intensity.capitalize()}")
+    for clause in clauses:
+        normalized_input = normalize_text(clause)
+        # Synonym mapping
+        symptom_from_syn = map_synonym(clause)
+        if symptom_from_syn:
+            results.append((symptom_from_syn, overall_intensity))
+            continue
+
+        # Keyword + body part
+        kw_found = extract_symptom_keywords(normalized_input)
+        bp_found = extract_body_parts_func(normalized_input)
+        if kw_found and bp_found:
+            combined_symptom = f"{bp_found[0]} {kw_found[0]}"
+            if combined_symptom in known_symptoms:
+                results.append((combined_symptom, overall_intensity))
+                continue
             else:
-                st.write("**Intensity:** Not specified")
+                # Try fuzzy or SBERT for combined
+                combined_res = try_all_methods(normalize_text(combined_symptom))
+                if combined_res:
+                    results.append((combined_res, overall_intensity))
+                    continue
+
+        # No direct synonym or body-part+keyword match, try all methods on clause
+        final_res = try_all_methods(normalized_input)
+        if final_res:
+            results.append((final_res, overall_intensity))
+
+    # Deduplicate results (if needed)
+    unique_results = list(dict.fromkeys(results))
+    return unique_results
+
+# Streamlit UI
+st.title("🩺 Symptom Matcher App with Multiple Symptoms & Intensity")
+st.write("Enter a description of your symptoms, and the app will try to match multiple known symptoms and estimate their intensity.")
+
+user_input = st.text_input("Describe your symptom(s):")
+
+if st.button("Find Symptoms"):
+    if user_input.strip():
+        matched_symptoms = detect_symptoms_and_intensity(user_input)
+        if matched_symptoms:
+            st.write("**Detected Symptoms:**")
+            for symptom, intensity in matched_symptoms:
+                if intensity:
+                    st.write(f"- {symptom} (Intensity: {intensity})")
+                else:
+                    st.write(f"- {symptom} (Intensity: Not specified)")
         else:
-            st.write("**Best Matched Symptom:** No clear match found")
+            st.write("No clear match found")
     else:
         st.warning("Please enter a symptom description.")
