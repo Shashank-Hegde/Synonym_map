@@ -231,21 +231,34 @@ def try_all_methods(normalized_input):
 
     return None
 
+def remove_redundant_symptoms(symptoms):
+    """
+    Remove any symptom that is a substring of a longer symptom.
+    """
+    # Sort symptoms by length in descending order
+    sorted_symptoms = sorted(symptoms, key=len, reverse=True)
+    filtered = []
+    for sym in sorted_symptoms:
+        if not any(sym in existing_sym for existing_sym in filtered):
+            filtered.append(sym)
+    return filtered
+
 def detect_symptoms_in_clause(clause):
     """
     For a given clause:
     1. Check synonyms directly
     2. Check body part + symptom keyword combination
     3. Fallback to fuzzy or SBERT
-    Returns a list of matched symptoms (since a clause might have multiple).
+    4. Remove any general symptom keywords that are part of a more specific symptom
+    Returns a list of matched symptoms.
     """
     results = []
     normalized_input = normalize_text(clause)
 
     # Synonym match
-    synonym_match = map_synonym(clause)
-    if synonym_match:
-        results.append(synonym_match)
+    synonym_matches = map_synonym(clause)
+    if synonym_matches:
+        results.extend(synonym_matches)
 
     # Body part + keyword
     kw_found = extract_symptom_keywords_clause(normalized_input)
@@ -258,18 +271,21 @@ def detect_symptoms_in_clause(clause):
                 if combined_symptom in known_symptoms:
                     results.append(combined_symptom)
                 else:
-                    # Try fuzzy / sbert on combined
+                    # Try fuzzy / SBERT on combined
                     combined_res = try_all_methods(normalize_text(combined_symptom))
                     if combined_res:
                         results.append(combined_res)
 
-    # If still empty, try all methods on the normalized input
+    # Fallback to general symptom detection
     if not results:
         final_res = try_all_methods(normalized_input)
         if final_res:
             results.append(final_res)
 
-    return list(set(results))  # unique symptoms
+    # Remove redundant symptoms that are substrings of longer symptoms
+    filtered_results = remove_redundant_symptoms(results)
+
+    return list(set(filtered_results))  # unique symptoms
 
 def detect_symptoms_and_intensity(user_input):
     """
