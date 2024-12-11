@@ -283,8 +283,8 @@ def detect_symptoms_in_clause(clause):
             results.append(final_res)
     return list(set(results))
     # Remove redundant symptoms that are substrings of longer symptoms
-    #filtered_results = remove_redundant_symptoms(results)
-    #return list(set(filtered_results))  # unique symptoms
+    filtered_results = remove_redundant_symptoms(results)
+    return list(set(filtered_results))  # unique symptoms
 
 def detect_symptoms_and_intensity(user_input):
     """
