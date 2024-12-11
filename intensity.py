@@ -93,7 +93,7 @@ symptom_synonyms = {
     'cramps': ['muscle cramps', 'spasms', 'twinges', 'sudden pain'],
     'ulcers': ['open sores', 'lesions', 'wounds', 'erosions'],
     'bleeding': ['hemorrhaging', 'blood loss', 'blood discharge'],
-    'irritation': ['discomfort', 'agitation', 'sensitivity', 'inflammation', 'reaction'],
+    #'irritation': ['discomfort', 'agitation', 'sensitivity', 'inflammation', 'reaction'],
     'anxiety': ['nervousness', 'stress', 'unease', 'worry', 'apprehension'],
     'depression': ['sadness', 'low mood', 'despair', 'melancholy', 'downheartedness','unhappy','feeling sad', 'depressed'],
     'insomnia': ['difficulty sleeping', 'sleeplessness', 'restlessness at night', 'lack of sleep', 'sleep deprivation'],
