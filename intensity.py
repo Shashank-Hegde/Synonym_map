@@ -157,7 +157,7 @@ symptom_keywords = ['pain', 'discomfort', 'ache', 'sore', 'burning', 'itching', 
 # Intensity words with assigned percentages
 intensity_words = {
     'horrible': 100, 'terrible': 95, 'extremely':90, 'very':85, 'really':85, 'worse':85, 'intense':85, 'severe':80,
-    'quite':70, 'high':70, 'really bad':70, 'moderate':50, 'somewhat':50, 'fairly':50,
+    'quite':70, 'high':70, 'really bad':70, 'moderate':50, 'somewhat':50, 'fairly':50, 'trouble':40,
     'mild':30, 'slight':30, 'a bit':30, 'a little':30, 'not too severe':30, 'low':20
 }
 body_parts = [
