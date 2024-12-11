@@ -89,7 +89,7 @@ symptom_synonyms = {
     'itching': ['pruritus', 'skin irritation', 'itchy sensation', 'skin scratching'],
     'swelling': ['edema', 'fluid retention', 'puffy skin', 'swollen area', 'inflammation'],
     'infection': ['bacterial infection', 'viral infection', 'pathogenic infection', 'contagion', 'sepsis'],
-    'inflammation': ['swelling', 'redness', 'heat', 'pain', 'immune response'],
+    'inflammation': ['swelling', 'redness', 'immune response'],
     'cramps': ['muscle cramps', 'spasms', 'twinges', 'sudden pain'],
     'ulcers': ['open sores', 'lesions', 'wounds', 'erosions'],
     'bleeding': ['hemorrhaging', 'blood loss', 'blood discharge'],
