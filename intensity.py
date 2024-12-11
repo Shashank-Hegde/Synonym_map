@@ -22,7 +22,7 @@ ensure_nltk_resources(['stopwords', 'wordnet'])
 model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
 # Symptom list (extended with body part + pain terms)
-known_symptoms = [
+symptom_list = [
     'fever', 'cold', 'runny nose', 'sneezing', 'rash', 'dizziness', 'weakness', 'loss of appetite', 'headache',
     'cough', 'muscle pain', 'joint pain', 'chest pain', 'back pain', 'wrist pain', 'constipation', 'throat pain',
     'flu', 'breathlessness', 'stomach pain', 'migraine', 'sore', 'burning', 'itching', 'swelling',
@@ -145,7 +145,7 @@ symptom_synonyms = {
 }
 
 # Precompute embeddings
-symptom_embeddings = model.encode(known_symptoms, convert_to_tensor=True)
+symptom_embeddings = model.encode(symptom_list, convert_to_tensor=True)
 
 # Initialize NLTK components
 lemmatizer = WordNetLemmatizer()
@@ -217,7 +217,7 @@ def map_synonym(user_input):
 
 def try_all_methods(normalized_input):
     # Attempt fuzzy matching
-    fuzzy_result = process.extractOne(normalized_input, known_symptoms, scorer=fuzz.partial_ratio)
+    fuzzy_result = process.extractOne(normalized_input, symptom_list, scorer=fuzz.partial_ratio)
     if fuzzy_result and fuzzy_result[1] > 80:
         return fuzzy_result[0]
 
@@ -227,7 +227,7 @@ def try_all_methods(normalized_input):
     max_score = torch.max(cos_scores).item()
     if max_score > 0.7:
         best_match_idx = torch.argmax(cos_scores)
-        return known_symptoms[best_match_idx]
+        return symptom_list[best_match_idx]
 
     return None
 
@@ -268,7 +268,7 @@ def detect_symptoms_in_clause(clause):
         for bp in bp_found:
             for kw in kw_found:
                 combined_symptom = f"{bp} {kw}"
-                if combined_symptom in known_symptoms:
+                if combined_symptom in symptom_list:
                     results.append(combined_symptom)
                 else:
                     # Try fuzzy / SBERT on combined
