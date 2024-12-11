@@ -55,7 +55,7 @@ known_symptoms = [
     'eye dryness', 'eye irritation', 'eye redness', 'eye swelling', 'eye tearing', 'eye strain', 'eye sensitivity to light', 'eye watering',
     'ear dryness', 'ear fullness', 'ear congestion', 'ear fluid', 'ear wax buildup', 'ear infection', 'tinnitus', 'balance disorder',
     'taste distortion', 'metallic taste', 'bitter taste', 'sweet taste alteration', 'savory taste changes', 'smell distortion',
-    'reduced smell', 'increased smell', 'loss of smell', 'rapid breaths', 'heavy breathing', 'shallow breathing', 'uneven heart rate',
+    'reduced smell', 'increased smell', 'loss of smell', 'rapid breaths', 'heavy breathing', 'uneven heart rate',
     'heart skipping beats',
     'leg pain', 'eye pain', 'hand pain', 'arm pain', 'foot pain', 'knee pain', 'shoulder pain', 'neck pain'
 ]
