@@ -81,7 +81,7 @@ symptom_synonyms = {
     'throat pain': ['painful throat', 'swollen throat', 'throat irritation', 'swallowing pain', 'inflamed throat'],
     'flu': ['influenza', 'seasonal flu', 'viral flu', 'flu-like illness', 'grippe'],
     'breathlessness': ['shortness of breath', 'dyspnea', 'labored breathing', 'air hunger', 'tight chest', 'shallow breathing'],
-    'stomach pain': ['gastric pain', 'abdominal cramps', 'stomach cramps', 'digestive discomfort', 'bellyache'],
+    'stomach pain': ['gastric pain', 'abdominal cramps', 'stomach cramps', 'digestive discomfort', 'bellyache',  'stomach ache'],
     'migraine': ['throbbing headache', 'severe headache', 'pounding headache', 'intense head pain'],
     #'ache': ['pain', 'discomfort', 'soreness', 'tenderness'],
     'sore': ['painful', 'tender', 'raw', 'irritated'],
