@@ -258,7 +258,7 @@ def detect_symptoms_in_clause(clause):
     # Synonym match
     synonym_match = map_synonym(clause)
     if synonym_match:
-        results.extend(synonym_match)
+        results.append(synonym_match)
 
     # Body part + keyword
     kw_found = extract_symptom_keywords_clause(normalized_input)
