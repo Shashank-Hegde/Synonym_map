@@ -83,7 +83,7 @@ symptom_synonyms = {
     'breathlessness': ['shortness of breath', 'dyspnea', 'labored breathing', 'air hunger', 'tight chest', 'shallow breathing'],
     'stomach pain': ['gastric pain', 'abdominal cramps', 'stomach cramps', 'digestive discomfort', 'bellyache'],
     'migraine': ['throbbing headache', 'severe headache', 'pounding headache', 'intense head pain'],
-    'ache': ['pain', 'discomfort', 'soreness', 'tenderness'],
+    #'ache': ['pain', 'discomfort', 'soreness', 'tenderness'],
     'sore': ['painful', 'tender', 'raw', 'irritated'],
     'burning': ['scalding pain', 'stinging sensation', 'fiery pain', 'tingling pain'],
     'itching': ['pruritus', 'skin irritation', 'itchy sensation', 'skin scratching'],
