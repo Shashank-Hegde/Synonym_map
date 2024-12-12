@@ -104,7 +104,7 @@ symptom_list = [
     'insomnia', 'cancer', 'diabetes', 'hypertension', 'allergies', 'weight loss', 'weight gain', 'hair loss',
     'blurred vision', 'ear pain', 'palpitations', 'urinary frequency', 'numbness', 'tingling',
     'dry mouth', 'excessive thirst', 'frequent urination', 'acne', 'bruising', 'confusion', 'memory loss',
-    'hoarseness', 'wheezing', 'itchy eyes', 'dry eyes', 'difficulty swallowing', 'restlessness', 'yellow skin',
+    'hoarseness', 'wheezing', 'dry eyes', 'difficulty swallowing', 'restlessness', 'yellow skin',
     'yellow eyes', 'bloating', 'gas', 'hiccups', 'indigestion', 'heartburn', 'mouth sores', 'nosebleeds',
     'ear ringing', 'decreased appetite', 'dark urine', 'light-colored stools', 'blood in urine',
     'blood in stool', 'frequent infections', 'delayed healing', 'high temperature', 'low blood pressure', 'thirst',
