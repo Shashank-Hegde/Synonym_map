@@ -255,7 +255,7 @@ def try_all_methods(normalized_input):
     user_embedding = model.encode(normalized_input, convert_to_tensor=True)
     cos_scores = util.cos_sim(user_embedding, symptom_embeddings)
     max_score = torch.max(cos_scores).item()
-    if max_score > 0.7:
+    if max_score > 0.76:
         best_match_idx = torch.argmax(cos_scores)
         return symptom_list[best_match_idx]
 
