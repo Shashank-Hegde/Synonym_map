@@ -496,7 +496,7 @@ symptom_synonyms = {
         'losing track of recent conversations', 'difficulty holding new info', 'memory short-circuits frequently', 'mental vacancy', 'ephemeral recollections', 'passing mental clouds with no retention',
         'drifting away from details', 'no anchor to past events'
     ],
-    'hearing loss': ['damaging hearing', 'loss in hearing'],
+    'hearing loss': ['damaging hearing', 'loss in hearing', 'damaging all my hearing'],
    'hallucination': [
         'visual disturbance', 'illusion', 'seeing things', 'auditory hallucinations', 'sensory distortion', 'false perception', 'psychotic episode', 'delusion', 'perceptual misinterpretation', 'false vision',
         'seeing unreal things', 'hearing voices', 'mind tricks', 'imagined sights', 'fictitious perception', 'phantom sensations', 'visual or auditory illusion', 'perceptual disorder', 'seeing illusions',
