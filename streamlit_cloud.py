@@ -582,7 +582,7 @@ symptom_synonyms = {
     'vomiting': ['throwing up', 'puking', 'stomach upset'],
     'ear ache': ['ear pain', 'otalgia', 'ear discomfort', 'pain in the ear', 'ear pressure'],
     'hearing loss' : ['loss of hearing'],
-    'taste change' : []'taste distortion'],
+    'taste change' : ['taste distortion'],
     'allergies' : ['allergy'],
     'weight gain': ['increase in weight', 'gain in body mass'],
 
