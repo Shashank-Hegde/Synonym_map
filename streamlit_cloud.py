@@ -583,7 +583,7 @@ symptom_synonyms = {
     'ear ache': ['ear pain', 'otalgia', 'ear discomfort', 'pain in the ear', 'ear pressure'],
     'hearing loss' : ['loss of hearing'],
     'taste change' : []'taste distortion'],
-    'allergies' : []'allergy'],
+    'allergies' : ['allergy'],
     'weight gain': ['increase in weight', 'gain in body mass'],
 
    }
