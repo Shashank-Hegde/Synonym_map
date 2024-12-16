@@ -717,7 +717,17 @@ def correct_spelling(text):
     pass
 
 def determine_best_specialist(symptoms):
+    """
+    Determines the best specialist doctor based on the list of symptoms using ChatGPT.
+
+    Args:
+        symptoms (list): List of extracted symptoms.
+
+    Returns:
+        str: The type of specialist doctor.
+    """
     try:
+        # Define a list of possible specialists
         specialist_options = [
             "Orthopedic Specialist",
             "Neurologist",
@@ -733,8 +743,10 @@ def determine_best_specialist(symptoms):
             "Urologist",
             "Oncologist",
             "Dentist"
+            # Add more as needed
         ]
 
+        # Prepare the prompt for ChatGPT
         prompt = (
             f"You are a medical assistant that recommends the most suitable specialist based on symptoms.\n"
             f"Use the following explicit mappings for common keywords in symptoms:\n"
@@ -755,22 +767,24 @@ def determine_best_specialist(symptoms):
             f"Provide only the name of the specialist (e.g., 'Orthopedic Specialist')."
         )
 
+        # Make the API call to OpenAI's ChatCompletion
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are a medical assistant that maps symptoms to specialists."},
                 {"role": "user", "content": prompt}
             ],
-            max_tokens=10,
-            temperature=0
+            max_tokens=10,  # Short response expected
+            temperature=0  # Deterministic response
         )
 
+        # Extract the specialist from the response
         specialist = response['choices'][0]['message']['content'].strip()
         logging.info(f"Determined Specialist: {specialist}")
         return specialist
     except Exception as e:
         logging.error(f"Failed to determine specialist: {e}")
-        return "General Practitioner"
+        return "General Practitioner"  # Fallback specialist
 
 def transcribe_audio(file_path, use_prompt=False):
     prompt_text = "एक भारतीय वक्ता अपनी प्रस्तुति शुरू करने जा रहा है। वह कहेगा:"
