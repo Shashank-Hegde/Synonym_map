@@ -5,7 +5,7 @@ This only works with typing in English, and once we can finetune the threshold a
 
 
 Here is the link to the webapp for testing
-https://o-health-synonym.streamlit.app/
+https://o-health-intensity.streamlit.app/
 
 ![Symptom Matching](Screensoy.jpeg)
 
