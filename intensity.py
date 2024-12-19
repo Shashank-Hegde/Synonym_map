@@ -508,170 +508,373 @@ body_parts = [
     'trigeminal', 'spinal', 'peripheral', 'visceral', 'biliary', 'renal', 'hepatic'
 ]
 
-# Define arrays for filtering
-confusion_words = ['old', 'got']  # Add more words as needed
 
-def normalize_text(text):
-    text = re.sub(r'[^a-zA-Z\s]', '', text.lower())
-    tokens = text.split()
-    tokens = [lemmatizer.lemmatize(word) for word in tokens if word not in stop_words]
-    return ' '.join(tokens)
+    From a single clause, find all intensity words and pick the highest.
 
-def extract_intensities_in_clause(text):
+    Also handle multi-word intensity words like "really bad".
+
+    """
+
     text_lower = text.lower()
+
     found_intensity = None
+
     found_value = 0
+
+
+
+    # Check multi-word intensities first
+
     for phrase, val in intensity_words.items():
+
+        # phrase could be multi-word
+
         if re.search(r'\b' + re.escape(phrase) + r'\b', text_lower):
+
             if val > found_value:
+
                 found_value = val
+
                 found_intensity = phrase
+
+
+
     return found_intensity, found_value if found_intensity else (None, 0)
 
+
+
 def extract_symptom_keywords_clause(text):
+
     keywords_found = [kw for kw in symptom_keywords if re.search(r'\b' + re.escape(kw) + r'\b', text)]
+
     return keywords_found
 
+
+
 def extract_body_parts_clause(text):
+
     body_parts_found = [bp for bp in body_parts if re.search(r'\b' + re.escape(bp) + r'\b', text)]
+
     return body_parts_found
 
+
+
 def map_synonym(user_input):
+
     for symptom, synonyms in symptom_synonyms.items():
+
         for synonym in synonyms:
+
             pattern = r'\b' + re.escape(synonym.lower()) + r'\b'
+
             if re.search(pattern, user_input.lower()):
+
                 return symptom
+
     return None
+
+
 
 def try_all_methods(normalized_input):
+
     # Attempt fuzzy matching
+
     fuzzy_result = process.extractOne(normalized_input, symptom_list, scorer=fuzz.partial_ratio)
+
     if fuzzy_result and fuzzy_result[1] > 80:
+
         return fuzzy_result[0]
 
+
+
     # Attempt SBERT embeddings
+
     user_embedding = model.encode(normalized_input, convert_to_tensor=True)
+
     cos_scores = util.cos_sim(user_embedding, symptom_embeddings)
+
     max_score = torch.max(cos_scores).item()
+
     if max_score > 0.7:
+
         best_match_idx = torch.argmax(cos_scores)
+
         return symptom_list[best_match_idx]
+
+
 
     return None
 
+
+
 def remove_redundant_symptoms(symptoms):
+
     """
+
     Remove any symptom that is a substring of a longer symptom.
+
     """
+
+    # Sort symptoms by length in descending order
+
     sorted_symptoms = sorted(symptoms, key=len, reverse=True)
+
     filtered = []
+
     for sym in sorted_symptoms:
+
         if not any(sym in existing_sym for existing_sym in filtered):
+
             filtered.append(sym)
+
     return filtered
 
-def verify_symptom_mention(symptom, original_clause):
-    """
-    Verify that the symptom or one of its synonyms is explicitly mentioned in the user's clause.
-    If we cannot find any explicit mention and only confusion words appear, discard this symptom.
-    """
-    original_lower = original_clause.lower()
 
-    # Check symptom name itself
-    if re.search(r'\b' + re.escape(symptom.lower()) + r'\b', original_lower):
-        return True
-
-    # Check synonyms
-    if symptom in symptom_synonyms:
-        for syn in symptom_synonyms[symptom]:
-            if re.search(r'\b' + re.escape(syn.lower()) + r'\b', original_lower):
-                return True
-
-    # If no actual mention of symptom or synonyms, check if confusion words appear
-    for cw in confusion_words:
-        if re.search(r'\b' + re.escape(cw) + r'\b', original_lower):
-            # Found a confusion word but no real mention of symptom or synonyms
-            return False
-
-    # No synonyms, no confusion words, no exact mention => symptom not confirmed
-    return False
 
 def detect_symptoms_in_clause(clause):
+
+    """
+
+    For a given clause:
+
+    1. Check synonyms directly
+
+    2. Check body part + symptom keyword combination
+
+    3. Fallback to fuzzy or SBERT
+
+    4. Remove any general symptom keywords that are part of a more specific symptom
+
+    Returns a list of matched symptoms.
+
+    """
+
     results = []
+
     normalized_input = normalize_text(clause)
 
-    # Synonym match
-    synonym_match = map_synonym(clause)
-    if synonym_match:
-        results.append(synonym_match)
 
-    # Body part + keyword combination
+
+    # Synonym match
+
+    synonym_match = map_synonym(clause)
+
+    if synonym_match:
+
+        # Handle 'itching' exception
+
+        if synonym_match == 'itching':
+
+            if any(word in normalize_text(clause) for word in itching_exception_words):
+
+                results.append(synonym_match)
+
+        else:
+
+            results.append(synonym_match)
+
+
+
+    # Body part + keyword
+
     kw_found = extract_symptom_keywords_clause(normalized_input)
+
     bp_found = extract_body_parts_clause(normalized_input)
+
     if kw_found and bp_found:
+
+        # For each body part and each keyword found, attempt a combo
+
         for bp in bp_found:
+
             for kw in kw_found:
+
                 combined_symptom = f"{bp} {kw}"
+
                 if combined_symptom in symptom_list:
+
                     results.append(combined_symptom)
+
                 else:
-                    combined_res = try_all_methods(normalize_text(combined_symptom))
+
+                    # Try fuzzy / SBERT on combined
+
+                    combined_res = try_all_methods(normalized_input)
+
                     if combined_res:
-                        results.append(combined_res)
+
+                        # Handle 'itching' exception
+
+                        if combined_res == 'itching':
+
+                            if any(word in normalize_text(clause) for word in itching_exception_words):
+
+                                results.append(combined_res)
+
+                        else:
+
+                            results.append(combined_res)
+
+
 
     # Fallback to general symptom detection
+
     if not results:
+
         final_res = try_all_methods(normalized_input)
+
         if final_res:
-            results.append(final_res)
 
-    # Remove redundant symptoms
+            # Handle 'itching' exception
+
+            if final_res == 'itching':
+
+                if any(word in normalize_text(clause) for word in itching_exception_words):
+
+                    results.append(final_res)
+
+            else:
+
+                results.append(final_res)
+
+
+
+    # Remove redundant symptoms that are substrings of longer symptoms
+
     filtered_results = remove_redundant_symptoms(results)
-    filtered_results = list(set(filtered_results))
 
-    # Verify actual mention of symptom or synonyms
-    final_filtered = []
+
+
+    # Apply filtered words map to exclude incorrect mappings
+
+    final_filtered_results = []
+
     for sym in filtered_results:
-        if verify_symptom_mention(sym, clause):
-            final_filtered.append(sym)
 
-    return final_filtered
+        exclude = False
+
+        if sym in filtered_words_map:
+
+            for fw in filtered_words_map[sym]:
+
+                if re.search(r'\b' + re.escape(fw) + r'\b', normalize_text(clause)):
+
+                    exclude = True
+
+                    break
+
+        if not exclude:
+
+            final_filtered_results.append(sym)
+
+
+
+    return list(set(final_filtered_results))  # unique symptoms
+
+
 
 def detect_symptoms_and_intensity(user_input):
+
+    """
+
+    Steps:
+
+    1. Split input into clauses.
+
+    2. For each clause, detect intensity and symptoms.
+
+    3. Map the highest intensity in that clause to all symptoms found in that clause.
+
+    """
+
     clauses = re.split(r'[.,;]|\band\b', user_input, flags=re.IGNORECASE)
+
     clauses = [c.strip() for c in clauses if c.strip()]
 
+
+
     final_results = []
+
     for clause in clauses:
+
+        # Extract intensity from clause
+
         intensity_word, intensity_value = extract_intensities_in_clause(clause)
+
         symptoms = detect_symptoms_in_clause(clause)
 
+
+
+        # Assign the intensity to each symptom found in this clause
+
         for sym in symptoms:
-            if intensity_word:
-                final_results.append((sym, intensity_word, intensity_value))
+
+            if sym == 'itching':
+
+                # Ensure 'itching' is only mapped via exact match or synonyms
+
+                if any(word in normalize_text(clause) for word in itching_exception_words):
+
+                    if intensity_word:
+
+                        final_results.append((sym, intensity_word, intensity_value))
+
+                    else:
+
+                        final_results.append((sym, None, 0))
+
             else:
-                final_results.append((sym, None, 0))
+
+                if intensity_word:
+
+                    final_results.append((sym, intensity_word, intensity_value))
+
+                else:
+
+                    final_results.append((sym, None, 0))
+
+
 
     return final_results
 
+
+
 # Streamlit UI
+
 st.title("🩺 Multi-Symptom & Intensity Matcher")
+
 st.write("Enter a description of your symptoms. The system will extract multiple symptoms, determine their intensities, and show a percentage for intensity.")
+
+
 
 user_input = st.text_input("Describe your symptom(s):")
 
+
+
 if st.button("Find Symptoms"):
+
     if user_input.strip():
+
         matched_symptoms = detect_symptoms_and_intensity(user_input)
+
         if matched_symptoms:
+
             st.write("**Detected Symptoms:**")
+
             for (symptom, intensity_word, intensity_value) in matched_symptoms:
+
                 if intensity_word:
+
                     st.write(f"- {symptom} (Intensity: {intensity_word} ~ {intensity_value}% )")
+
                 else:
+
                     st.write(f"- {symptom} (Intensity: Not specified)")
+
         else:
+
             st.write("No clear match found")
+
     else:
-        st.warning("Please enter a symptom description."
+
+        st.warning("Please enter a symptom description.")
