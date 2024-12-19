@@ -511,6 +511,42 @@ body_parts = [
     'trigeminal', 'spinal', 'peripheral', 'visceral', 'biliary', 'renal', 'hepatic'
 ]
 
+# NEW CODE COMMENT: Symptoms that must only be detected if their exact word or synonyms are found
+strict_symptoms = ['itching']
+
+# Words to exclude from mapping to symptoms through fuzzy/embedding
+filtered_words = ['got', 'old']  # We can add more words here if needed
+
+# Precompute embeddings
+symptom_embeddings = model.encode(symptom_list, convert_to_tensor=True)
+
+# Initialize NLTK components
+lemmatizer = WordNetLemmatizer()
+stop_words = set(stopwords.words('english'))
+
+# Symptom keywords, body parts, and intensity words
+symptom_keywords = ['pain', 'discomfort', 'ache', 'sore', 'burning', 'itching', 'tingling', 'numbness', 'trouble']
+
+# Intensity words with assigned percentages
+intensity_words = {
+    'horrible': 100, 'terrible': 95, 'extremely':90, 'very':85, 'really':85, 'worse':85, 'intense':85, 'severe':80,
+    'quite':70, 'high':70, 'really bad':70, 'moderate':50, 'somewhat':50, 'fairly':50, 'trouble':40,
+    'mild':30, 'slight':30, 'a bit':30, 'a little':30, 'not too severe':30, 'low':20, 'continuous': 60, 'persistent': 60, 'ongoing': 60, 'constant': 60, 'a lot':70,
+}
+body_parts = [
+    'leg', 'eye', 'hand', 'arm', 'head', 'back', 'chest', 'wrist', 'throat', 'stomach',
+    'neck', 'knee', 'foot', 'shoulder', 'ear', 'nail', 'bone', 'joint', 'skin','abdomen',
+    #Add more
+    'mouth', 'nose', 'mouth', 'tooth', 'tongue', 'lips', 'cheeks', 'chin', 'forehead',
+    'elbow', 'ankle', 'heel', 'toe', 'finger', 'thumb', 'palm', 'fingers', 'soles',
+    'palms', 'fingertips', 'instep', 'calf', 'shin', 'ankle', 'heel', 'toes', 'fingers',
+    'fingertips', 'instep', 'calf', 'shin', 'heel', 'toes', 'fingertips', 'instep', 'calf', 'shin',
+    'lumbar', 'thoracic', 'cervical', 'gastrointestinal', 'abdominal', 'rectal', 'genital',
+    'urinary', 'respiratory', 'cardiac', 'pulmonary', 'digestive', 'cranial', 'facial',
+    'ocular', 'otologic', 'nasal', 'oral', 'buccal', 'lingual', 'pharyngeal', 'laryngeal',
+    'trigeminal', 'spinal', 'peripheral', 'visceral', 'biliary', 'renal', 'hepatic'
+]
+
 def normalize_text(text):
     text = re.sub(r'[^a-zA-Z\s]', '', text.lower())
     tokens = text.split()
@@ -548,10 +584,6 @@ def map_synonym(user_input):
     return None
 
 def try_all_methods(normalized_input):
-    # NEW CODE COMMENT: Check if the normalized_input contains filtered words
-    # If it only contains filtered words or if these words lead to a false symptom, we avoid mapping.
-    # We'll do filtering after we get a candidate symptom.
-
     # Attempt fuzzy matching
     fuzzy_result = process.extractOne(normalized_input, symptom_list, scorer=fuzz.partial_ratio)
     candidate_symptom = None
@@ -566,16 +598,10 @@ def try_all_methods(normalized_input):
             best_match_idx = torch.argmax(cos_scores)
             candidate_symptom = symptom_list[best_match_idx]
 
-    # NEW CODE COMMENT: If candidate_symptom is itching, only allow if exact or synonyms matched (handled outside)
-    # We'll handle this outside in detect_symptoms_in_clause.
-
-    # NEW CODE COMMENT: If candidate_symptom is due to a filtered word, discard it
-    # For example, if candidate_symptom = 'gout' but normalized_input = 'got', we should discard.
+    # If candidate_symptom is due to a filtered word, discard it
     if candidate_symptom:
         for fw in filtered_words:
             if re.search(r'\b' + re.escape(fw) + r'\b', normalized_input):
-                # If the chosen symptom is suspiciously close to fw, discard.
-                # We check if fw and candidate_symptom share a high fuzzy score:
                 if fuzz.ratio(fw, candidate_symptom) > 70:
                     return None
 
@@ -589,6 +615,18 @@ def remove_redundant_symptoms(symptoms):
             filtered.append(sym)
     return filtered
 
+# NEW CODE COMMENT: General function to decide if a symptom should be added based on strict rules
+def should_add_symptom(symptom, clause):
+    # If symptom is in strict_symptoms, verify synonyms appear directly
+    if symptom in strict_symptoms:
+        if map_synonym(clause) == symptom:
+            return True
+        else:
+            return False
+    else:
+        # If not a strict symptom, no special check needed
+        return True
+
 def detect_symptoms_in_clause(clause):
     results = []
     normalized_input = normalize_text(clause)
@@ -596,7 +634,9 @@ def detect_symptoms_in_clause(clause):
     # Synonym match
     synonym_match = map_synonym(clause)
     if synonym_match:
-        results.append(synonym_match)
+        # Check if allowed to add (in case synonym_match is strict)
+        if should_add_symptom(synonym_match, clause):
+            results.append(synonym_match)
 
     # Body part + keyword
     kw_found = extract_symptom_keywords_clause(normalized_input)
@@ -606,30 +646,19 @@ def detect_symptoms_in_clause(clause):
             for kw in kw_found:
                 combined_symptom = f"{bp} {kw}"
                 if combined_symptom in symptom_list:
-                    results.append(combined_symptom)
+                    if should_add_symptom(combined_symptom, clause):
+                        results.append(combined_symptom)
                 else:
                     combined_res = try_all_methods(normalize_text(combined_symptom))
-                    # NEW CODE COMMENT: Check itching exception if combined_res is itching
-                    if combined_res == 'itching':
-                        # Check if exact word or its synonyms appear in the clause
-                        if map_synonym(clause) == 'itching':
-                            results.append('itching')
-                    else:
-                        if combined_res:
-                            results.append(combined_res)
+                    if combined_res and should_add_symptom(combined_res, clause):
+                        results.append(combined_res)
 
     # Fallback to general symptom detection
     if not results:
         final_res = try_all_methods(normalized_input)
-        if final_res == 'itching':
-            # Itching exception: only if exact or synonyms found in the actual text
-            if map_synonym(clause) == 'itching':
-                results.append('itching')
-        else:
-            if final_res:
-                results.append(final_res)
+        if final_res and should_add_symptom(final_res, clause):
+            results.append(final_res)
 
-    # Remove redundant symptoms
     filtered_results = remove_redundant_symptoms(results)
     return list(set(filtered_results))
 
