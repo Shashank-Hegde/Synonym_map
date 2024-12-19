@@ -521,13 +521,11 @@ def extract_intensities_in_clause(text):
     text_lower = text.lower()
     found_intensity = None
     found_value = 0
-
     for phrase, val in intensity_words.items():
         if re.search(r'\b' + re.escape(phrase) + r'\b', text_lower):
             if val > found_value:
                 found_value = val
                 found_intensity = phrase
-
     return found_intensity, found_value if found_intensity else (None, 0)
 
 def extract_symptom_keywords_clause(text):
@@ -576,37 +574,30 @@ def remove_redundant_symptoms(symptoms):
 def verify_symptom_mention(symptom, original_clause):
     """
     Verify that the symptom or one of its synonyms is explicitly mentioned in the user's clause.
-    If we cannot find any explicit mention, and only confusion words appear, we discard this symptom.
+    If we cannot find any explicit mention and only confusion words appear, discard this symptom.
     """
     original_lower = original_clause.lower()
 
-    # Check if the symptom itself is mentioned
+    # Check symptom name itself
     if re.search(r'\b' + re.escape(symptom.lower()) + r'\b', original_lower):
         return True
 
-    # Check if any synonym is mentioned
+    # Check synonyms
     if symptom in symptom_synonyms:
         for syn in symptom_synonyms[symptom]:
             if re.search(r'\b' + re.escape(syn.lower()) + r'\b', original_lower):
                 return True
 
-    # If no mention of symptom or synonyms, check for confusion words
-    # If confusion words appear, it means we only matched by fuzzy/embedding from confusion words, so reject
+    # If no actual mention of symptom or synonyms, check if confusion words appear
     for cw in confusion_words:
         if re.search(r'\b' + re.escape(cw) + r'\b', original_lower):
+            # Found a confusion word but no real mention of symptom or synonyms
             return False
 
-    # If no synonyms or confusion words appear, it's also a no-match scenario
+    # No synonyms, no confusion words, no exact mention => symptom not confirmed
     return False
 
 def detect_symptoms_in_clause(clause):
-    """
-    1. Check synonyms directly
-    2. Check body part + symptom keyword combination
-    3. Fallback to fuzzy or SBERT
-    4. Confirm presence by checking actual mention (symptom or synonyms)
-    5. Remove any general symptom keywords that are part of a more specific symptom
-    """
     results = []
     normalized_input = normalize_text(clause)
 
@@ -615,7 +606,7 @@ def detect_symptoms_in_clause(clause):
     if synonym_match:
         results.append(synonym_match)
 
-    # Body part + keyword
+    # Body part + keyword combination
     kw_found = extract_symptom_keywords_clause(normalized_input)
     bp_found = extract_body_parts_clause(normalized_input)
     if kw_found and bp_found:
@@ -635,11 +626,11 @@ def detect_symptoms_in_clause(clause):
         if final_res:
             results.append(final_res)
 
-    # Remove redundant
+    # Remove redundant symptoms
     filtered_results = remove_redundant_symptoms(results)
     filtered_results = list(set(filtered_results))
 
-    # Verify that we have actual mention of the symptom or its synonyms (prevent confusion)
+    # Verify actual mention of symptom or synonyms
     final_filtered = []
     for sym in filtered_results:
         if verify_symptom_mention(sym, clause):
@@ -648,11 +639,6 @@ def detect_symptoms_in_clause(clause):
     return final_filtered
 
 def detect_symptoms_and_intensity(user_input):
-    """
-    1. Split input into clauses.
-    2. For each clause, detect intensity and symptoms.
-    3. Map the highest intensity in that clause to all symptoms found in that clause.
-    """
     clauses = re.split(r'[.,;]|\band\b', user_input, flags=re.IGNORECASE)
     clauses = [c.strip() for c in clauses if c.strip()]
 
@@ -688,4 +674,4 @@ if st.button("Find Symptoms"):
         else:
             st.write("No clear match found")
     else:
-        st.warning("Please enter a symptom description.")
+        st.warning("Please enter a symptom description."
