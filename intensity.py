@@ -478,66 +478,6 @@ symptom_synonyms = {
     'itching': ['skin itching','itch','itches'],
    }
 
-# Precompute embeddings
-symptom_embeddings = model.encode(symptom_list, convert_to_tensor=True)
-
-# Initialize NLTK components
-lemmatizer = WordNetLemmatizer()
-stop_words = set(stopwords.words('english'))
-
-# Symptom keywords, body parts, and intensity words
-symptom_keywords = ['pain', 'discomfort', 'ache', 'sore', 'burning', 'itching', 'tingling', 'numbness', 'trouble']
-
-# Intensity words with assigned percentages
-intensity_words = {
-    'horrible': 100, 'terrible': 95, 'extremely':90, 'very':85, 'really':85, 'worse':85, 'intense':85, 'severe':80,
-    'quite':70, 'high':70, 'really bad':70, 'moderate':50, 'somewhat':50, 'fairly':50, 'trouble':40,
-    'mild':30, 'slight':30, 'a bit':30, 'a little':30, 'not too severe':30, 'low':20, 'continuous': 60, 'persistent': 60, 'ongoing': 60, 'constant': 60, 'a lot':70,
-}
-
-body_parts = [
-    'leg', 'eye', 'hand', 'arm', 'head', 'back', 'chest', 'wrist', 'throat', 'stomach',
-    'neck', 'knee', 'foot', 'shoulder', 'ear', 'nail', 'bone', 'joint', 'skin','abdomen',
-    'mouth', 'nose', 'mouth', 'tooth', 'tongue', 'lips', 'cheeks', 'chin', 'forehead',
-    'elbow', 'ankle', 'heel', 'toe', 'finger', 'thumb', 'palm', 'fingers', 'soles',
-    'palms', 'fingertips', 'instep', 'calf', 'shin', 'ankle', 'heel', 'toes', 'fingers',
-    'fingertips', 'instep', 'calf', 'shin', 'heel', 'toes', 'fingertips', 'instep', 'calf', 'shin',
-    'lumbar', 'thoracic', 'cervical', 'gastrointestinal', 'abdominal', 'rectal', 'genital',
-    'urinary', 'respiratory', 'cardiac', 'pulmonary', 'digestive', 'cranial', 'facial',
-    'ocular', 'otologic', 'nasal', 'oral', 'buccal', 'lingual', 'pharyngeal', 'laryngeal',
-    'trigeminal', 'spinal', 'peripheral', 'visceral', 'biliary', 'renal', 'hepatic'
-]
-
-
-    From a single clause, find all intensity words and pick the highest.
-
-    Also handle multi-word intensity words like "really bad".
-
-    """
-
-    text_lower = text.lower()
-
-    found_intensity = None
-
-    found_value = 0
-
-
-
-    # Check multi-word intensities first
-
-    for phrase, val in intensity_words.items():
-
-        # phrase could be multi-word
-
-        if re.search(r'\b' + re.escape(phrase) + r'\b', text_lower):
-
-            if val > found_value:
-
-                found_value = val
-
-                found_intensity = phrase
-
-
 
     return found_intensity, found_value if found_intensity else (None, 0)
 
@@ -577,45 +517,73 @@ def map_synonym(user_input):
 
 def try_all_methods(normalized_input):
 
+    # NEW CODE COMMENT: Check if the normalized_input contains filtered words
+
+    # If it only contains filtered words or if these words lead to a false symptom, we avoid mapping.
+
+    # We'll do filtering after we get a candidate symptom.
+
+
+
     # Attempt fuzzy matching
 
     fuzzy_result = process.extractOne(normalized_input, symptom_list, scorer=fuzz.partial_ratio)
 
+    candidate_symptom = None
+
     if fuzzy_result and fuzzy_result[1] > 80:
 
-        return fuzzy_result[0]
+        candidate_symptom = fuzzy_result[0]
+
+    else:
+
+        # Attempt SBERT embeddings only if fuzzy not successful
+
+        user_embedding = model.encode(normalized_input, convert_to_tensor=True)
+
+        cos_scores = util.cos_sim(user_embedding, symptom_embeddings)
+
+        max_score = torch.max(cos_scores).item()
+
+        if max_score > 0.7:
+
+            best_match_idx = torch.argmax(cos_scores)
+
+            candidate_symptom = symptom_list[best_match_idx]
 
 
 
-    # Attempt SBERT embeddings
+    # NEW CODE COMMENT: If candidate_symptom is itching, only allow if exact or synonyms matched (handled outside)
 
-    user_embedding = model.encode(normalized_input, convert_to_tensor=True)
-
-    cos_scores = util.cos_sim(user_embedding, symptom_embeddings)
-
-    max_score = torch.max(cos_scores).item()
-
-    if max_score > 0.7:
-
-        best_match_idx = torch.argmax(cos_scores)
-
-        return symptom_list[best_match_idx]
+    # We'll handle this outside in detect_symptoms_in_clause.
 
 
 
-    return None
+    # NEW CODE COMMENT: If candidate_symptom is due to a filtered word, discard it
+
+    # For example, if candidate_symptom = 'gout' but normalized_input = 'got', we should discard.
+
+    if candidate_symptom:
+
+        for fw in filtered_words:
+
+            if re.search(r'\b' + re.escape(fw) + r'\b', normalized_input):
+
+                # If the chosen symptom is suspiciously close to fw, discard.
+
+                # We check if fw and candidate_symptom share a high fuzzy score:
+
+                if fuzz.ratio(fw, candidate_symptom) > 70:
+
+                    return None
+
+
+
+    return candidate_symptom
 
 
 
 def remove_redundant_symptoms(symptoms):
-
-    """
-
-    Remove any symptom that is a substring of a longer symptom.
-
-    """
-
-    # Sort symptoms by length in descending order
 
     sorted_symptoms = sorted(symptoms, key=len, reverse=True)
 
@@ -633,22 +601,6 @@ def remove_redundant_symptoms(symptoms):
 
 def detect_symptoms_in_clause(clause):
 
-    """
-
-    For a given clause:
-
-    1. Check synonyms directly
-
-    2. Check body part + symptom keyword combination
-
-    3. Fallback to fuzzy or SBERT
-
-    4. Remove any general symptom keywords that are part of a more specific symptom
-
-    Returns a list of matched symptoms.
-
-    """
-
     results = []
 
     normalized_input = normalize_text(clause)
@@ -661,17 +613,7 @@ def detect_symptoms_in_clause(clause):
 
     if synonym_match:
 
-        # Handle 'itching' exception
-
-        if synonym_match == 'itching':
-
-            if any(word in normalize_text(clause) for word in itching_exception_words):
-
-                results.append(synonym_match)
-
-        else:
-
-            results.append(synonym_match)
+        results.append(synonym_match)
 
 
 
@@ -682,8 +624,6 @@ def detect_symptoms_in_clause(clause):
     bp_found = extract_body_parts_clause(normalized_input)
 
     if kw_found and bp_found:
-
-        # For each body part and each keyword found, attempt a combo
 
         for bp in bp_found:
 
@@ -697,21 +637,21 @@ def detect_symptoms_in_clause(clause):
 
                 else:
 
-                    # Try fuzzy / SBERT on combined
+                    combined_res = try_all_methods(normalize_text(combined_symptom))
 
-                    combined_res = try_all_methods(normalized_input)
+                    # NEW CODE COMMENT: Check itching exception if combined_res is itching
 
-                    if combined_res:
+                    if combined_res == 'itching':
 
-                        # Handle 'itching' exception
+                        # Check if exact word or its synonyms appear in the clause
 
-                        if combined_res == 'itching':
+                        if map_synonym(clause) == 'itching':
 
-                            if any(word in normalize_text(clause) for word in itching_exception_words):
+                            results.append('itching')
 
-                                results.append(combined_res)
+                    else:
 
-                        else:
+                        if combined_res:
 
                             results.append(combined_res)
 
@@ -723,69 +663,30 @@ def detect_symptoms_in_clause(clause):
 
         final_res = try_all_methods(normalized_input)
 
-        if final_res:
+        if final_res == 'itching':
 
-            # Handle 'itching' exception
+            # Itching exception: only if exact or synonyms found in the actual text
 
-            if final_res == 'itching':
+            if map_synonym(clause) == 'itching':
 
-                if any(word in normalize_text(clause) for word in itching_exception_words):
+                results.append('itching')
 
-                    results.append(final_res)
+        else:
 
-            else:
+            if final_res:
 
                 results.append(final_res)
 
 
-
-    # Remove redundant symptoms that are substrings of longer symptoms
+    # Remove redundant symptoms
 
     filtered_results = remove_redundant_symptoms(results)
 
-
-
-    # Apply filtered words map to exclude incorrect mappings
-
-    final_filtered_results = []
-
-    for sym in filtered_results:
-
-        exclude = False
-
-        if sym in filtered_words_map:
-
-            for fw in filtered_words_map[sym]:
-
-                if re.search(r'\b' + re.escape(fw) + r'\b', normalize_text(clause)):
-
-                    exclude = True
-
-                    break
-
-        if not exclude:
-
-            final_filtered_results.append(sym)
-
-
-
-    return list(set(final_filtered_results))  # unique symptoms
+    return list(set(filtered_results))
 
 
 
 def detect_symptoms_and_intensity(user_input):
-
-    """
-
-    Steps:
-
-    1. Split input into clauses.
-
-    2. For each clause, detect intensity and symptoms.
-
-    3. Map the highest intensity in that clause to all symptoms found in that clause.
-
-    """
 
     clauses = re.split(r'[.,;]|\band\b', user_input, flags=re.IGNORECASE)
 
@@ -805,39 +706,17 @@ def detect_symptoms_and_intensity(user_input):
 
 
 
-        # Assign the intensity to each symptom found in this clause
-
         for sym in symptoms:
 
-            if sym == 'itching':
+            if intensity_word:
 
-                # Ensure 'itching' is only mapped via exact match or synonyms
-
-                if any(word in normalize_text(clause) for word in itching_exception_words):
-
-                    if intensity_word:
-
-                        final_results.append((sym, intensity_word, intensity_value))
-
-                    else:
-
-                        final_results.append((sym, None, 0))
+                final_results.append((sym, intensity_word, intensity_value))
 
             else:
 
-                if intensity_word:
-
-                    final_results.append((sym, intensity_word, intensity_value))
-
-                else:
-
-                    final_results.append((sym, None, 0))
-
-
+                final_results.append((sym, None, 0))
 
     return final_results
-
-
 
 # Streamlit UI
 
@@ -845,11 +724,7 @@ st.title("🩺 Multi-Symptom & Intensity Matcher")
 
 st.write("Enter a description of your symptoms. The system will extract multiple symptoms, determine their intensities, and show a percentage for intensity.")
 
-
-
 user_input = st.text_input("Describe your symptom(s):")
-
-
 
 if st.button("Find Symptoms"):
 
