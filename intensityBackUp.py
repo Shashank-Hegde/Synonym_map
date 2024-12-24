@@ -21,42 +21,18 @@ ensure_nltk_resources(['stopwords', 'wordnet'])
 # Initialize models
 model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
-# Symptom list (extended with body part + pain terms)
-symptom_list = [
-    'fever', 'cold', 'runny nose', 'sneezing', 'rash', 'dizziness', 'weakness', 'loss of appetite',
-    'cough', 'muscle pain', 'joint pain', 'chest pain', 'back pain', 'constipation', 'throat pain', 'diarrhea',
-    'flu', 'breathlessness', 'stomach pain', 'migraine','sore', 'burning', 'itching', 'swelling','acidity','muscle strain','wrist pain', 'vomiting', 'hip pain',
-    'infection', 'inflammation', 'cramps', 'ulcers', 'bleeding', 'irritation', 'anxiety', 'depression','muscle injury', 'nausea','swollen lymph nodes',
-    'insomnia', 'cancer', 'diabetes', 'hypertension', 'allergies', 'weight loss', 'weight gain', 'hair loss',
-    'blurred vision', 'ear pain', 'palpitations', 'urinary frequency', 'numbness', 'tingling','increased appetite',
-    'dry mouth', 'excessive thirst', 'frequent urination', 'acne', 'bruising', 'confusion', 'memory loss',
-    'hoarseness', 'wheezing', 'itchy eye', 'dry eyes', 'difficulty swallowing', 'restlessness', 'yellow skin',
-    'yellow eyes', 'bloating', 'gas', 'hiccups', 'indigestion', 'heartburn', 'mouth sore', 'nosebleed', 'sore throat',
-    'ear ringing', 'decreased appetite', 'dark urine', 'light colored stool', 'blood in urine','skin itching',
-    'blood in stool', 'delayed healing', 'high temperature', 'low blood pressure', 'thirst','allergy',
-    'dehydration', 'skin burn', 'sweating', 'feeling cold', 'feeling hot', 'head pressure', 'double vision',
-    'eye pain', 'red eyes', 'eye discharge', 'hearing loss', 'balance problem', 'taste changes', 'smell change','feeling full',
-    'rapid breathing', 'irregular heartbeat', 'chest tightness', 'lightheadedness', 'fainting', 'unsteady gait',
-    'clumsiness', 'loss of coordination', 'seizures', 'tremor', 'shakiness', 'nervousness', 'panic attack','convulsion', 'nose pain',
-    'mood swing', 'agitation', 'difficulty concentrating', 'foggy mind', 'hallucination', 'paranoia','delusion', 'shortness of breath',
-    'euphoria', 'apathy', 'lack of motivation', 'social withdrawal', 'exhaustion', 'muscle weakness', 'muscle cramps','anhedonia',
-    'muscle stiffness', 'joint stiffness', 'bone pain', 'bone fracture', 'sprain', 'strain', 'tendonitis', 'bursitis', 'skin lump','skin lesion',
-    'arthritis', 'gout', 'fibromyalgia', 'sciatica', 'herniated disc', 'spinal stenosis', 'spasm', 'neck pain','skin pain',
-    'whiplash', 'carpal tunnel syndrome', 'sinus pressure', 'headache', 'eczema', 'psoriasis', 'hive', 'impetigo', 'ulcer',
-    'herpes', 'shingle', 'wart', 'mole', 'skin lesions', 'skin bump', 'skin discoloration', 'skin dryness',
-    'skin cracking', 'skin burning', 'skin tenderness', 'skin redness', 'skin swelling', 'skin blisters', 'hair thinning', 'injury',
-    'hair texture changes', 'hair growth abnormalities',
-    'nail splitting','fatigue',
-    'nail melanonychia', 'nail leukonychia','dermatitis',
-    'nail onychomycosis', 'nail paronychia',
-    'nail ridges', 'joint instability','cellulitis',
-    'muscle atrophy', 'joint dislocation', 'joint deformity', 'bone deformity', 'bone tenderness', 'bone swelling', 'bone redness',
-    'joint locking', 'joint clicking', 'joint popping', 'muscle atrophy due to disuse', 'skin dryness due to weather', 'high blood pressure',
-    'eye dryness', 'eye irritation', 'eye redness', 'eye swelling', 'eye tearing', 'eye strain', 'eye sensitivity to light', 'eye watering',
-    'ear dryness', 'ear fullness', 'congestion', 'ear fluid', 'ear wax buildup', 'ear infection', 'tinnitus', 'balance disorder','chills',
-    'taste distortion', 'taste change', 'smell distortion', 'ear ache',
-    'reduced smell', 'increased smell', 'loss of smell', 'rapid breaths', 'heavy breathing', 'shallow breathing', 'uneven heart rate','smell change',
-    'heart skipping beats','leg pain', 'eye pain', 'hand pain', 'arm pain', 'foot pain', 'knee pain', 'shoulder pain', 'neck pain'
+# Symptom list
+symptom_list = [ 
+'fever', 'cold', 'runny nose', 'sneezing', 'rash', 'back spasm', 'dizziness', 'weakness', 'loss of appetite', 'cough', 'muscle pain', 'joint pain',
+'chest pain', 'back pain', 'constipation', 'throat pain', 'diarrhea', 'flu', 'shortness of breath', 'rapid breathing', 'stomach pain', 'migraine',
+'skin burning', 'itching', 'swelling', 'vomiting', 'infection', 'inflammation', 'cramp', 'bleeding', 'irritation', 'anxiety', 'depression',
+'nausea', 'swollen lymph nodes', 'insomnia', 'cancer', 'diabetes', 'allergy', 'weight loss', 'weight gain', 'hair loss', 'blurred vision', 'ear pain',
+'numbness', 'dry mouth', 'frequent urination', 'acne', 'confusion', 'memory loss', 'difficulty swallowing', 'restlessness', 'yellow eyes', 'bloating', 
+'gas', 'indigestion', 'heartburn', 'mouth sore', 'nosebleed', 'ear ringing', 'dark urine', 'blood in urine', 'blood in stool', 'high blood pressure', 
+'low blood pressure', 'excessive thirst', 'dehydration', 'skin burning', 'sweat', 'eye pain', 'red eyes', 'eye discharge', 'ear discharge',
+'hearing loss', 'balance problem', 'irregular heartbeat', 'fainting', 'tremor', 'nervousness', 'panic attack', 'mood swing', 'difficulty concentrating',
+'hallucination', 'lack of motivation', 'exhaustion', 'bone pain', 'wrist pain', 'sprain', 'strain', 'arthritis', 'gout', 'headache', 'injury', 'chills', 'leg pain', 'hand pain',
+'arm pain', 'foot pain', 'knee pain', 'shoulder pain', 'hip pain', 'jaw pain', 'tooth pain'   
 ]
 
 # Symptom synonyms dictionary
@@ -87,8 +63,8 @@ symptom_synonyms = {
         'migraine meltdown', 'severe sensitivity headache', 'hammering half-head ache', 'aura shimmer leading to pain', 'throbbing unilateral agony', 'needle-like head stab', 'crushing half-skull sensation',
         'crippling light-triggered pain', 'migraine climate inside head', 'tidal wave of head torment', 'migraine crescendo', 'migraine-flare crisis', 'incapacitating halo of pain', 'ear-to-temple throbbing on one side'
     ],
-    'allergies': [
-        'allergy', 'allergic reaction', 'allergic response', 'hay fever', 'allergic rhinitis', 'pollen sensitivity', 'dust mite allergy', 'food allergy', 'skin allergy', 'seasonal allergies',
+    'allergy': [
+        'allergies', 'allergic reaction', 'allergic response', 'hay fever', 'allergic rhinitis', 'pollen sensitivity', 'dust mite allergy', 'food allergy', 'skin allergy', 'seasonal allergies',
         'environmental allergies', 'allergic condition', 'allergic response to pollen', 'sensitive to allergens', 'sneezing due to allergies', 'wheezing from allergic reaction',
         'swollen nasal passages', 'runny nose from allergies', 'sinus congestion from allergies', 'allergic rashes', 'eczema flare-up', 'hives', 'itchy skin from allergens', 'swollen face from allergies',
         'respiratory allergy', 'allergic reactions in skin', 'excessive histamine release', 'redness from allergy', 'swollen throat from allergies', 'asthma attack triggered by allergens', 'increased mucus production',
@@ -101,7 +77,7 @@ symptom_synonyms = {
         'raised core temperature', 'overheated body', 'intense body heat', 'thermal imbalance', 'body overheating', 'raging fever', 'heated condition', 'abnormally warm body', 'pyrexia', 'uncontrolled internal heat',
         'feeling aflame', 'body heat surging', 'hot to the touch', 'internal ignition of warmth', 'body temperature surging', 'excessive warmth inside', 'bodily heat overload', 'intense flush', 'thermometer reading high',
         'scorching internal climate', 'burning sensation from within', 'sweltering body feel', 'thermal elevation', 'heated bloodstream', 'furnace-like feeling', 'feeling like an oven', 'heat radiating under skin',
-        'internal fire', 'ignited from the inside', 'excessive internal warmth', 'body boiling over', 'incendiary sensation', 'intense internal glow', 'unrelenting heat', 'blazing warmth',
+        'internal fire', 'ignited from the inside', 'excessive internal warmth', 'body boiling over', 'incendiary sensation', 'intense internal glow', 'unrelenting heat', 'blazing warmth','feeling hot',
         'molten interior heat', 'near boiling point', 'incapacitating heat', 'relentless feverishness', 'sizzling body temp', 'flaming sensation', 'constant burning feeling', 'heat wave inside me', 'sweating due to internal heat',
         'red-hot core', 'smoldering embers of warmth', 'furnace-like core', 'pulsating heat', 'unremitting temperature rise', 'searing body condition', 'fire coursing through veins', 'endlessly hot', 'elevated reading on the thermometer',
         'no relief from heat', 'intense internal burning', 'volcanic warmth', 'torched from inside', 'superheated body', 'radical temperature spike', 'roasting sensation', 'tropical internal climate', 'heat-induced misery',
@@ -111,7 +87,7 @@ symptom_synonyms = {
         'Persistent cough', 'hacking cough', 'dry cough', 'wet cough', 'productive cough (with phlegm)', 'barking cough', 'non-productive cough', 'chronic cough',
         'coughing up mucus/sputum/blood', 'irritating cough', 'scratchy cough', 'whooping cough-like sound', 'continuous throat clearing', 'raspy hacking', 'chesty cough',
         'rattling cough', 'deep-chested cough', 'shallow annoying cough', 'tickling cough', 'lingering throat hack', 'spasm-like coughs', 'throaty expulsions',
-        'worrisome coughing fits', 'repetitive cough bursts', 'phlegmy hacking', 'bronchial coughing', 'stubborn cough', 'dry, tickling cough', 'persistent throat tickle',
+        'worrisome coughing fits', 'repetitive cough bursts', 'phlegmy hacking', 'bronchial coughing', 'stubborn cough', 'dry tickling cough', 'persistent throat tickle',
         'strangling cough', 'wheezing cough', 'loud barking cough', 'cracking cough', 'sputum-laden cough', 'cough with gagging', 'spasmodic cough', 'stubborn dry cough',
         'overwhelming coughing sensation', 'sharp, dry cough', 'cough with sharp throat pain', 'violent coughing fits', 'painful coughing episodes', 'coughing after exertion',
         'chronic phlegm cough', 'intense wheezing cough', 'grating cough', 'wet chesty cough', 'gurgling cough'
@@ -124,18 +100,24 @@ symptom_synonyms = {
         'throat dryness', 'itchy throat', 'burning sensation in throat', 'scratching feeling in throat', 'tenderness in throat', 'chronic throat discomfort', 'raspiness in voice',
         'feeling like throat is closing', 'constant need to clear throat', 'sore throat with hoarseness', 'dry cough with sore throat', 'sharp throat pain'
     ],
-    'stomach ache': [
-        'stomach pain', 'abdominal pain', 'belly ache', 'intestinal discomfort', 'cramps', 'stomach cramps', 'gastric discomfort', 'bloated feeling', 'nauseous stomach pain',
+    'stomach pain': [
+        'stomach pain', 'stomach ache', 'abdominal pain', 'belly ache', 'intestinal discomfort', 'cramps', 'stomach cramps', 'gastric discomfort', 'bloated feeling', 'nauseous stomach pain',
         'sharp stomach pain', 'stomach tenderness', 'sharp abdominal cramps', 'stomach upset', 'abdominal tenderness', 'intestinal bloating', 'tummy pain', 'swollen belly',
         'feeling of fullness', 'feeling heavy in stomach', 'digestive pain', 'stomach spasms', 'soreness in abdomen', 'gas in stomach', 'bloating', 'nausea and stomach ache',
         'gastric pain', 'pain after eating', 'belly discomfort', 'gurgling stomach', 'stomach churning', 'sharp abdominal pain', 'dull abdominal pain', 'stomach bloating',
         'abdominal tightness', 'cramping feeling', 'aching belly', 'painful digestion', 'nausea and bloating', 'gassy feeling', 'pain under ribs', 'discomfort after meals',
-        'uncomfortable stomach', 'intestinal cramps', 'sharp pain in lower abdomen', 'feeling of indigestion', 'pain around stomach area'
+        'uncomfortable stomach', 'intestinal cramps', 'sharp pain in lower abdomen', 'feeling of indigestion', 'pain around stomach area', 'belly pain', 'pain in the abdomen', 'stomach discomfort', 'gastric pain',
+        'sharp stomach pain', 'dull abdominal pain', 'cramping in the abdomen', 'bloating with pain',
+        'gas pain in the abdomen', 'stabbing pain in the belly', 'abdominal cramps', 'sharp pain in the stomach area', 'pain from indigestion', 'pain after eating', 'nauseating abdominal pain',
+        'pain from gas buildup', 'pressure in the stomach', 'pain from constipation', 'burning sensation in the stomach', 'distended abdomen', 'pain from ulcers', 'pain from bloating', 'pain from food intolerance',
+        'sore stomach', 'pain from intestinal issues', 'gastrointestinal pain', 'tenderness in the stomach', 'pain near the navel', 'pain from diarrhea', 'stomach flu pain', 'pain in the lower abdomen',
+        'pain from stress', 'feeling of fullness with pain', 'pain in the upper abdomen', 'stomach cramping', 'sharp abdominal cramps', 'nausea with stomach pain', 'abdominal swelling with pain', 'abdominal pain',
+        'chronic stomach pain', 'pain with digestive issues', 'pain from food poisoning', 'pain from gallbladder issues', 'pain from acid reflux'
     ],
-    'fatigue': [
+    'weakness': [
         'tiredness', 'extreme tiredness', 'exhaustion', 'weariness', 'fatigued feeling', 'lack of energy', 'physical depletion', 'mental fatigue', 'chronic tiredness',
-        'drained', 'feeling wiped out', 'feeling run down', 'low energy', 'total exhaustion', 'severe fatigue', 'feeling sluggish', 'morning fatigue', 'fatigue after exertion',
-        'weakness', 'debilitating tiredness', 'drowsiness', 'chronic fatigue syndrome', 'feeling lethargic', 'mental sluggishness', 'physical tiredness', 'difficulty keeping eyes open',
+        'drained', 'feeling wiped out', 'feeling run down', 'fatigue','low energy', 'total exhaustion', 'severe fatigue', 'feeling sluggish', 'morning fatigue', 'fatigue after exertion',
+        'debilitating tiredness', 'drowsiness', 'chronic fatigue syndrome', 'feeling lethargic', 'mental sluggishness', 'physical tiredness', 'difficulty keeping eyes open',
         'lack of vitality', 'energy depletion', 'feeling drained', 'listlessness', 'burned out', 'exhausted state', 'feeling zoned out', 'tired all the time', 'fatigued state',
         'mental exhaustion', 'constant tiredness', 'feeling sleepy', 'no motivation', 'fatigued muscles', 'endless tiredness', 'exhaustion after minimal effort', 'lethargic movements',
         'lacking strength', 'body fatigue', 'complete exhaustion', 'feeling disconnected'
@@ -157,8 +139,9 @@ symptom_synonyms = {
         'wavy-field-of-view sensation', 'lurching environment', 'faltering steadiness', 'delicately balanced but slipping', 'rubbery legs feeling', 'giddy swirl in head',
         'tilting world', 'swaying sensation', 'imbalance feeling', 'shaky equilibrium', 'floating dizziness', 'spinning sensation', 'feeling off-kilter'
     ],
+
     'shortness of breath': [
-        'Shortness of breath', 'breathlessness', 'difficulty breathing', 'feeling air hunger', 'rapid breathing', 'fast breathing', 'shallow breathing', 'gasping for air',
+        'Shortness of breath', 'breathlessness', 'difficulty breathing', 'difficulty in breathing', 'feeling air hunger', 'fast breathing', 'shallow breathing', 'gasping for air',
         'labored breathing', 'struggling to breathe', 'tightness in chest while inhaling', 'feeling suffocated', 'can’t catch my breath', 'panting heavily', 'air feeling thin',
         'lungs working overtime', 'chest feels restricted', 'fighting for each breath', 'wheezing for air', 'strained respiration', 'feeling smothered', 'desperate for oxygen',
         'winded easily', 'constant puffing', 'breathing feels blocked', 'inhaling with effort', 'forced breathing', 'constant need to gulp air', 'sensation of drowning in open air',
@@ -168,6 +151,9 @@ symptom_synonyms = {
         'breathing feels like pushing through a straw', 'air-starved lungs', 'cannot take a deep breath', 'strained oxygen intake', 'feeling like each breath is a struggle',
         'never fully satisfied inhalation', 'gasping between words', 'needy breathing pattern', 'barely pulling in enough air', 'lungs working at half capacity', 'respiratory distress',
         'continuous short-windedness', 'feeling I can’t fully inflate lungs'
+    ],
+   'rapid breathing': [
+         'heavy breathing', 'shallow breathing', 'heart skipping beats'
     ],
     'chest pain': [
         'chest discomfort', 'sharp chest pain', 'tightness in chest', 'aching chest', 'burning chest', 'soreness in chest', 'chest pressure', 'tight chest', 'chest heaviness',
@@ -243,7 +229,8 @@ symptom_synonyms = {
         'popping joints', 'clicking joints', 'cracking joints', 'sore knees', 'joint inflammation in fingers', 'inflamed joints', 'stiffened knee joints', 'swollen ankles', 'excessive joint pain',
         'joint tenderness', 'joint soreness from strain', 'arthralgia', 'aching knees', 'hip pain', 'painful wrists', 'sharp joint pain', 'stabbing joint pain', 'chronic joint ache', 'inflamed elbow joints',
         'chronic knee pain', 'joint damage', 'strained joint', 'degenerative joint disease', 'discomfort in joints', 'dull joint ache', 'acute joint pain', 'swollen hands', 'weakening joint flexibility',
-        'muscle and joint discomfort', 'continuous joint pain', 'painful back joints', 'arthritic inflammation'
+        'muscle and joint discomfort', 'continuous joint pain', 'painful back joints', 'arthritic inflammation', 'joint locking', 'joint clicking', 'joint popping', 'joint dislocation'
+
     ],
    'diarrhea': [
         'loose stools', 'frequent bowel movements', 'watery stools', 'runny stools', 'loose bowels', 'urgent need to defecate', 'watery bowel movements', 'explosive diarrhea',
@@ -262,18 +249,9 @@ symptom_synonyms = {
         'nauseated vomiting', 'vomit-induced gagging', 'stomach-purging sensation', 'retching uncontrollably', 'throwing up after eating', 'puking episodes', 'sick and throwing up',
         'puking from irritation', 'regurgitating food', 'empty stomach vomiting', 'morning sickness vomiting', 'nausea attacks with vomiting', 'emesis due to motion sickness', 'heaving up'
     ],
-    'wheezing': [
-        'Wheezy breathing', 'whistling sound in chest', 'squeaky breath sounds', 'airway constriction noise', 'raspy inhalation/exhalation', 'high-pitched airway noise', 'strained breathing sounds',
-        'pipe-like whistling in lungs', 'shrill breathing tone', 'whistle-like wheeze', 'tight-sounding inhalation', 'air squeaking through narrow passages', 'wheezy rasp', 'reedy airway noise',
-        'restricted airflow whistling', 'hissing breath', 'airy shrillness', 'squealing lung sounds', 'sinusoidal airway noise', 'faint whistling undertone', 'discordant breathing note',
-        'squeaky bronchial sound', 'flute-like chest murmur', 'feeble airy gasp', 'throttled breathing noise', 'subtle wind-through-a-pipe sound', 'frictional wheeze', 'squealing inhalation',
-        'musical chest sound', 'constricted airway melody', 'tiny whistle at exhale', 'squeaking lung pipes', 'scratchy internal whistle', 'hush-like squeal inside chest', 'low whistling hum',
-        'piping chest note', 'shrilling lung friction', 'wind instrument-like breath', 'wheezy hum inside', 'squeaky balloon-like noise', 'shrill bronchial constriction', 'pinched airway sounds',
-        'skinny-tube breathing noise', 'fragile airway tone', 'forced narrow-bore breath', 'tight-lung whistle', 'faint flute-like exhale', 'windy squeak in lungs', 'diminished airway diameter sound',
-        'toy whistle breathing', 'compressed bronchial passage tune'
-    ],
-    'ear ache': [
-        'ear pain', 'pain in the ear', 'ear discomfort', 'ear irritation', 'painful ear', 'throbbing ear ache', 'sharp ear pain', 'dull ear pain', 'stabbing pain in ear', 'ringing ear pain',
+    
+    'ear pain': [
+        'ear ache', 'pain in the ear', 'ear discomfort', 'ear irritation', 'painful ear', 'throbbing ear ache', 'sharp ear pain', 'dull ear pain', 'stabbing pain in ear', 'ringing ear pain',
         'pressure in ear', 'ear sensitivity', 'intense ear discomfort', 'itchy ear', 'swollen ear', 'ear tenderness', 'ear pulsations', 'persistent ear pain', 'ear infection pain',
         'ear tenderness', 'pain behind ear', 'soreness in ear', 'ear pressure', 'ear inflammation', 'ear ache from cold', 'stuffy ear pain', 'pain in ear canal', 'ear ache when swallowing',
         'painful inner ear', 'hearing sensitivity with pain', 'fluid in ear causing pain', 'acute ear pain', 'chronic ear ache', 'pain after water exposure', 'ear infection causing pain',
@@ -295,10 +273,10 @@ symptom_synonyms = {
         'runny nose cold', 'sneezing with cold', 'mild chest congestion', 'low-grade cold infection', 'itchy throat cold', 'general cold symptoms', 'nasal congestion from cold',
         'watery eyes with cold', 'mild head congestion', 'cold-related fatigue', 'chilly viral infection', 'upper respiratory cold', 'typical cold symptoms', 'stuffy feeling from cold',
         'cough and cold', 'runny nose from cold', 'frequent sneezing cold', 'cold-related chills', 'feeling chilled from cold', 'aching muscles with cold', 'minor fever with cold',
-        'slight cold discomfort', 'cold-induced sore throat'
+        'slight cold discomfort', 'cold-induced sore throat' ,'feeling cold'
     ],
     'sweat': [
-        'sweat', 'sweating', 'excessive sweating', 'unusual sweating', 'profuse sweating', 'drenched in sweat', 'perspiring heavily', 'sweating buckets', 'clammy sweating', 'dripping perspiration',
+        'sweating', 'excessive sweating', 'unusual sweating', 'profuse sweating', 'drenched in sweat', 'perspiring heavily', 'sweating buckets', 'clammy sweating', 'dripping perspiration',
         'bead-like sweat on skin', 'moisture streaming down face', 'uncontrollable sweating', 'soaked in sweat', 'overactive sweat glands', 'sweaty and damp skin', 'sweat-soaked clothes',
         'constant perspiration', 'sticky sweat', 'salty perspiration', 'glistening with sweat', 'sweat trickling down spine', 'nervous sweating', 'stress-induced sweat', 'drenching perspiration',
         'sweat-laden body', 'humid feeling', 'slick skin', 'warm moisture on skin', 'sweat beads forming everywhere', 'bodily moisture overload', 'persistent dampness', 'sweaty palms and forehead',
@@ -310,9 +288,9 @@ symptom_synonyms = {
         'swollen joints', 'swollen ankle', 'swollen hands', 'swollen feet', 'localized swelling', 'bloating', 'swollen skin', 'swelling in legs', 'swelling due to injury', 'swollen belly',
         'swollen face', 'swollen knees', 'edematous swelling', 'painful swelling', 'swollen extremities', 'swelling from infection', 'swelling from trauma', 'swelling after surgery',
         'swelling of the face', 'swelling under the skin', 'swollen throat', 'swelling with discomfort', 'puffy hands', 'swelling after a fall', 'generalized swelling', 'swelling in eyes',
-        'swelling from arthritis', 'swelling around wounds', 'enlarged tissue area', 'swelling from allergic reaction', 'swelling in body cavity', 'swelling around the joints'
+        'swelling from arthritis', 'swelling around wounds', 'enlarged tissue area', 'swelling from allergic reaction', 'swelling in body cavity', 'swelling around the joints','bruising'
     ],
-    'tremors': [
+    'tremor': [
         'shaking', 'shivering', 'twitching', 'involuntary movements', 'nervous shaking', 'muscle tremors', 'rhythmic shaking', 'trembling hands', 'uncontrolled muscle movement',
         'shaking limbs', 'twitchy fingers', 'uncontrolled tremor', 'flickering motion', 'trembling body', 'shaky movements', 'muscle spasms', 'jerking', 'shivering body', 'shaky hands',
         'shaking from cold', 'nervous tremors', 'trembling sensation', 'shuddering', 'uncontrollable shaking', 'flickering muscles', 'twitching eyes', 'nervous jerks', 'shaky fingers',
@@ -326,14 +304,7 @@ symptom_synonyms = {
         'rattled by chill', 'shudders running down spine', 'uncontrollable cold tremors', 'shaky fingers and toes', 'rattling teeth', 'jittering from cold', 'frigid trembles',
         'cold-induced shaking', 'body frozen in chills', 'deep chills', 'numbing cold'
     ],
-    'dry skin': [
-        'skin dryness', 'rough skin', 'scaly skin', 'flaky skin', 'cracked skin', 'itchy dry skin', 'chapped skin', 'parched skin', 'dry patches', 'tight skin',
-        'dry flaky patches', 'irritated dry skin', 'dehydrated skin', 'unhealthy skin texture', 'dull dry skin', 'dryness around elbows', 'rough patches on skin', 'rough and irritated skin',
-        'dry skin flakes', 'flaky arms and legs', 'dry skin feeling', 'peeling skin', 'scaly patches', 'dryness on face', 'brittle skin', 'skin with visible dryness', 'dry skin redness',
-        'skin looking parched', 'skin dehydration', 'skin feeling tight', 'extremely dry skin', 'skin patches drying out', 'rough hands', 'cracked hands', 'flaky fingers', 'dry lips',
-        'dryness on feet', 'cracked heels', 'flaky scalp', 'dry patches around mouth', 'dry skin sensitivity', 'rough elbows and knees', 'desquamation', 'skin rough to touch', 'dry skin irritation',
-        'dryness causing redness', 'thin and cracked skin'
-    ],
+ 
     'eye pain': [
         'ocular pain', 'eye discomfort', 'pain in the eye', 'eye ache', 'sore eye', 'sharp pain in the eye', 'pain around the eyes', 'painful vision', 'pain behind the eye',
         'irritation in the eye', 'burning sensation in the eye', 'dry eye pain', 'stabbing eye pain', 'eye strain', 'pressure in the eye', 'throbbing in the eye',
@@ -341,7 +312,7 @@ symptom_synonyms = {
         'sharp eye ache', 'vision-related pain', 'severe eye pain', 'sharp stabbing pain in the eye', 'pain in the eyeball', 'tired eye pain', 'swollen eye discomfort', 'throbbing behind the eyes',
         'pain from light sensitivity', 'pain after reading', 'pain when blinking', 'gritty feeling in the eyes', 'intense eye pressure', 'pain around the eyelids', 'blurry vision with pain', 'puffy eyes with pain',
         'pain near the cornea', 'stinging pain in the eye', 'pain with redness in the eye', 'ocular discomfort', 'persistent eye pain', 'painful feeling when moving eyes', 'pressure sensation in the eyes',
-        'pain from eye strain', 'pain with dry eyes'
+        'pain from eye strain', 'pain with dry eyes', 'eye irritation', 'eye swelling', 'eye tearing',
     ],
     'ear pain': [
         'ear ache', 'pain in the ear', 'ear discomfort', 'sharp ear pain', 'throbbing ear ache', 'ear irritation', 'pressure in the ear', 'sharp pain in the ear', 'stabbing ear pain',
@@ -391,14 +362,7 @@ symptom_synonyms = {
         'dull aching chest pain', 'pain in the upper left chest', 'pain when lying down', 'sore chest', 'pain from trauma to chest', 'persistent chest pain', 'discomfort after exercise',
         'pain in the center of the chest', 'pain from chest cold', 'pain in the chest while breathing', 'sore chest area', 'pain in the left side of the chest', 'pain from coughing', 'pain from deep breathing'
     ],
-    'abdominal pain': [
-        'stomach ache', 'belly pain', 'pain in the abdomen', 'stomach discomfort', 'gastric pain', 'sharp stomach pain', 'dull abdominal pain', 'cramping in the abdomen', 'bloating with pain',
-        'gas pain in the abdomen', 'stabbing pain in the belly', 'abdominal cramps', 'sharp pain in the stomach area', 'pain from indigestion', 'pain after eating', 'nauseating abdominal pain',
-        'pain from gas buildup', 'pressure in the stomach', 'pain from constipation', 'burning sensation in the stomach', 'distended abdomen', 'pain from ulcers', 'pain from bloating', 'pain from food intolerance',
-        'sore stomach', 'pain from intestinal issues', 'gastrointestinal pain', 'tenderness in the stomach', 'pain near the navel', 'pain from diarrhea', 'stomach flu pain', 'pain in the lower abdomen',
-        'pain from stress', 'feeling of fullness with pain', 'pain in the upper abdomen', 'stomach cramping', 'sharp abdominal cramps', 'nausea with stomach pain', 'abdominal swelling with pain',
-        'chronic stomach pain', 'pain with digestive issues', 'pain from food poisoning', 'pain from gallbladder issues', 'pain from acid reflux'
-    ],
+   
     'knee pain': [
         'knee discomfort', 'pain in the knee', 'joint pain in the knee', 'knee ache', 'sharp knee pain', 'throbbing knee pain', 'stabbing pain in the knee', 'pain in the knee joint',
         'pain from knee injury', 'pain from knee strain', 'knee swelling', 'pain when bending knee', 'pain while walking', 'pain after exercise', 'pain from knee overuse', 'pain with knee movement',
@@ -495,26 +459,63 @@ symptom_synonyms = {
         'rattled mental library', 'concept slip-through', 'flickering data in mind', 'barren mental shelves', 'no retrieval of recent facts', 'thinking it’s on the tip of my tongue but never surfacing',
         'losing track of recent conversations', 'difficulty holding new info', 'memory short-circuits frequently', 'mental vacancy', 'ephemeral recollections', 'passing mental clouds with no retention',
         'drifting away from details', 'no anchor to past events'
-    ],
-    'hearing loss': ['damaging hearing', 'loss in hearing', 'damaging all my hearing'],
+    ],  
    'hallucination': [
         'visual disturbance', 'illusion', 'seeing things', 'auditory hallucinations', 'sensory distortion', 'false perception', 'psychotic episode', 'delusion', 'perceptual misinterpretation', 'false vision',
         'seeing unreal things', 'hearing voices', 'mind tricks', 'imagined sights', 'fictitious perception', 'phantom sensations', 'visual or auditory illusion', 'perceptual disorder', 'seeing illusions',
         'false images', 'confused perceptions', 'distorted reality', 'seeing non-existent objects', 'hallucinatory experience', 'visual hallucinations', 'mental mirages', 'mind-created visions', 'cognitive disorientation',
         'illusionary sights', 'out of body perception', 'distorted vision', 'unreal sensory inputs', 'dream-like experience', 'delirium', 'brain-generated images', 'unseen figures', 'fantasy perception',
-        'mind-induced voices', 'mind-generated images', 'psychosis-related perception', 'perception delusions', 'hallucinated sounds', 'out of touch with reality', 'auditory delusion', 'seeing the impossible',
+        'mind-induced voices', 'mind generated images', 'psychosis-related perception', 'perception delusions', 'hallucinated sounds', 'out of touch with reality', 'auditory delusion', 'seeing the impossible',
         'false sensory perception', 'misinterpreted reality', 'altered state of perception', 'phantasmagoria', 'delusional thoughts', 'imaginative perception', 'delirious hallucinations', 'unfounded sensations',
-        'falsified sensory experience', 'experiencing the non-existent'
+        'falsified sensory experience', 'experiencing the non existent'
     ],
     'vomiting': ['throwing up', 'puking', 'stomach upset'],
-    'ear ache': ['ear pain', 'otalgia', 'ear discomfort', 'pain in the ear', 'ear pressure'],
     'hearing loss' : ['loss of hearing'],
-    'taste change' : []'taste distortion'],
-    'allergies' : []'allergy'],
+    'bone pain': ['bone tenderness', 'bone swelling'],
     'weight gain': ['increase in weight', 'gain in body mass'],
-
+    'hearing loss': ['damaging hearing', 'loss in hearing'],
+    'skin burning' : ['burning', 'burn'],
+    'itching': ['skin itching','itch','itches'],
    }
 
+# NEW CODE COMMENT: Words to exclude from mapping to symptoms through fuzzy/embedding
+filtered_words = ['got', 'old']  # We can add more words here if needed
+
+# Precompute embeddings
+symptom_embeddings = model.encode(symptom_list, convert_to_tensor=True)
+
+# Initialize NLTK components
+lemmatizer = WordNetLemmatizer()
+stop_words = set(stopwords.words('english'))
+
+# Symptom keywords, body parts, and intensity words
+symptom_keywords = ['pain', 'discomfort', 'ache', 'sore', 'burning', 'itching', 'tingling', 'numbness', 'trouble']
+
+# Intensity words with assigned percentages
+intensity_words = {
+    'horrible': 100, 'terrible': 95, 'extremely':90, 'very':85, 'really':85, 'worse':85, 'intense':85, 'severe':80,
+    'quite':70, 'high':70, 'really bad':70, 'moderate':50, 'somewhat':50, 'fairly':50, 'trouble':40,
+    'mild':30, 'slight':30, 'a bit':30, 'a little':30, 'not too severe':30, 'low':20, 'continuous': 60, 'persistent': 60, 'ongoing': 60, 'constant': 60, 'a lot':70,
+}
+body_parts = [
+    'leg', 'eye', 'hand', 'arm', 'head', 'back', 'chest', 'wrist', 'throat', 'stomach',
+    'neck', 'knee', 'foot', 'shoulder', 'ear', 'nail', 'bone', 'joint', 'skin','abdomen',
+    #Add more
+    'mouth', 'nose', 'mouth', 'tooth', 'tongue', 'lips', 'cheeks', 'chin', 'forehead',
+    'elbow', 'ankle', 'heel', 'toe', 'finger', 'thumb', 'palm', 'fingers', 'soles',
+    'palms', 'fingertips', 'instep', 'calf', 'shin', 'ankle', 'heel', 'toes', 'fingers',
+    'fingertips', 'instep', 'calf', 'shin', 'heel', 'toes', 'fingertips', 'instep', 'calf', 'shin',
+    'lumbar', 'thoracic', 'cervical', 'gastrointestinal', 'abdominal', 'rectal', 'genital',
+    'urinary', 'respiratory', 'cardiac', 'pulmonary', 'digestive', 'cranial', 'facial',
+    'ocular', 'otologic', 'nasal', 'oral', 'buccal', 'lingual', 'pharyngeal', 'laryngeal',
+    'trigeminal', 'spinal', 'peripheral', 'visceral', 'biliary', 'renal', 'hepatic'
+]
+
+# NEW CODE COMMENT: Symptoms that must only be detected if their exact word or synonyms are found
+strict_symptoms = ['itching']
+
+# Words to exclude from mapping to symptoms through fuzzy/embedding
+filtered_words = ['got', 'old']  # We can add more words here if needed
 
 # Precompute embeddings
 symptom_embeddings = model.encode(symptom_list, convert_to_tensor=True)
@@ -553,17 +554,12 @@ def normalize_text(text):
     return ' '.join(tokens)
 
 def extract_intensities_in_clause(text):
-    """
-    From a single clause, find all intensity words and pick the highest.
-    Also handle multi-word intensity words like "really bad".
-    """
     text_lower = text.lower()
     found_intensity = None
     found_value = 0
 
     # Check multi-word intensities first
     for phrase, val in intensity_words.items():
-        # phrase could be multi-word
         if re.search(r'\b' + re.escape(phrase) + r'\b', text_lower):
             if val > found_value:
                 found_value = val
@@ -590,24 +586,28 @@ def map_synonym(user_input):
 def try_all_methods(normalized_input):
     # Attempt fuzzy matching
     fuzzy_result = process.extractOne(normalized_input, symptom_list, scorer=fuzz.partial_ratio)
+    candidate_symptom = None
     if fuzzy_result and fuzzy_result[1] > 80:
-        return fuzzy_result[0]
+        candidate_symptom = fuzzy_result[0]
+    else:
+        # Attempt SBERT embeddings only if fuzzy not successful
+        user_embedding = model.encode(normalized_input, convert_to_tensor=True)
+        cos_scores = util.cos_sim(user_embedding, symptom_embeddings)
+        max_score = torch.max(cos_scores).item()
+        if max_score > 0.7:
+            best_match_idx = torch.argmax(cos_scores)
+            candidate_symptom = symptom_list[best_match_idx]
 
-    # Attempt SBERT embeddings
-    user_embedding = model.encode(normalized_input, convert_to_tensor=True)
-    cos_scores = util.cos_sim(user_embedding, symptom_embeddings)
-    max_score = torch.max(cos_scores).item()
-    if max_score > 0.7:
-        best_match_idx = torch.argmax(cos_scores)
-        return symptom_list[best_match_idx]
+    # If candidate_symptom is due to a filtered word, discard it
+    if candidate_symptom:
+        for fw in filtered_words:
+            if re.search(r'\b' + re.escape(fw) + r'\b', normalized_input):
+                if fuzz.ratio(fw, candidate_symptom) > 70:
+                    return None
 
-    return None
+    return candidate_symptom
 
 def remove_redundant_symptoms(symptoms):
-    """
-    Remove any symptom that is a substring of a longer symptom.
-    """
-    # Sort symptoms by length in descending order
     sorted_symptoms = sorted(symptoms, key=len, reverse=True)
     filtered = []
     for sym in sorted_symptoms:
@@ -615,56 +615,54 @@ def remove_redundant_symptoms(symptoms):
             filtered.append(sym)
     return filtered
 
+# NEW CODE COMMENT: General function to decide if a symptom should be added based on strict rules
+def should_add_symptom(symptom, clause):
+    # If symptom is in strict_symptoms, verify synonyms appear directly
+    if symptom in strict_symptoms:
+        if map_synonym(clause) == symptom:
+            return True
+        else:
+            return False
+    else:
+        # If not a strict symptom, no special check needed
+        return True
+
 def detect_symptoms_in_clause(clause):
-    """
-    For a given clause:
-    1. Check synonyms directly
-    2. Check body part + symptom keyword combination
-    3. Fallback to fuzzy or SBERT
-    4. Remove any general symptom keywords that are part of a more specific symptom
-    Returns a list of matched symptoms.
-    """
     results = []
     normalized_input = normalize_text(clause)
 
     # Synonym match
     synonym_match = map_synonym(clause)
     if synonym_match:
-        results.append(synonym_match)
+        # Check if allowed to add (in case synonym_match is strict)
+        if should_add_symptom(synonym_match, clause):
+            results.append(synonym_match)
 
     # Body part + keyword
     kw_found = extract_symptom_keywords_clause(normalized_input)
     bp_found = extract_body_parts_clause(normalized_input)
     if kw_found and bp_found:
-        # For each body part and each keyword found, attempt a combo
         for bp in bp_found:
             for kw in kw_found:
                 combined_symptom = f"{bp} {kw}"
                 if combined_symptom in symptom_list:
-                    results.append(combined_symptom)
+                    if should_add_symptom(combined_symptom, clause):
+                        results.append(combined_symptom)
                 else:
-                    # Try fuzzy / SBERT on combined
                     combined_res = try_all_methods(normalize_text(combined_symptom))
-                    if combined_res:
+                    if combined_res and should_add_symptom(combined_res, clause):
                         results.append(combined_res)
 
     # Fallback to general symptom detection
     if not results:
         final_res = try_all_methods(normalized_input)
-        if final_res:
+        if final_res and should_add_symptom(final_res, clause):
             results.append(final_res)
-    return list(set(results))
-    # Remove redundant symptoms that are substrings of longer symptoms
+
     filtered_results = remove_redundant_symptoms(results)
-    return list(set(filtered_results))  # unique symptoms
+    return list(set(filtered_results))
 
 def detect_symptoms_and_intensity(user_input):
-    """
-    Steps:
-    1. Split input into clauses.
-    2. For each clause, detect intensity and symptoms.
-    3. Map the highest intensity in that clause to all symptoms found in that clause.
-    """
     clauses = re.split(r'[.,;]|\band\b', user_input, flags=re.IGNORECASE)
     clauses = [c.strip() for c in clauses if c.strip()]
 
@@ -674,7 +672,6 @@ def detect_symptoms_and_intensity(user_input):
         intensity_word, intensity_value = extract_intensities_in_clause(clause)
         symptoms = detect_symptoms_in_clause(clause)
 
-        # Assign the intensity to each symptom found in this clause
         for sym in symptoms:
             if intensity_word:
                 final_results.append((sym, intensity_word, intensity_value))
