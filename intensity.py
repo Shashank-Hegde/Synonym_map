@@ -141,7 +141,7 @@ symptom_synonyms = {
     ],
 
     'shortness of breath': [
-        'Shortness of breath', 'breathlessness', 'difficulty breathing', 'feeling air hunger', 'fast breathing', 'shallow breathing', 'gasping for air',
+        'Shortness of breath', 'breathlessness', 'difficulty breathing', 'difficulty in breathing', 'feeling air hunger', 'fast breathing', 'shallow breathing', 'gasping for air',
         'labored breathing', 'struggling to breathe', 'tightness in chest while inhaling', 'feeling suffocated', 'can’t catch my breath', 'panting heavily', 'air feeling thin',
         'lungs working overtime', 'chest feels restricted', 'fighting for each breath', 'wheezing for air', 'strained respiration', 'feeling smothered', 'desperate for oxygen',
         'winded easily', 'constant puffing', 'breathing feels blocked', 'inhaling with effort', 'forced breathing', 'constant need to gulp air', 'sensation of drowning in open air',
