@@ -514,8 +514,8 @@ stop_words = set(stopwords.words('english'))
 # Symptom keywords, body parts, intensities
 # -------------------------
 symptom_keywords = [
-    'pain', 'discomfort', 'ache', 'sore', 'burning', 'itching', 'tingling', 
-    'numbness', 'trouble'
+    'pain', 'discomfort', 'ache', 'sore', 'burning', 'tingling', 
+    'numbness', 'trouble', 'lumps'
 ]
 
 intensity_words = {
