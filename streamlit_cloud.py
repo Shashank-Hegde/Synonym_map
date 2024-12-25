@@ -2389,7 +2389,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "hi": "क्या सूजन के कारण त्वचा में लालिमा या गर्मी महसूस हो रही है?",
       "en": "Is there any redness or warmth in the skin due to inflammation?",
       "category": "skin_changes_with_inflammation",
-      "symptom: None,
+      "symptom": None,
     },
     {
       "hi": "क्या सूजन किसी विशेष समय पर अधिक होती है?",
