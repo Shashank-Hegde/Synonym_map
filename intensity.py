@@ -76,7 +76,7 @@ symptom_synonyms = {
         'respiratory allergy', 'allergic reactions in skin', 'excessive histamine release', 'redness from allergy', 'swollen throat from allergies', 'asthma attack triggered by allergens', 'increased mucus production',
         'throat irritation due to allergens', 'difficulty breathing from allergies', 'sneezing fits due to pollen', 'allergic asthma', 'seasonal allergic reactions', 'itchy nose', 'nasal discharge from allergies',
         'blocked sinuses', 'itchy throat from allergies', 'dry throat from allergies', 'allergy flare-up', 'anaphylactic reaction', 'anaphylaxis', 'allergic dermatitis', 'rashes from allergens', 'swelling of lips',
-        'swollen tongue', 'red eyes from allergies', 'tearing eyes from allergies', 'itchy and watery eyes', 'difficulty in breathing due to allergens'
+        'swollen tongue', 'tearing eyes from allergies', 'itchy and watery eyes', 'difficulty in breathing due to allergens'
     ],
     'fever': [
         'high temperature', 'elevated body temperature', 'feeling feverish', 'fevering', 'running a fever', 'burning up', 'feeling internally hot', 'having a temperature', 'spiking a fever', 'febrile state',
@@ -595,7 +595,7 @@ def extract_body_parts_clause(text):
 # -------------------------
 # SBERT-based Synonym Matching
 # -------------------------
-SYMPTOM_SYNONYM_THRESHOLD = 1.00
+SYMPTOM_SYNONYM_THRESHOLD = 0.85
 
 def map_synonym_with_sbert(user_input):
     """
