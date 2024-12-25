@@ -482,6 +482,7 @@ symptom_synonyms = {
     'hearing loss': ['damaging hearing', 'loss in hearing'],
     'skin burning' : ['burning', 'burn'],
     'itching': ['skin itching','itch','itches'],
+    'yellow eyes' : ['eyes are yellow'],
    }
 
 # -------------------------
@@ -594,7 +595,7 @@ def extract_body_parts_clause(text):
 # -------------------------
 # SBERT-based Synonym Matching
 # -------------------------
-SYMPTOM_SYNONYM_THRESHOLD = 0.90
+SYMPTOM_SYNONYM_THRESHOLD = 0.85
 
 def map_synonym_with_sbert(user_input):
     """
