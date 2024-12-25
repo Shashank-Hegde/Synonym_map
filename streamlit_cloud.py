@@ -96,41 +96,17 @@ ensure_nltk_resources(['stopwords', 'wordnet'])
 model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
 # Extensive symptom list from the second snippet
-symptom_list = [
-    'fever', 'cold', 'runny nose', 'sneezing', 'rash', 'dizziness', 'weakness', 'loss of appetite',
-    'cough', 'muscle pain', 'joint pain', 'chest pain', 'back pain', 'constipation', 'throat pain', 'diarrhea',
-    'flu', 'breathlessness', 'stomach pain', 'migraine','sore', 'burning', 'itching', 'swelling','acidity','muscle strain','wrist pain', 'vomiting', 'hip pain',
-    'infection', 'inflammation', 'cramps', 'ulcers', 'bleeding', 'irritation', 'anxiety', 'depression','muscle injury', 'nausea','swollen lymph nodes',
-    'insomnia', 'cancer', 'diabetes', 'hypertension', 'allergies', 'weight loss', 'weight gain', 'hair loss',
-    'blurred vision', 'ear pain', 'palpitations', 'urinary frequency', 'numbness', 'tingling','increased appetite',
-    'dry mouth', 'excessive thirst', 'frequent urination', 'acne', 'bruising', 'confusion', 'memory loss',
-    'hoarseness', 'wheezing', 'itchy eye', 'dry eyes', 'difficulty swallowing', 'restlessness', 'yellow skin',
-    'yellow eyes', 'bloating', 'gas', 'hiccups', 'indigestion', 'heartburn', 'mouth sore', 'nosebleed', 'sore throat',
-    'ear ringing', 'decreased appetite', 'dark urine', 'light colored stool', 'blood in urine','skin itching',
-    'blood in stool', 'delayed healing', 'high temperature', 'low blood pressure', 'thirst','allergy',
-    'dehydration', 'skin burn', 'sweating', 'feeling cold', 'feeling hot', 'head pressure', 'double vision',
-    'eye pain', 'red eyes', 'eye discharge', 'hearing loss', 'balance problem', 'taste changes', 'smell change','feeling full',
-    'rapid breathing', 'irregular heartbeat', 'chest tightness', 'lightheadedness', 'fainting', 'unsteady gait',
-    'clumsiness', 'loss of coordination', 'seizures', 'tremor', 'shakiness', 'nervousness', 'panic attack','convulsion', 'nose pain',
-    'mood swing', 'agitation', 'difficulty concentrating', 'foggy mind', 'hallucination', 'paranoia','delusion', 'shortness of breath',
-    'euphoria', 'apathy', 'lack of motivation', 'social withdrawal', 'exhaustion', 'muscle weakness', 'muscle cramps','anhedonia',
-    'muscle stiffness', 'joint stiffness', 'bone pain', 'bone fracture', 'sprain', 'strain', 'tendonitis', 'bursitis', 'skin lump','skin lesion',
-    'arthritis', 'gout', 'fibromyalgia', 'sciatica', 'herniated disc', 'spinal stenosis', 'spasm', 'neck pain','skin pain',
-    'whiplash', 'carpal tunnel syndrome', 'sinus pressure', 'headache', 'eczema', 'psoriasis', 'hive', 'impetigo', 'ulcer',
-    'herpes', 'shingle', 'wart', 'mole', 'skin lesions', 'skin bump', 'skin discoloration', 'skin dryness',
-    'skin cracking', 'skin burning', 'skin tenderness', 'skin redness', 'skin swelling', 'skin blisters', 'hair thinning', 'injury',
-    'hair texture changes', 'hair growth abnormalities',
-    'nail splitting','fatigue',
-    'nail melanonychia', 'nail leukonychia','dermatitis',
-    'nail onychomycosis', 'nail paronychia',
-    'nail ridges', 'joint instability','cellulitis',
-    'muscle atrophy', 'joint dislocation', 'joint deformity', 'bone deformity', 'bone tenderness', 'bone swelling', 'bone redness',
-    'joint locking', 'joint clicking', 'joint popping', 'muscle atrophy due to disuse', 'skin dryness due to weather', 'high blood pressure',
-    'eye dryness', 'eye irritation', 'eye redness', 'eye swelling', 'eye tearing', 'eye strain', 'eye sensitivity to light', 'eye watering',
-    'ear dryness', 'ear fullness', 'congestion', 'ear fluid', 'ear wax buildup', 'ear infection', 'tinnitus', 'balance disorder','chills',
-    'taste distortion', 'taste change', 'smell distortion', 'ear ache',
-    'reduced smell', 'increased smell', 'loss of smell', 'rapid breaths', 'heavy breathing', 'shallow breathing', 'uneven heart rate','smell change',
-    'heart skipping beats','leg pain', 'eye pain', 'hand pain', 'arm pain', 'foot pain', 'knee pain', 'shoulder pain', 'neck pain'
+symptom_list = [ 
+'fever', 'cold', 'runny nose', 'sneezing', 'rash', 'back spasm', 'dizziness', 'weakness', 'loss of appetite', 'cough', 'muscle pain', 'joint pain',
+'chest pain', 'back pain', 'constipation', 'throat pain', 'diarrhea', 'flu', 'shortness of breath', 'rapid breathing', 'stomach pain', 'migraine',
+'skin burning', 'itching', 'swelling', 'vomiting', 'infection', 'inflammation', 'cramp', 'bleeding', 'irritation', 'anxiety', 'depression','congestion',
+'nausea', 'swollen lymph nodes', 'insomnia', 'cancer', 'diabetes', 'allergy', 'weight loss', 'weight gain', 'hair loss', 'blurred vision', 'ear pain',
+'numbness', 'dry mouth', 'frequent urination', 'acne', 'confusion', 'memory loss', 'difficulty swallowing', 'restlessness', 'yellow eyes', 'bloating', 
+'gas', 'indigestion', 'heartburn', 'mouth sore', 'nosebleed', 'ear ringing', 'dark urine', 'blood in urine', 'blood in stool', 'high blood pressure', 
+'low blood pressure', 'excessive thirst', 'dehydration', 'skin burning', 'sweat', 'eye pain', 'red eyes', 'eye discharge', 'ear discharge', 'jaundice',
+'hearing loss', 'balance problem', 'irregular heartbeat', 'fainting', 'tremor', 'nervousness', 'panic attack', 'mood swing', 'difficulty concentrating',
+'hallucination', 'lack of motivation', 'exhaustion', 'bone pain', 'wrist pain', 'sprain', 'strain', 'arthritis', 'gout', 'headache', 'injury', 'chills', 'leg pain', 'hand pain',
+'arm pain', 'foot pain', 'knee pain', 'shoulder pain', 'hip pain', 'jaw pain', 'tooth pain'   
 ]
 
 # Create a synonym mapping
@@ -161,21 +137,21 @@ symptom_synonyms = {
         'migraine meltdown', 'severe sensitivity headache', 'hammering half-head ache', 'aura shimmer leading to pain', 'throbbing unilateral agony', 'needle-like head stab', 'crushing half-skull sensation',
         'crippling light-triggered pain', 'migraine climate inside head', 'tidal wave of head torment', 'migraine crescendo', 'migraine-flare crisis', 'incapacitating halo of pain', 'ear-to-temple throbbing on one side'
     ],
-    'allergies': [
-        'allergy', 'allergic reaction', 'allergic response', 'hay fever', 'allergic rhinitis', 'pollen sensitivity', 'dust mite allergy', 'food allergy', 'skin allergy', 'seasonal allergies',
+    'allergy': [
+        'allergies', 'allergic reaction', 'allergic response', 'hay fever', 'allergic rhinitis', 'pollen sensitivity', 'dust mite allergy', 'food allergy', 'skin allergy', 'seasonal allergies',
         'environmental allergies', 'allergic condition', 'allergic response to pollen', 'sensitive to allergens', 'sneezing due to allergies', 'wheezing from allergic reaction',
         'swollen nasal passages', 'runny nose from allergies', 'sinus congestion from allergies', 'allergic rashes', 'eczema flare-up', 'hives', 'itchy skin from allergens', 'swollen face from allergies',
         'respiratory allergy', 'allergic reactions in skin', 'excessive histamine release', 'redness from allergy', 'swollen throat from allergies', 'asthma attack triggered by allergens', 'increased mucus production',
         'throat irritation due to allergens', 'difficulty breathing from allergies', 'sneezing fits due to pollen', 'allergic asthma', 'seasonal allergic reactions', 'itchy nose', 'nasal discharge from allergies',
         'blocked sinuses', 'itchy throat from allergies', 'dry throat from allergies', 'allergy flare-up', 'anaphylactic reaction', 'anaphylaxis', 'allergic dermatitis', 'rashes from allergens', 'swelling of lips',
-        'swollen tongue', 'red eyes from allergies', 'tearing eyes from allergies', 'itchy and watery eyes', 'difficulty in breathing due to allergens'
+        'swollen tongue', 'red eyes from allergies', 'tearing eyes from allergies', 'itchy and watery eyes'
     ],
     'fever': [
         'high temperature', 'elevated body temperature', 'feeling feverish', 'fevering', 'running a fever', 'burning up', 'feeling internally hot', 'having a temperature', 'spiking a fever', 'febrile state',
         'raised core temperature', 'overheated body', 'intense body heat', 'thermal imbalance', 'body overheating', 'raging fever', 'heated condition', 'abnormally warm body', 'pyrexia', 'uncontrolled internal heat',
         'feeling aflame', 'body heat surging', 'hot to the touch', 'internal ignition of warmth', 'body temperature surging', 'excessive warmth inside', 'bodily heat overload', 'intense flush', 'thermometer reading high',
         'scorching internal climate', 'burning sensation from within', 'sweltering body feel', 'thermal elevation', 'heated bloodstream', 'furnace-like feeling', 'feeling like an oven', 'heat radiating under skin',
-        'internal fire', 'ignited from the inside', 'excessive internal warmth', 'body boiling over', 'incendiary sensation', 'intense internal glow', 'unrelenting heat', 'blazing warmth',
+        'internal fire', 'ignited from the inside', 'excessive internal warmth', 'body boiling over', 'incendiary sensation', 'intense internal glow', 'unrelenting heat', 'blazing warmth','feeling hot',
         'molten interior heat', 'near boiling point', 'incapacitating heat', 'relentless feverishness', 'sizzling body temp', 'flaming sensation', 'constant burning feeling', 'heat wave inside me', 'sweating due to internal heat',
         'red-hot core', 'smoldering embers of warmth', 'furnace-like core', 'pulsating heat', 'unremitting temperature rise', 'searing body condition', 'fire coursing through veins', 'endlessly hot', 'elevated reading on the thermometer',
         'no relief from heat', 'intense internal burning', 'volcanic warmth', 'torched from inside', 'superheated body', 'radical temperature spike', 'roasting sensation', 'tropical internal climate', 'heat-induced misery',
@@ -185,31 +161,37 @@ symptom_synonyms = {
         'Persistent cough', 'hacking cough', 'dry cough', 'wet cough', 'productive cough (with phlegm)', 'barking cough', 'non-productive cough', 'chronic cough',
         'coughing up mucus/sputum/blood', 'irritating cough', 'scratchy cough', 'whooping cough-like sound', 'continuous throat clearing', 'raspy hacking', 'chesty cough',
         'rattling cough', 'deep-chested cough', 'shallow annoying cough', 'tickling cough', 'lingering throat hack', 'spasm-like coughs', 'throaty expulsions',
-        'worrisome coughing fits', 'repetitive cough bursts', 'phlegmy hacking', 'bronchial coughing', 'stubborn cough', 'dry, tickling cough', 'persistent throat tickle',
+        'worrisome coughing fits', 'repetitive cough bursts', 'phlegmy hacking', 'bronchial coughing', 'stubborn cough', 'dry tickling cough', 'persistent throat tickle',
         'strangling cough', 'wheezing cough', 'loud barking cough', 'cracking cough', 'sputum-laden cough', 'cough with gagging', 'spasmodic cough', 'stubborn dry cough',
         'overwhelming coughing sensation', 'sharp, dry cough', 'cough with sharp throat pain', 'violent coughing fits', 'painful coughing episodes', 'coughing after exertion',
         'chronic phlegm cough', 'intense wheezing cough', 'grating cough', 'wet chesty cough', 'gurgling cough'
     ],
     'sore throat': [
-        'throat pain', 'scratchy throat', 'painful throat', 'burning throat', 'irritated throat', 'swollen throat', 'inflamed throat', 'throat discomfort', 'throat scratchiness',
+        'scratchy throat', 'painful throat', 'burning throat', 'irritated throat', 'swollen throat', 'inflamed throat', 'throat discomfort', 'throat scratchiness',
         'raw throat', 'tight throat', 'feeling of something stuck in throat', 'hoarse throat', 'swollen tonsils', 'throat inflammation', 'red throat', 'sore and swollen throat',
         'gritty throat', 'tender throat', 'raspy throat', 'dry throat', 'throat burning sensation', 'feeling of throat swelling', 'pain on swallowing', 'raw feeling in throat',
-        'difficulty swallowing', 'sore feeling when talking', 'throat soreness', 'painful swallowing', 'constant throat irritation', 'throat muscle soreness', 'tight feeling in throat',
+        'sore feeling when talking', 'throat soreness', 'painful swallowing', 'constant throat irritation', 'throat muscle soreness', 'tight feeling in throat',
         'throat dryness', 'itchy throat', 'burning sensation in throat', 'scratching feeling in throat', 'tenderness in throat', 'chronic throat discomfort', 'raspiness in voice',
         'feeling like throat is closing', 'constant need to clear throat', 'sore throat with hoarseness', 'dry cough with sore throat', 'sharp throat pain'
     ],
-    'stomach ache': [
-        'stomach pain', 'abdominal pain', 'belly ache', 'intestinal discomfort', 'cramps', 'stomach cramps', 'gastric discomfort', 'bloated feeling', 'nauseous stomach pain',
+    'stomach pain': [
+        'stomach pain', 'stomach ache', 'abdominal pain', 'belly ache', 'intestinal discomfort', 'stomach cramps', 'nauseous stomach pain',
         'sharp stomach pain', 'stomach tenderness', 'sharp abdominal cramps', 'stomach upset', 'abdominal tenderness', 'intestinal bloating', 'tummy pain', 'swollen belly',
-        'feeling of fullness', 'feeling heavy in stomach', 'digestive pain', 'stomach spasms', 'soreness in abdomen', 'gas in stomach', 'bloating', 'nausea and stomach ache',
-        'gastric pain', 'pain after eating', 'belly discomfort', 'gurgling stomach', 'stomach churning', 'sharp abdominal pain', 'dull abdominal pain', 'stomach bloating',
-        'abdominal tightness', 'cramping feeling', 'aching belly', 'painful digestion', 'nausea and bloating', 'gassy feeling', 'pain under ribs', 'discomfort after meals',
-        'uncomfortable stomach', 'intestinal cramps', 'sharp pain in lower abdomen', 'feeling of indigestion', 'pain around stomach area'
+        'feeling of fullness', 'feeling heavy in stomach', 'digestive pain', 'stomach spasms', 'soreness in abdomen', 'nausea and stomach ache',
+        'gastric pain', 'pain after eating', 'belly discomfort', 'gurgling stomach', 'stomach churning', 'sharp abdominal pain', 'dull abdominal pain',
+        'abdominal tightness', 'aching belly', 'painful digestion', 'pain under ribs', 'discomfort after meals',
+        'uncomfortable stomach', 'intestinal cramps', 'sharp pain in lower abdomen', 'feeling of indigestion', 'pain around stomach area', 'belly pain', 'pain in the abdomen', 'stomach discomfort',
+        'sharp stomach pain', 'dull abdominal pain', 'cramping in the abdomen', 'bloating with pain',
+        'gas pain in the abdomen', 'stabbing pain in the belly', 'abdominal cramps', 'sharp pain in the stomach area', 'pain from indigestion', 'pain after eating', 'nauseating abdominal pain',
+        'pain from gas buildup', 'pressure in the stomach', 'pain from constipation', 'distended abdomen', 'pain from ulcers', 'pain from bloating', 'pain from food intolerance',
+        'sore stomach', 'pain from intestinal issues', 'gastrointestinal pain', 'tenderness in the stomach', 'pain near the navel', 'pain from diarrhea', 'stomach flu pain', 'pain in the lower abdomen',
+        'feeling of fullness with pain', 'pain in the upper abdomen', 'stomach cramping', 'sharp abdominal cramps', 'nausea with stomach pain', 'abdominal swelling with pain', 'abdominal pain',
+        'chronic stomach pain', 'pain with digestive issues', 'pain from food poisoning', 'pain from gallbladder issues', 'pain from acid reflux'
     ],
-    'fatigue': [
+    'weakness': [
         'tiredness', 'extreme tiredness', 'exhaustion', 'weariness', 'fatigued feeling', 'lack of energy', 'physical depletion', 'mental fatigue', 'chronic tiredness',
-        'drained', 'feeling wiped out', 'feeling run down', 'low energy', 'total exhaustion', 'severe fatigue', 'feeling sluggish', 'morning fatigue', 'fatigue after exertion',
-        'weakness', 'debilitating tiredness', 'drowsiness', 'chronic fatigue syndrome', 'feeling lethargic', 'mental sluggishness', 'physical tiredness', 'difficulty keeping eyes open',
+        'drained', 'feeling wiped out', 'feeling run down', 'fatigue','low energy', 'total exhaustion', 'severe fatigue', 'feeling sluggish', 'morning fatigue', 'fatigue after exertion',
+        'debilitating tiredness', 'drowsiness', 'chronic fatigue syndrome', 'feeling lethargic', 'mental sluggishness', 'physical tiredness', 'difficulty keeping eyes open',
         'lack of vitality', 'energy depletion', 'feeling drained', 'listlessness', 'burned out', 'exhausted state', 'feeling zoned out', 'tired all the time', 'fatigued state',
         'mental exhaustion', 'constant tiredness', 'feeling sleepy', 'no motivation', 'fatigued muscles', 'endless tiredness', 'exhaustion after minimal effort', 'lethargic movements',
         'lacking strength', 'body fatigue', 'complete exhaustion', 'feeling disconnected'
@@ -231,10 +213,11 @@ symptom_synonyms = {
         'wavy-field-of-view sensation', 'lurching environment', 'faltering steadiness', 'delicately balanced but slipping', 'rubbery legs feeling', 'giddy swirl in head',
         'tilting world', 'swaying sensation', 'imbalance feeling', 'shaky equilibrium', 'floating dizziness', 'spinning sensation', 'feeling off-kilter'
     ],
+
     'shortness of breath': [
-        'Shortness of breath', 'breathlessness', 'difficulty breathing', 'feeling air hunger', 'rapid breathing', 'fast breathing', 'shallow breathing', 'gasping for air',
-        'labored breathing', 'struggling to breathe', 'tightness in chest while inhaling', 'feeling suffocated', 'can’t catch my breath', 'panting heavily', 'air feeling thin',
-        'lungs working overtime', 'chest feels restricted', 'fighting for each breath', 'wheezing for air', 'strained respiration', 'feeling smothered', 'desperate for oxygen',
+        'Shortness of breath', 'breathlessness', 'difficulty breathing', 'feeling air hunger', 'fast breathing', 'shallow breathing', 'gasping for air',
+        'labored breathing', 'struggling to breathe', 'tightness in chest while inhaling', 'feeling suffocated', 'cannot catch my breath', 'panting heavily', 'air feeling thin',
+        'lungs working overtime', 'chest feels restricted', 'fighting for each breath', 'difficulty in breathing', 'strained respiration', 'feeling smothered', 'desperate for oxygen',
         'winded easily', 'constant puffing', 'breathing feels blocked', 'inhaling with effort', 'forced breathing', 'constant need to gulp air', 'sensation of drowning in open air',
         'chest heaviness on breathing', 'incomplete lung expansion', 'inadequate airflow', 'lungs not filling properly', 'needing to breathe harder', 'stuck in half-breath',
         'breath cut short', 'huffing and puffing', 'shallow panting', 'frantic search for air', 'hyperventilating feeling', 'feeling as if air is too thick', 'minimal air exchange',
@@ -242,6 +225,9 @@ symptom_synonyms = {
         'breathing feels like pushing through a straw', 'air-starved lungs', 'cannot take a deep breath', 'strained oxygen intake', 'feeling like each breath is a struggle',
         'never fully satisfied inhalation', 'gasping between words', 'needy breathing pattern', 'barely pulling in enough air', 'lungs working at half capacity', 'respiratory distress',
         'continuous short-windedness', 'feeling I can’t fully inflate lungs'
+    ],
+   'rapid breathing': [
+         'heavy breathing', 'shallow breathing', 'heart skipping beats'
     ],
     'chest pain': [
         'chest discomfort', 'sharp chest pain', 'tightness in chest', 'aching chest', 'burning chest', 'soreness in chest', 'chest pressure', 'tight chest', 'chest heaviness',
@@ -279,8 +265,8 @@ symptom_synonyms = {
     ],
     'congestion': [
         'nasal congestion', 'blocked nose', 'stuffy nose', 'clogged nasal passages', 'nasal obstruction', 'sinus congestion', 'sinus blockage', 'stuffy sinuses', 'pressure in sinuses',
-        'nasal blockage', 'difficulty breathing through nose', 'swollen nasal passages', 'congested sinuses', 'nose congestion', 'nasal stuffiness', 'head congestion',
-        'swelling of nasal tissues', 'difficulty breathing through nostrils', 'sinus pressure', 'stuffy feeling in head', 'congestion in sinus cavities', 'nasal stuffy feeling',
+        'nasal blockage', 'swollen nasal passages', 'congested sinuses', 'nose congestion', 'nasal stuffiness', 'head congestion',
+        'swelling of nasal tissues', 'sinus pressure', 'stuffy feeling in head', 'congestion in sinus cavities', 'nasal stuffy feeling',
         'inflamed nasal passages', 'feeling of a blocked nose', 'swollen nostrils', 'nasal airway blockage', 'heavy feeling in head from congestion', 'sinus drainage blockage',
         'clogged airways', 'full nose', 'stuffy head', 'excess mucus in nose', 'thick mucus in nostrils', 'nasal obstruction from mucus', 'inability to breathe through nose',
         'nasal phlegm buildup', 'blocked airways', 'increased mucus production', 'congested nasal lining', 'swelling in nasal cavity', 'unpleasant nose feeling from congestion',
@@ -317,7 +303,8 @@ symptom_synonyms = {
         'popping joints', 'clicking joints', 'cracking joints', 'sore knees', 'joint inflammation in fingers', 'inflamed joints', 'stiffened knee joints', 'swollen ankles', 'excessive joint pain',
         'joint tenderness', 'joint soreness from strain', 'arthralgia', 'aching knees', 'hip pain', 'painful wrists', 'sharp joint pain', 'stabbing joint pain', 'chronic joint ache', 'inflamed elbow joints',
         'chronic knee pain', 'joint damage', 'strained joint', 'degenerative joint disease', 'discomfort in joints', 'dull joint ache', 'acute joint pain', 'swollen hands', 'weakening joint flexibility',
-        'muscle and joint discomfort', 'continuous joint pain', 'painful back joints', 'arthritic inflammation'
+        'muscle and joint discomfort', 'continuous joint pain', 'painful back joints', 'arthritic inflammation', 'joint locking', 'joint clicking', 'joint popping', 'joint dislocation'
+
     ],
    'diarrhea': [
         'loose stools', 'frequent bowel movements', 'watery stools', 'runny stools', 'loose bowels', 'urgent need to defecate', 'watery bowel movements', 'explosive diarrhea',
@@ -336,18 +323,9 @@ symptom_synonyms = {
         'nauseated vomiting', 'vomit-induced gagging', 'stomach-purging sensation', 'retching uncontrollably', 'throwing up after eating', 'puking episodes', 'sick and throwing up',
         'puking from irritation', 'regurgitating food', 'empty stomach vomiting', 'morning sickness vomiting', 'nausea attacks with vomiting', 'emesis due to motion sickness', 'heaving up'
     ],
-    'wheezing': [
-        'Wheezy breathing', 'whistling sound in chest', 'squeaky breath sounds', 'airway constriction noise', 'raspy inhalation/exhalation', 'high-pitched airway noise', 'strained breathing sounds',
-        'pipe-like whistling in lungs', 'shrill breathing tone', 'whistle-like wheeze', 'tight-sounding inhalation', 'air squeaking through narrow passages', 'wheezy rasp', 'reedy airway noise',
-        'restricted airflow whistling', 'hissing breath', 'airy shrillness', 'squealing lung sounds', 'sinusoidal airway noise', 'faint whistling undertone', 'discordant breathing note',
-        'squeaky bronchial sound', 'flute-like chest murmur', 'feeble airy gasp', 'throttled breathing noise', 'subtle wind-through-a-pipe sound', 'frictional wheeze', 'squealing inhalation',
-        'musical chest sound', 'constricted airway melody', 'tiny whistle at exhale', 'squeaking lung pipes', 'scratchy internal whistle', 'hush-like squeal inside chest', 'low whistling hum',
-        'piping chest note', 'shrilling lung friction', 'wind instrument-like breath', 'wheezy hum inside', 'squeaky balloon-like noise', 'shrill bronchial constriction', 'pinched airway sounds',
-        'skinny-tube breathing noise', 'fragile airway tone', 'forced narrow-bore breath', 'tight-lung whistle', 'faint flute-like exhale', 'windy squeak in lungs', 'diminished airway diameter sound',
-        'toy whistle breathing', 'compressed bronchial passage tune'
-    ],
-    'ear ache': [
-        'ear pain', 'pain in the ear', 'ear discomfort', 'ear irritation', 'painful ear', 'throbbing ear ache', 'sharp ear pain', 'dull ear pain', 'stabbing pain in ear', 'ringing ear pain',
+    
+    'ear pain': [
+        'ear ache', 'pain in the ear', 'ear discomfort', 'ear irritation', 'painful ear', 'throbbing ear ache', 'sharp ear pain', 'dull ear pain', 'stabbing pain in ear', 'ringing ear pain',
         'pressure in ear', 'ear sensitivity', 'intense ear discomfort', 'itchy ear', 'swollen ear', 'ear tenderness', 'ear pulsations', 'persistent ear pain', 'ear infection pain',
         'ear tenderness', 'pain behind ear', 'soreness in ear', 'ear pressure', 'ear inflammation', 'ear ache from cold', 'stuffy ear pain', 'pain in ear canal', 'ear ache when swallowing',
         'painful inner ear', 'hearing sensitivity with pain', 'fluid in ear causing pain', 'acute ear pain', 'chronic ear ache', 'pain after water exposure', 'ear infection causing pain',
@@ -369,10 +347,10 @@ symptom_synonyms = {
         'runny nose cold', 'sneezing with cold', 'mild chest congestion', 'low-grade cold infection', 'itchy throat cold', 'general cold symptoms', 'nasal congestion from cold',
         'watery eyes with cold', 'mild head congestion', 'cold-related fatigue', 'chilly viral infection', 'upper respiratory cold', 'typical cold symptoms', 'stuffy feeling from cold',
         'cough and cold', 'runny nose from cold', 'frequent sneezing cold', 'cold-related chills', 'feeling chilled from cold', 'aching muscles with cold', 'minor fever with cold',
-        'slight cold discomfort', 'cold-induced sore throat'
+        'slight cold discomfort', 'cold-induced sore throat' ,'feeling cold'
     ],
     'sweat': [
-        'sweat', 'sweating', 'excessive sweating', 'unusual sweating', 'profuse sweating', 'drenched in sweat', 'perspiring heavily', 'sweating buckets', 'clammy sweating', 'dripping perspiration',
+        'sweating', 'excessive sweating', 'unusual sweating', 'profuse sweating', 'drenched in sweat', 'perspiring heavily', 'sweating buckets', 'clammy sweating', 'dripping perspiration',
         'bead-like sweat on skin', 'moisture streaming down face', 'uncontrollable sweating', 'soaked in sweat', 'overactive sweat glands', 'sweaty and damp skin', 'sweat-soaked clothes',
         'constant perspiration', 'sticky sweat', 'salty perspiration', 'glistening with sweat', 'sweat trickling down spine', 'nervous sweating', 'stress-induced sweat', 'drenching perspiration',
         'sweat-laden body', 'humid feeling', 'slick skin', 'warm moisture on skin', 'sweat beads forming everywhere', 'bodily moisture overload', 'persistent dampness', 'sweaty palms and forehead',
@@ -380,13 +358,13 @@ symptom_synonyms = {
         'sweat running down temples', 'sweat-induced chafing', 'slick and slippery feeling', 'sweating like in a steam room', 'permanent dampness', 'sweat stains on clothing'
     ],
     'swelling': [
-        'swollen area', 'inflammation', 'edema', 'swelling of body part', 'fluid retention', 'swollen body part', 'inflamed tissue', 'swollen limbs', 'puffiness', 'bloated feeling',
-        'swollen joints', 'swollen ankle', 'swollen hands', 'swollen feet', 'localized swelling', 'bloating', 'swollen skin', 'swelling in legs', 'swelling due to injury', 'swollen belly',
+        'swollen area', 'edema', 'swelling of body part', 'fluid retention', 'swollen body part', 'inflamed tissue', 'swollen limbs', 'puffiness',
+        'swollen joints', 'swollen ankle', 'swollen hands', 'swollen feet', 'localized swelling', 'swollen skin', 'swelling in legs', 'swelling due to injury', 'swollen belly',
         'swollen face', 'swollen knees', 'edematous swelling', 'painful swelling', 'swollen extremities', 'swelling from infection', 'swelling from trauma', 'swelling after surgery',
         'swelling of the face', 'swelling under the skin', 'swollen throat', 'swelling with discomfort', 'puffy hands', 'swelling after a fall', 'generalized swelling', 'swelling in eyes',
-        'swelling from arthritis', 'swelling around wounds', 'enlarged tissue area', 'swelling from allergic reaction', 'swelling in body cavity', 'swelling around the joints'
+        'swelling from arthritis', 'swelling around wounds', 'enlarged tissue area', 'swelling from allergic reaction', 'swelling in body cavity', 'swelling around the joints','bruising'
     ],
-    'tremors': [
+    'tremor': [
         'shaking', 'shivering', 'twitching', 'involuntary movements', 'nervous shaking', 'muscle tremors', 'rhythmic shaking', 'trembling hands', 'uncontrolled muscle movement',
         'shaking limbs', 'twitchy fingers', 'uncontrolled tremor', 'flickering motion', 'trembling body', 'shaky movements', 'muscle spasms', 'jerking', 'shivering body', 'shaky hands',
         'shaking from cold', 'nervous tremors', 'trembling sensation', 'shuddering', 'uncontrollable shaking', 'flickering muscles', 'twitching eyes', 'nervous jerks', 'shaky fingers',
@@ -400,14 +378,7 @@ symptom_synonyms = {
         'rattled by chill', 'shudders running down spine', 'uncontrollable cold tremors', 'shaky fingers and toes', 'rattling teeth', 'jittering from cold', 'frigid trembles',
         'cold-induced shaking', 'body frozen in chills', 'deep chills', 'numbing cold'
     ],
-    'dry skin': [
-        'skin dryness', 'rough skin', 'scaly skin', 'flaky skin', 'cracked skin', 'itchy dry skin', 'chapped skin', 'parched skin', 'dry patches', 'tight skin',
-        'dry flaky patches', 'irritated dry skin', 'dehydrated skin', 'unhealthy skin texture', 'dull dry skin', 'dryness around elbows', 'rough patches on skin', 'rough and irritated skin',
-        'dry skin flakes', 'flaky arms and legs', 'dry skin feeling', 'peeling skin', 'scaly patches', 'dryness on face', 'brittle skin', 'skin with visible dryness', 'dry skin redness',
-        'skin looking parched', 'skin dehydration', 'skin feeling tight', 'extremely dry skin', 'skin patches drying out', 'rough hands', 'cracked hands', 'flaky fingers', 'dry lips',
-        'dryness on feet', 'cracked heels', 'flaky scalp', 'dry patches around mouth', 'dry skin sensitivity', 'rough elbows and knees', 'desquamation', 'skin rough to touch', 'dry skin irritation',
-        'dryness causing redness', 'thin and cracked skin'
-    ],
+ 
     'eye pain': [
         'ocular pain', 'eye discomfort', 'pain in the eye', 'eye ache', 'sore eye', 'sharp pain in the eye', 'pain around the eyes', 'painful vision', 'pain behind the eye',
         'irritation in the eye', 'burning sensation in the eye', 'dry eye pain', 'stabbing eye pain', 'eye strain', 'pressure in the eye', 'throbbing in the eye',
@@ -415,7 +386,7 @@ symptom_synonyms = {
         'sharp eye ache', 'vision-related pain', 'severe eye pain', 'sharp stabbing pain in the eye', 'pain in the eyeball', 'tired eye pain', 'swollen eye discomfort', 'throbbing behind the eyes',
         'pain from light sensitivity', 'pain after reading', 'pain when blinking', 'gritty feeling in the eyes', 'intense eye pressure', 'pain around the eyelids', 'blurry vision with pain', 'puffy eyes with pain',
         'pain near the cornea', 'stinging pain in the eye', 'pain with redness in the eye', 'ocular discomfort', 'persistent eye pain', 'painful feeling when moving eyes', 'pressure sensation in the eyes',
-        'pain from eye strain', 'pain with dry eyes'
+        'pain from eye strain', 'pain with dry eyes', 'eye irritation', 'eye swelling', 'eye tearing',
     ],
     'ear pain': [
         'ear ache', 'pain in the ear', 'ear discomfort', 'sharp ear pain', 'throbbing ear ache', 'ear irritation', 'pressure in the ear', 'sharp pain in the ear', 'stabbing ear pain',
@@ -465,14 +436,7 @@ symptom_synonyms = {
         'dull aching chest pain', 'pain in the upper left chest', 'pain when lying down', 'sore chest', 'pain from trauma to chest', 'persistent chest pain', 'discomfort after exercise',
         'pain in the center of the chest', 'pain from chest cold', 'pain in the chest while breathing', 'sore chest area', 'pain in the left side of the chest', 'pain from coughing', 'pain from deep breathing'
     ],
-    'abdominal pain': [
-        'stomach ache', 'belly pain', 'pain in the abdomen', 'stomach discomfort', 'gastric pain', 'sharp stomach pain', 'dull abdominal pain', 'cramping in the abdomen', 'bloating with pain',
-        'gas pain in the abdomen', 'stabbing pain in the belly', 'abdominal cramps', 'sharp pain in the stomach area', 'pain from indigestion', 'pain after eating', 'nauseating abdominal pain',
-        'pain from gas buildup', 'pressure in the stomach', 'pain from constipation', 'burning sensation in the stomach', 'distended abdomen', 'pain from ulcers', 'pain from bloating', 'pain from food intolerance',
-        'sore stomach', 'pain from intestinal issues', 'gastrointestinal pain', 'tenderness in the stomach', 'pain near the navel', 'pain from diarrhea', 'stomach flu pain', 'pain in the lower abdomen',
-        'pain from stress', 'feeling of fullness with pain', 'pain in the upper abdomen', 'stomach cramping', 'sharp abdominal cramps', 'nausea with stomach pain', 'abdominal swelling with pain',
-        'chronic stomach pain', 'pain with digestive issues', 'pain from food poisoning', 'pain from gallbladder issues', 'pain from acid reflux'
-    ],
+   
     'knee pain': [
         'knee discomfort', 'pain in the knee', 'joint pain in the knee', 'knee ache', 'sharp knee pain', 'throbbing knee pain', 'stabbing pain in the knee', 'pain in the knee joint',
         'pain from knee injury', 'pain from knee strain', 'knee swelling', 'pain when bending knee', 'pain while walking', 'pain after exercise', 'pain from knee overuse', 'pain with knee movement',
@@ -569,23 +533,24 @@ symptom_synonyms = {
         'rattled mental library', 'concept slip-through', 'flickering data in mind', 'barren mental shelves', 'no retrieval of recent facts', 'thinking it’s on the tip of my tongue but never surfacing',
         'losing track of recent conversations', 'difficulty holding new info', 'memory short-circuits frequently', 'mental vacancy', 'ephemeral recollections', 'passing mental clouds with no retention',
         'drifting away from details', 'no anchor to past events'
-    ],
+    ],  
    'hallucination': [
         'visual disturbance', 'illusion', 'seeing things', 'auditory hallucinations', 'sensory distortion', 'false perception', 'psychotic episode', 'delusion', 'perceptual misinterpretation', 'false vision',
         'seeing unreal things', 'hearing voices', 'mind tricks', 'imagined sights', 'fictitious perception', 'phantom sensations', 'visual or auditory illusion', 'perceptual disorder', 'seeing illusions',
         'false images', 'confused perceptions', 'distorted reality', 'seeing non-existent objects', 'hallucinatory experience', 'visual hallucinations', 'mental mirages', 'mind-created visions', 'cognitive disorientation',
         'illusionary sights', 'out of body perception', 'distorted vision', 'unreal sensory inputs', 'dream-like experience', 'delirium', 'brain-generated images', 'unseen figures', 'fantasy perception',
-        'mind-induced voices', 'mind-generated images', 'psychosis-related perception', 'perception delusions', 'hallucinated sounds', 'out of touch with reality', 'auditory delusion', 'seeing the impossible',
+        'mind-induced voices', 'mind generated images', 'psychosis-related perception', 'perception delusions', 'hallucinated sounds', 'out of touch with reality', 'auditory delusion', 'seeing the impossible',
         'false sensory perception', 'misinterpreted reality', 'altered state of perception', 'phantasmagoria', 'delusional thoughts', 'imaginative perception', 'delirious hallucinations', 'unfounded sensations',
-        'falsified sensory experience', 'experiencing the non-existent'
+        'falsified sensory experience', 'experiencing the non existent'
     ],
     'vomiting': ['throwing up', 'puking', 'stomach upset'],
-    'ear ache': ['ear pain', 'otalgia', 'ear discomfort', 'pain in the ear', 'ear pressure'],
     'hearing loss' : ['loss of hearing'],
-    'taste change' : ['taste distortion'],
-    'allergies' : ['allergy'],
+    'bone pain': ['bone tenderness', 'bone swelling'],
     'weight gain': ['increase in weight', 'gain in body mass'],
-
+    'hearing loss': ['damaging hearing', 'loss in hearing'],
+    'skin burning' : ['burning', 'burn'],
+    'itching': ['skin itching'],
+    'jaundice' : ['icterus','yellow skin'],
    }
 
 
@@ -1174,12 +1139,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
     },
   ],
   "acidity": [
-    {
-      "hi": "आपको लक्षणों का अनुभव कब पहली बार हुआ?",
-      "en": "When did you first start experiencing symptoms?",
-      "category": "heartburn",
-      "symptom": "acidity",
-    },
+    
     {
       "hi": "आपको हार्टबर्न या अम्लीय पुन: प्रवाह (acid reflux) कितनी बार होता है?",
       "en": "How often do you experience heartburn or acid reflux?",
@@ -1327,12 +1287,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "Constant nausea",
     },
     {
-      "hi": "क्या मतली के साथ कोई अन्य लक्षण हैं?",
-      "en": "Are there any other symptoms along with nausea?",
-      "category": "other_symptoms",
-      "symptom": None,
-    },
-    {
       "hi": "क्या आपको खाने के बाद मतली होती है?",
       "en": "Do you feel nauseous after eating?",
       "category": "postprandial_nausea",
@@ -1342,7 +1296,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "hi": "क्या आपको पेट में दर्द हो रहा है साथ ही मतली?",
       "en": "Are you experiencing abdominal pain along with nausea?",
       "category": "abdominal_pain_nausea",
-      "symptom": "Abdominal pain",
+      "symptom": "abdominal_pain_nausea",
     },
     {
       "hi": "क्या आपको सिरदर्द है साथ ही मतली?",
@@ -1351,37 +1305,15 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "Headache",
     },
     {
-      "hi": "क्या आपके मूत्र में कोई परिवर्तन आया है?",
-      "en": "Have you noticed any changes in your urine?",
-      "category": "urinary_changes",
-      "symptom": None,
-    },
-    {
       "hi": "क्या आपको कोई चक्कर आ रहे हैं साथ ही मतली?",
       "en": "Are you feeling dizzy along with nausea?",
       "category": "dizziness_nausea",
       "symptom": "Dizziness",
     },
-    {
-      "hi": "क्या आपको नींद नहीं आ रही है साथ ही मतली?",
-      "en": "Are you having trouble sleeping along with nausea?",
-      "category": "sleep_disturbance",
-      "symptom": "Sleep disturbance",
-    },
-    {
-      "hi": "क्या आपकी त्वचा पीलिया हो रही है साथ ही मतली?",
-      "en": "Is your skin turning yellow along with nausea?",
-      "category": "jaundice_nausea",
-      "symptom": "Jaundice",
-    },
+    
   ],
   "dizziness": [
-    {
-      "hi": "क्या आप चक्कर आ रहे हैं?",
-      "en": "Are you feeling dizzy?",
-      "category": "dizziness_type",
-      "symptom": None,
-    },
+    
     {
       "hi": "क्या चक्कर आना अचानक शुरू हुआ था या धीरे-धीरे?",
       "en": "Did the dizziness start suddenly or gradually?",
@@ -1405,12 +1337,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Are you having headaches along with dizziness?",
       "category": "headache_dizziness",
       "symptom": "Headache",
-    },
-    {
-      "hi": "क्या आपके आसपास की चीजें घूमती हुई दिख रही हैं?",
-      "en": "Are objects around you spinning?",
-      "category": "visual_dizziness",
-      "symptom": "Visual dizziness",
     },
     {
       "hi": "क्या आपको संतुलन बिगड़ रहा है?",
@@ -1455,12 +1381,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Are your eyes feeling itchy along with yellowing?",
       "category": "itchy_eyes",
       "symptom": "Itchy eyes",
-    },
-    {
-      "hi": "क्या आपके मुँह से पीली लार निकल रही है?",
-      "en": "Is yellow saliva coming from your mouth?",
-      "category": "yellow_saliva",
-      "symptom": "Yellow saliva",
     },
   ],
 
@@ -1514,51 +1434,12 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "Loss of appetite",
     },
     {
-      "hi": "क्या आपको सांस लेने में कठिनाई हो रही है?",
-      "en": "Are you having difficulty breathing?",
-      "category": "breathing_difficulty",
-      "symptom": "Difficulty breathing",
-    },
-    {
       "hi": "क्या आपके शरीर में कोई अन्य दर्द महसूस हो रहा है?",
       "en": "Are you experiencing any other pains in your body?",
       "category": "other_pains",
       "symptom": None,
     },
   ],
-
-  "allergies" : [
-    {
-      "hi": "क्या आपकी एलर्जी लगातार या रुक-रुक कर होती है?",
-      "en": "Is your allergy constant or intermittent?",
-      "category": "allergy",
-      "symptom": None,
-    },
-    {
-      "hi": "क्या आपको ठंड लग रही है?",
-      "en": "Are you experiencing any chills?",
-      "category": "chills",
-      "symptom": "Chills",
-    },
-    {
-      "hi": "क्या आपने कोई दवा ली है?",
-      "en": "Have you taken any medication?",
-      "category": "medications",
-      "symptom": None,
-    },
-    {
-      "hi": "क्या आपको सिरदर्द है?",
-      "en": "Are you experiencing headaches?",
-      "category": "headache",
-      "symptom": "Headache",
-    },
-    {
-      "hi": "क्या आपको उल्टी जैसा महसूस हो रहा है?",
-      "en": "Are you feeling nauseous?",
-      "category": "nausea",
-      "symptom": "Nausea",
-    },
-    ],
 
   "cough": [
     {
@@ -1690,12 +1571,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
   "knee pain": [
     {
-      "hi": "दर्द कब शुरू हुआ, और यह कितनी देर से हो रहा है?",
-      "en": "When did you first start experiencing knee pain?",
-      "category": "knee pain",
-      "symptom": "knee pain",
-    },
-    {
       "hi": "क्या दर्द किसी विशेष घटना या चोट के कारण हुआ था?",
       "en": "Was there any specific injury or event that triggered the pain?",
       "category": "knee pain",
@@ -1738,12 +1613,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "knee pain",
     },
     {
-      "hi": "क्या आपने पहले घुटने की किसी चोट या सर्जरी का अनुभव किया है?",
-      "en": "Have you had any previous knee injuries or surgeries?",
-      "category": "knee pain",
-      "symptom": "knee pain",
-    },
-    {
       "hi": "क्या आपको घुटने में अस्थिरता या ऐसा लगता है जैसे घुटना 'गिर' रहा हो?",
       "en": "Do you feel any instability or like your knee is 'giving way'?",
       "category": "knee pain",
@@ -1751,12 +1620,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
     },
   ],
   "wrist pain": [
-    {
-      "hi": "दर्द कब शुरू हुआ?",
-      "en": "When did the pain start?",
-      "category": "wrist pain",
-      "symptom": "wrist pain",
-    },
+    
     {
       "hi": "क्या आप दर्द का वर्णन कर सकते हैं? (तेज, हल्का, ऐंठन, जलन आदि)",
       "en": "Can you describe the pain? (Sharp, dull, aching, etc.)",
@@ -1805,21 +1669,9 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "wrist pain",
       "symptom": "wrist pain",
     },
-    {
-      "hi": "क्या दर्द के साथ कोई अन्य लक्षण हैं? (जैसे बुखार, जकड़न आदि)",
-      "en": "Are there any other symptoms associated with the pain? (e.g., fever, stiffness)",
-      "category": "wrist pain",
-      "symptom": "wrist pain",
-    },
   ],
 
   "leg pain": [
-    {
-      "hi": "दर्द कब शुरू हुआ, और यह कितनी देर से हो रहा है?",
-      "en": "When did you first start experiencing leg pain?",
-      "category": "leg pain",
-      "symptom": "leg pain",
-    },
     {
       "hi": "क्या दर्द किसी विशेष घटना या चोट के कारण हुआ था?",
       "en": "Was there any specific injury or event that triggered the pain?",
@@ -1907,12 +1759,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "radiating_pain",
       "symptom": None,
     },
-    {
-      "hi": "क्या छाती में दर्द के साथ पसीना आना शुरू हुआ है?",
-      "en": "Have you started sweating along with chest pain?",
-      "category": "sweating_with_pain",
-      "symptom": "sweating",
-    },
   ],
 
   "back pain": [
@@ -1955,12 +1801,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "constipation": [
-    {
-      "hi": "क्या आपको कब्ज की समस्या कितने दिनों से है?",
-      "en": "How many days have you been experiencing constipation?",
-      "category": "duration",
-      "symptom": None,
-    },
     {
       "hi": "क्या कब्ज के साथ पेट में दर्द है?",
       "en": "Are you experiencing abdominal pain along with constipation?",
@@ -2085,12 +1925,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "abdominal pain",
     },
     {
-      "hi": "क्या आपको उल्टी के साथ दस्त भी हो रहे हैं?",
-      "en": "Are you also experiencing diarrhea along with vomiting?",
-      "category": "diarrhea",
-      "symptom": "diarrhea",
-    },
-    {
       "hi": "क्या उल्टी के कारण आपको शरीर से पानी की कमी हो रही है?",
       "en": "Are you losing water from your body due to vomiting?",
       "category": "dehydration",
@@ -2101,12 +1935,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Is there a fever along with vomiting?",
       "category": "fever",
       "symptom": "fever",
-    },
-    {
-      "hi": "क्या आपको उल्टी के साथ कोई अन्य लक्षण महसूस हो रहे हैं?",
-      "en": "Are you experiencing any other symptoms along with vomiting?",
-      "category": "other_symptoms",
-      "symptom": None,
     },
   ],
 
@@ -2136,12 +1964,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "weakness",
     },
     {
-      "hi": "क्या आपको ठंडक के साथ कोई अन्य लक्षण भी महसूस हो रहे हैं?",
-      "en": "Are you experiencing any other symptoms along with chills?",
-      "category": "other_symptoms",
-      "symptom": None,
-    },
-    {
       "hi": "क्या ठंडक की अनुभूति किसी विशेष समय पर अधिक होती है?",
       "en": "Do you feel chills more at any specific time?",
       "category": "time_related_chills",
@@ -2154,12 +1976,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "hi": "क्या आपको सांस लेने में कठिनाई हो रही है?",
       "en": "Are you having difficulty breathing?",
       "category": "breathing_difficulty",
-      "symptom": None,
-    },
-    {
-      "hi": "क्या सांस लेने में कठिनाई स्थिर है या बढ़ती जा रही है?",
-      "en": "Is your difficulty in breathing constant or worsening?",
-      "category": "intermittent_difficulty",
       "symptom": None,
     },
     {
@@ -2178,12 +1994,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "hi": "क्या आपको सांस लेने में दर्द भी हो रहा है?",
       "en": "Are you experiencing pain while breathing?",
       "category": "breathing_pain",
-      "symptom": None,
-    },
-    {
-      "hi": "क्या सांस लेने में कठिनाई के साथ कोई अन्य लक्षण भी हैं?",
-      "en": "Are there any other symptoms along with difficulty breathing?",
-      "category": "other_symptoms",
       "symptom": None,
     },
   ],
@@ -2228,12 +2038,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "infection": [
-    {
-      "hi": "क्या आपको बुखार है?",
-      "en": "Do you have a fever?",
-      "category": "fever",
-      "symptom": "fever",
-    },
     {
       "hi": "क्या संक्रमण के कारण आपको किसी विशेष हिस्से में दर्द हो रहा है?",
       "en": "Are you experiencing pain in any specific area due to the infection?",
@@ -2370,12 +2174,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "itching",
     },
     {
-      "hi": "क्या आपको सांस लेने में कठिनाई हो रही है?",
-      "en": "Are you experiencing difficulty breathing?",
-      "category": "breathing_difficulty",
-      "symptom": "shortness of breath",
-    },
-    {
       "hi": "क्या आपके आंखों में सूजन या जलन है?",
       "en": "Do you have swelling or irritation in your eyes?",
       "category": "eye_allergy_symptoms",
@@ -2395,96 +2193,102 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
     },
   ],
 
-  "high blood pressure": [
-    {
-      "hi": "क्या आपको सिरदर्द होता है खासकर सुबह में?",
-      "en": "Do you experience headaches, especially in the morning?",
-      "category": "morning_headaches",
-      "symptom": "headache",
-    },
-    {
-      "hi": "क्या आपको धड़कन तेज या अनियमित महसूस होती है?",
-      "en": "Do you feel your heartbeat is fast or irregular?",
-      "category": "irregular_heartbeat",
-      "symptom": "irregular heartbeat",
-    },
-    {
-      "hi": "क्या आपको चक्कर आना या चक्कर आना महसूस होता है?",
-      "en": "Do you feel dizzy or lightheaded?",
-      "category": "dizziness",
-      "symptom": "dizziness",
-    },
-    {
-      "hi": "क्या आपको सांस लेने में कठिनाई हो रही है?",
-      "en": "Are you having difficulty breathing?",
-      "category": "breathing_difficulty",
-      "symptom": "shortness of breath",
-    },
-    {
-      "hi": "क्या आपकी आँखों में धुंधलापन है?",
-      "en": "Do you experience blurred vision?",
-      "category": "blurred_vision",
-      "symptom": "blurred vision",
-    },
-    {
-      "hi": "क्या आपको थकान महसूस हो रही है?",
-      "en": "Are you feeling fatigued?",
-      "category": "fatigue",
-      "symptom": "fatigue",
-    },
-    {
-      "hi": "क्या आपको छाती में दर्द महसूस हो रहा है?",
-      "en": "Are you feeling chest pain?",
-      "category": "chest_pain",
-      "symptom": "chest pain",
-    },
-  ],
+ "high blood pressure": [
+  {
+    "hi": "आपने आखिरी बार कब अपना रक्तचाप जांचवाया था, और उसके परिणाम क्या थे?",
+    "en": "When was the last time you had your blood pressure checked, and what were the results?",
+    "category": "high blood pressure",
+    "symptom": "high blood pressure"
+  },
+  {
+    "hi": "क्या आपके परिवार में उच्च रक्तचाप, हृदय रोग, या स्ट्रोक का इतिहास है?",
+    "en": "Do you have a family history of high blood pressure, heart disease, or stroke?",
+    "category": "high blood pressure",
+    "symptom": "high blood pressure"
+  },
+  {
+    "hi": "क्या आप सिरदर्द, चक्कर, छाती में दर्द, या सांस की तकलीफ जैसे लक्षण महसूस कर रहे हैं?",
+    "en": "Are you experiencing any symptoms like headaches, dizziness, chest pain, or shortness of breath?",
+    "category": "high blood pressure",
+    "symptom": "high blood pressure"
+  },
+  {
+    "hi": "क्या आपने अपनी जीवनशैली में कोई बदलाव महसूस किया है, जैसे तनाव में वृद्धि, खराब आहार, या व्यायाम की कमी?",
+    "en": "Have you noticed any changes in your lifestyle, such as increased stress, poor diet, or lack of exercise?",
+    "category": "high blood pressure",
+    "symptom": "high blood pressure"
+  },
+  {
+    "hi": "क्या आप वर्तमान में उच्च रक्तचाप या अन्य स्वास्थ्य समस्याओं के लिए कोई दवाएं ले रहे हैं?",
+    "en": "Are you currently taking any medications for high blood pressure or other health conditions?",
+    "category": "high blood pressure",
+    "symptom": "high blood pressure"
+  },
+  {
+    "hi": "क्या आप शराब, कैफीन, या तंबाकू का सेवन करते हैं, और यदि हां, तो कितनी मात्रा में?",
+    "en": "Do you consume alcohol, caffeine, or tobacco, and if so, how much?",
+    "category": "high blood pressure",
+    "symptom": "high blood pressure"
+  },
+  {
+    "hi": "क्या आपने हाल ही में वजन बढ़ाया है या अपने आहार या शारीरिक गतिविधि स्तर में बदलाव महसूस किया है?",
+    "en": "Have you recently gained weight or experienced changes in your diet or physical activity levels?",
+    "category": "high blood pressure",
+    "symptom": "high blood pressure"
+  },
+  {
+    "hi": "क्या आपको ऐसी कोई अन्य स्वास्थ्य समस्याएं हैं, जैसे मधुमेह, गुर्दे की बीमारी, या स्लीप एपनिया, जो उच्च रक्तचाप में योगदान कर सकती हैं?",
+    "en": "Do you have any other health conditions, such as diabetes, kidney disease, or sleep apnea, that might contribute to high blood pressure?",
+    "category": "high blood pressure",
+    "symptom": "high blood pressure"
+  }
+],
+    "low blood pressure": [
+  {
+    "hi": "क्या आप चक्कर, हल्कापन, थकान, या धुंधली दृष्टि जैसे विशिष्ट लक्षण महसूस कर रहे हैं?",
+    "en": "Are you experiencing any specific symptoms like dizziness, lightheadedness, fatigue, or blurred vision?",
+    "category": "low blood pressure",
+    "symptom": "low blood pressure"
+  },
+  {
+    "hi": "क्या आपको जल्दी खड़ा होने पर या कुछ समय तक लेटे रहने के बाद हल्का चक्कर या बेहोशी का एहसास होता है?",
+    "en": "Do you feel lightheaded or faint when standing up quickly or after lying down for a while?",
+    "category": "low blood pressure",
+    "symptom": "low blood pressure"
+  },
+  {
+    "hi": "क्या आपने हाल ही में कोई बीमारी, संक्रमण, या स्वास्थ्य में कोई बदलाव अनुभव किया है जो आपके रक्तचाप को प्रभावित कर सकता है?",
+    "en": "Have you had any recent illnesses, infections, or changes in your health that could affect your blood pressure?",
+    "category": "low blood pressure",
+    "symptom": "low blood pressure"
+  },
+  {
+    "hi": "क्या आप वर्तमान में कोई दवाएं ले रहे हैं, जैसे डाययुरेटिक्स, एंटीडिप्रेसेंट्स, या रक्तचाप की दवाएं, जो निम्न रक्तचाप का कारण बन सकती हैं?",
+    "en": "Are you currently taking any medications, such as diuretics, antidepressants, or blood pressure medications, that could cause low blood pressure?",
+    "category": "low blood pressure",
+    "symptom": "low blood pressure"
+  },
+  {
+    "hi": "क्या आपने हाल ही में अपने आहार, तरल पदार्थों का सेवन, या शारीरिक गतिविधि स्तर में कोई महत्वपूर्ण बदलाव महसूस किया है?",
+    "en": "Have you experienced any significant changes in your diet, fluid intake, or activity level recently?",
+    "category": "low blood pressure",
+    "symptom": "low blood pressure"
+  },
+  {
+    "hi": "क्या आपको ऐसी कोई स्वास्थ्य समस्याएं हैं, जैसे हृदय संबंधी समस्याएं, अंतःस्रावी विकार, या निर्जलीकरण, जो निम्न रक्तचाप में योगदान कर सकती हैं?",
+    "en": "Do you have any medical conditions, such as heart problems, endocrine disorders, or dehydration, that could contribute to low blood pressure?",
+    "category": "low blood pressure",
+    "symptom": "low blood pressure"
+  },
+  {
+    "hi": "क्या आपने हाल ही में किसी तनाव का अनुभव किया है या खून की महत्वपूर्ण हानि (जैसे चोट या सर्जरी से) हुई है?",
+    "en": "Have you been under any recent stress or experienced a significant loss of blood (e.g., from an injury or surgery)?",
+    "category": "low blood pressure",
+    "symptom": "low blood pressure"
+  }
+],
 
-  "low blood pressure": [
-    {
-      "hi": "क्या आपको चक्कर आ रहे हैं या आप चकरा रहे हैं?",
-      "en": "Are you feeling dizzy or faint?",
-      "category": "dizziness_fainting",
-      "symptom": "dizziness",
-    },
-    {
-      "hi": "क्या आपको कमजोरी महसूस हो रही है?",
-      "en": "Are you feeling weak?",
-      "category": "weakness",
-      "symptom": "weakness",
-    },
-    {
-      "hi": "क्या आपको धुंधली दृष्टि हो रही है?",
-      "en": "Are you experiencing blurred vision?",
-      "category": "blurred_vision",
-      "symptom": "blurred vision",
-    },
-    {
-      "hi": "क्या आपको सांस लेने में कठिनाई हो रही है?",
-      "en": "Are you having difficulty breathing?",
-      "category": "breathing_difficulty",
-      "symptom": "shortness of breath",
-    },
-    {
-      "hi": "क्या आपको थकान हो रही है?",
-      "en": "Are you feeling fatigued?",
-      "category": "fatigue",
-      "symptom": "fatigue",
-    },
-    {
-      "hi": "क्या आपको पेट में दर्द हो रहा है?",
-      "en": "Are you experiencing abdominal pain?",
-      "category": "abdominal_pain",
-      "symptom": "abdominal pain",
-    },
-    {
-      "hi": "क्या आपकी त्वचा ठंडी और पसीनी है?",
-      "en": "Is your skin cold and clammy?",
-      "category": "skin_cold_clammy",
-      "symptom": "sweating",
-    },
-  ],
-  "cramps": [
+  "cramp": [
     {
       "hi": "क्या आपको क्रैम्प्स लगातार हो रहे हैं या कभी-कभी?",
       "en": "Are you experiencing cramps continuously or intermittently?",
@@ -2495,12 +2299,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "hi": "क्या क्रैम्प्स किसी विशेष समय पर अधिक होते हैं?",
       "en": "Do your cramps occur more frequently at any specific time?",
       "category": "time_related_cramps",
-      "symptom": None,
-    },
-    {
-      "hi": "क्या क्रैम्प्स के साथ दर्द की तीव्रता बढ़ रही है?",
-      "en": "Is the intensity of your cramps increasing?",
-      "category": "intensity_increase",
       "symptom": None,
     },
     {
@@ -2566,12 +2364,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "redness_with_irritation",
       "symptom": "redness",
     },
-    {
-      "hi": "क्या जलन के साथ कोई अन्य लक्षण भी हैं?",
-      "en": "Are there any other symptoms along with the irritation?",
-      "category": "other_symptoms",
-      "symptom": None,
-    },
   ],
 
   "inflammation": [
@@ -2597,13 +2389,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "hi": "क्या सूजन के कारण त्वचा में लालिमा या गर्मी महसूस हो रही है?",
       "en": "Is there any redness or warmth in the skin due to inflammation?",
       "category": "skin_changes_with_inflammation",
-      "symptom": "redness",
-    },
-    {
-      "hi": "क्या सूजन के साथ कोई अन्य लक्षण भी हैं?",
-      "en": "Are there any other symptoms along with the inflammation?",
-      "category": "other_symptoms",
-      "symptom": None,
+      "symptom: "redness",
     },
     {
       "hi": "क्या सूजन किसी विशेष समय पर अधिक होती है?",
@@ -2627,22 +2413,10 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "weight gain",
     },
     {
-      "hi": "क्या वजन बढ़ने के साथ आपके कपड़ों में कसाव आ रहा है?",
-      "en": "Is your clothing feeling tighter due to weight gain?",
-      "category": "clothing_tightness",
-      "symptom": None,
-    },
-    {
       "hi": "क्या वजन बढ़ने के कारण आपको थकान महसूस हो रही है?",
       "en": "Are you feeling fatigued due to weight gain?",
       "category": "fatigue_with_weight_gain",
       "symptom": "fatigue",
-    },
-    {
-      "hi": "क्या वजन बढ़ने के साथ आपको सांस लेने में कठिनाई हो रही है?",
-      "en": "Are you experiencing difficulty breathing due to weight gain?",
-      "category": "breathing_difficulty_with_weight_gain",
-      "symptom": "shortness of breath",
     },
     {
       "hi": "क्या वजन बढ़ने के साथ आपकी त्वचा पर कोई परिवर्तन आ रहा है?",
@@ -2695,12 +2469,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "slowed_hair_growth",
       "symptom": None,
     },
-    {
-      "hi": "क्या बालों का झड़ना के कारण आपकी आत्म-सम्मान प्रभावित हो रहा है?",
-      "en": "Is your self-esteem being affected due to hair loss?",
-      "category": "self_esteem_impact",
-      "symptom": None,
-    },
+
     {
       "hi": "क्या आपके बालों का रंग बदल रहा है?",
       "en": "Are you noticing any changes in your hair color?",
@@ -2745,12 +2514,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Are you feeling any weakness along with numbness?",
       "category": "weakness_with_numbness",
       "symptom": "weakness",
-    },
-    {
-      "hi": "क्या सुन्नता के साथ त्वचा में कोई परिवर्तन आ रहा है?",
-      "en": "Are there any changes in your skin due to numbness?",
-      "category": "skin_changes_with_numbness",
-      "symptom": "skin changes",
     },
   ],
 
@@ -2800,12 +2563,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "bloating": [
-    {
-      "hi": "क्या आपको पेट में सूजन महसूस हो रही है?",
-      "en": "Are you feeling bloated in your abdomen?",
-      "category": "abdominal_bloating",
-      "symptom": None,
-    },
     {
       "hi": "क्या सूजन के साथ पेट में दर्द भी हो रहा है?",
       "en": "Are you experiencing abdominal pain along with bloating?",
@@ -2865,7 +2622,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
     },
   ],
 
-  "hiccups": [
+  "hiccup": [
     {
       "hi": "क्या आपके सिकुड़न लगातार हो रही है या आती-जाती हैं?",
       "en": "Are your hiccups continuous or intermittent?",
@@ -2980,12 +2737,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "night_time_heartburn",
       "symptom": None,
     },
-    {
-      "hi": "क्या आपको पेट में भारीपन महसूस हो रहा है?",
-      "en": "Are you feeling a heaviness in your stomach?",
-      "category": "heaviness_with_heartburn",
-      "symptom": None,
-    },
   ],
 
   "mouth sore": [
@@ -3024,12 +2775,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Are your mouth sores causing difficulty in speaking?",
       "category": "speech_difficulty_with_mouth_sores",
       "symptom": "difficulty speaking",
-    },
-    {
-      "hi": "क्या मुंह के घावों के साथ आपको कोई अन्य लक्षण भी हैं?",
-      "en": "Are there any other symptoms along with mouth sores?",
-      "category": "other_symptoms",
-      "symptom": None,
     },
   ],
 
@@ -3125,12 +2870,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
 
   "decreased appetite": [
     {
-      "hi": "क्या आपकी भूख कम हो गई है?",
-      "en": "Has your appetite decreased?",
-      "category": "appetite_decrease",
-      "symptom": "decreased appetite",
-    },
-    {
       "hi": "क्या भूख में कमी के साथ वजन घट रहा है?",
       "en": "Are you losing weight along with decreased appetite?",
       "category": "weight_loss_with_decreased_appetite",
@@ -3147,12 +2886,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Are you experiencing abdominal pain along with decreased appetite?",
       "category": "abdominal_pain_with_decreased_appetite",
       "symptom": "abdominal pain",
-    },
-    {
-      "hi": "क्या आपको भूख में कमी के साथ कोई अन्य लक्षण भी महसूस हो रहे हैं?",
-      "en": "Are you experiencing any other symptoms along with decreased appetite?",
-      "category": "other_symptoms",
-      "symptom": None,
     },
     {
       "hi": "क्या भूख में कमी के कारण आपको थकान महसूस हो रही है?",
@@ -3192,12 +2925,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Are you feeling fatigued along with increased appetite?",
       "category": "fatigue_with_increased_appetite",
       "symptom": "fatigue",
-    },
-    {
-      "hi": "क्या आपको भूख में वृद्धि के साथ कोई अन्य लक्षण भी महसूस हो रहे हैं?",
-      "en": "Are you experiencing any other symptoms along with increased appetite?",
-      "category": "other_symptoms",
-      "symptom": None,
     },
     {
       "hi": "क्या आपकी भूख में वृद्धि के कारण आपकी नींद प्रभावित हो रही है?",
@@ -3266,12 +2993,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "dark urine",
     },
     {
-      "hi": "क्या गहरे पेशाब के साथ आपको कोई अन्य लक्षण भी महसूस हो रहे हैं?",
-      "en": "Are you experiencing any other symptoms along with dark urine?",
-      "category": "other_symptoms_with_dark_urine",
-      "symptom": None,
-    },
-    {
       "hi": "क्या आपका पेशाब सामान्य से अधिक है?",
       "en": "Is your urine output more than usual?",
       "category": "increased_urine_output",
@@ -3295,21 +3016,9 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "skin_changes_with_dark_urine",
       "symptom": "skin discoloration",
     },
-    {
-      "hi": "क्या आपका पेशाब गहरा रंग होने के कारण आपको थकान महसूस हो रही है?",
-      "en": "Are you feeling fatigued due to dark-colored urine?",
-      "category": "fatigue_with_dark_urine",
-      "symptom": "fatigue",
-    },
   ],
 
   "light colored stool": [
-    {
-      "hi": "क्या आपके मल का रंग हल्का हो गया है?",
-      "en": "Has your stool become light-colored?",
-      "category": "light_colored_stools",
-      "symptom": "light-colored stools",
-    },
     {
       "hi": "क्या हल्के रंग के मल के साथ आपको पेट में दर्द भी हो रहा है?",
       "en": "Are you experiencing abdominal pain along with light-colored stools?",
@@ -3350,12 +3059,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
 
   "blood in urine": [
     {
-      "hi": "क्या आपको पेशाब में खून दिखाई दे रहा है?",
-      "en": "Are you noticing blood in your urine?",
-      "category": "blood_in_urine",
-      "symptom": "blood in urine",
-    },
-    {
       "hi": "क्या खून की मात्रा बढ़ रही है?",
       "en": "Is the amount of blood in your urine increasing?",
       "category": "increasing_blood_in_urine",
@@ -3395,12 +3098,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
 
   "blood in stool": [
     {
-      "hi": "क्या आपके मल में खून दिखाई दे रहा है?",
-      "en": "Are you noticing blood in your stool?",
-      "category": "blood_in_stool",
-      "symptom": "blood in stool",
-    },
-    {
       "hi": "क्या खून का रंग गहरा है या हल्का?",
       "en": "Is the blood in your stool dark or light-colored?",
       "category": "blood_color_in_stool",
@@ -3434,51 +3131,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "hi": "क्या खून आने के कारण आपकी त्वचा में कोई परिवर्तन आ रहा है?",
       "en": "Is there any change in your skin due to blood in stool?",
       "category": "skin_changes_with_blood_in_stool",
-      "symptom": "skin discoloration",
-    },
-  ],
-
-  "frequent infection": [
-    {
-      "hi": "क्या आपको बार-बार संक्रमण हो रहे हैं?",
-      "en": "Are you experiencing frequent infections?",
-      "category": "frequent_infections",
-      "symptom": "frequent infections",
-    },
-    {
-      "hi": "क्या बार-बार होने वाले संक्रमणों के साथ आपको कोई अन्य लक्षण भी महसूस हो रहे हैं?",
-      "en": "Are you experiencing any other symptoms along with frequent infections?",
-      "category": "other_symptoms_with_frequent_infections",
-      "symptom": None,
-    },
-    {
-      "hi": "क्या आपको संक्रमण होने के बाद तेजी से ठीक होने में कठिनाई हो रही है?",
-      "en": "Are you having difficulty recovering quickly after infections?",
-      "category": "delayed_recovery_with_infections",
-      "symptom": "delayed healing",
-    },
-    {
-      "hi": "क्या संक्रमण के प्रकार में कोई विशेष बदलाव आया है?",
-      "en": "Has there been any specific change in the types of infections you are getting?",
-      "category": "change_in_infection_types",
-      "symptom": None,
-    },
-    {
-      "hi": "क्या आपको बार-बार होने वाले संक्रमणों के कारण थकान महसूस हो रही है?",
-      "en": "Are you feeling fatigued due to frequent infections?",
-      "category": "fatigue_with_frequent_infections",
-      "symptom": "fatigue",
-    },
-    {
-      "hi": "क्या आपको संक्रमण के साथ सूजन भी हो रही है?",
-      "en": "Are you experiencing any swelling along with infections?",
-      "category": "swelling_with_infections",
-      "symptom": "swelling",
-    },
-    {
-      "hi": "क्या आपको संक्रमण के कारण त्वचा में कोई परिवर्तन आ रहा है?",
-      "en": "Are there any changes in your skin due to infections?",
-      "category": "skin_changes_with_infections",
       "symptom": "skin discoloration",
     },
   ],
@@ -3529,12 +3181,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "excessive thirst": [
-    {
-      "hi": "क्या आपको अत्यधिक प्यास लग रही है?",
-      "en": "Are you feeling excessively thirsty?",
-      "category": "excessive_thirst",
-      "symptom": "excessive thirst",
-    },
+    
     {
       "hi": "क्या अत्यधिक प्यास के साथ आपको बार-बार पेशाब आ रहा है?",
       "en": "Are you urinating frequently along with excessive thirst?",
@@ -3574,12 +3221,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "dehydration": [
-    {
-      "hi": "क्या आपको शरीर से पानी की कमी महसूस हो रही है?",
-      "en": "Are you feeling dehydrated?",
-      "category": "dehydration",
-      "symptom": "dehydration",
-    },
     {
       "hi": "क्या आपको प्यास लगी हुई है?",
       "en": "Are you feeling thirsty?",
@@ -3644,12 +3285,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "redness",
     },
     {
-      "hi": "क्या त्वचा पर जलने के साथ कोई अन्य लक्षण भी हैं?",
-      "en": "Are there any other symptoms along with the skin burn?",
-      "category": "other_symptoms_with_skin_burn",
-      "symptom": None,
-    },
-    {
       "hi": "क्या त्वचा पर जलने के कारण आपको दर्द में वृद्धि हो रही है?",
       "en": "Is the pain increasing due to the skin burn?",
       "category": "pain_increase_with_skin_burn",
@@ -3663,7 +3298,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
     },
   ],
 
-  "sweating": [
+  "sweat": [
     {
       "hi": "क्या आपको पसीना आना सामान्य से अधिक हो रहा है?",
       "en": "Are you sweating more than usual?",
@@ -3674,12 +3309,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "hi": "क्या पसीना आना किसी विशेष समय पर अधिक होता है?",
       "en": "Does sweating occur more frequently at any specific time?",
       "category": "time_related_sweating",
-      "symptom": None,
-    },
-    {
-      "hi": "क्या पसीना आना के साथ कोई अन्य लक्षण भी हैं?",
-      "en": "Are there any other symptoms along with sweating?",
-      "category": "other_symptoms_with_sweating",
       "symptom": None,
     },
     {
@@ -3694,21 +3323,9 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "skin_changes_with_sweating",
       "symptom": "skin changes",
     },
-    {
-      "hi": "क्या पसीना आना के कारण आपकी त्वचा सूखी हो गई है?",
-      "en": "Has sweating caused your skin to become dry?",
-      "category": "dry_skin_with_sweating",
-      "symptom": "dry skin",
-    },
-    {
-      "hi": "क्या पसीना आना के साथ आपको कोई अन्य स्वास्थ्य समस्याएँ हो रही हैं?",
-      "en": "Are you experiencing any other health issues due to sweating?",
-      "category": "health_issues_with_sweating",
-      "symptom": None,
-    },
   ],
 
-  "feeling cold": [
+  "cold": [
     {
       "hi": "क्या आपको ठंड लगना सामान्य से अधिक हो रहा है?",
       "en": "Are you feeling cold more than usual?",
@@ -3722,12 +3339,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "pain",
     },
     {
-      "hi": "क्या ठंड महसूस होने के कारण आपको थकान हो रही है?",
-      "en": "Are you feeling fatigued due to feeling cold?",
-      "category": "fatigue_with_feeling_cold",
-      "symptom": "fatigue",
-    },
-    {
       "hi": "क्या आपको ठंड महसूस होने के साथ त्वचा में कोई परिवर्तन हो रहा है?",
       "en": "Are you noticing any changes in your skin due to feeling cold?",
       "category": "skin_changes_with_feeling_cold",
@@ -3738,12 +3349,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Is feeling cold affecting your sleep?",
       "category": "sleep_disturbance_with_feeling_cold",
       "symptom": "insomnia",
-    },
-    {
-      "hi": "क्या ठंड महसूस होने के साथ आपको कोई अन्य लक्षण भी महसूस हो रहे हैं?",
-      "en": "Are you experiencing any other symptoms along with feeling cold?",
-      "category": "other_symptoms_with_feeling_cold",
-      "symptom": None,
     },
     {
       "hi": "क्या ठंड महसूस होने के कारण आपके शरीर में कोई कमजोरी आ रही है?",
@@ -3770,12 +3375,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "hi": "क्या दोहरी दृष्टि किसी विशेष समय या गतिविधि के दौरान बढ़ती है?",
       "en": "Does your double vision increase during any specific time or activity?",
       "category": "activity_related_double_vision",
-      "symptom": None,
-    },
-    {
-      "hi": "क्या आपकी दृष्टि में कोई अन्य परिवर्तन हो रहा है?",
-      "en": "Are there any other changes in your vision?",
-      "category": "other_vision_changes_with_double_vision",
       "symptom": None,
     },
     {
@@ -3835,12 +3434,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "watering_with_eye_redness",
       "symptom": "eye tearing",
     },
-    {
-      "hi": "क्या लालिमा के साथ आपकी आँखों में खुजली या जलन हो रही है?",
-      "en": "Are you experiencing itching or burning sensations in your eyes along with redness?",
-      "category": "itching_burning_with_eye_redness",
-      "symptom": "itching",
-    },
   ],
 
   "eye discharge": [
@@ -3875,12 +3468,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": None,
     },
     {
-      "hi": "क्या आँखों में स्राव के साथ कोई अन्य लक्षण भी हैं?",
-      "en": "Are there any other symptoms along with eye discharge?",
-      "category": "other_symptoms_with_eye_discharge",
-      "symptom": None,
-    },
-    {
       "hi": "क्या स्राव के कारण आपकी आँखों में सूजन हो रही है?",
       "en": "Is there any swelling in your eyes due to discharge?",
       "category": "swelling_with_eye_discharge",
@@ -3889,12 +3476,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "ear discharge": [
-    {
-      "hi": "क्या आपके कान से स्राव आ रहा है?",
-      "en": "Are you experiencing discharge from your ears?",
-      "category": "ear_discharge",
-      "symptom": "ear discharge",
-    },
+   
     {
       "hi": "क्या स्राव के साथ कान में दर्द भी हो रहा है?",
       "en": "Are you experiencing pain in your ears along with discharge?",
@@ -3924,12 +3506,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Are you experiencing itching in your ears due to discharge?",
       "category": "itching_with_ear_discharge",
       "symptom": "itching",
-    },
-    {
-      "hi": "क्या स्राव के साथ आपको कोई अन्य लक्षण भी महसूस हो रहे हैं?",
-      "en": "Are you experiencing any other symptoms along with ear discharge?",
-      "category": "other_symptoms_with_ear_discharge",
-      "symptom": None,
     },
   ],
 
@@ -3979,12 +3555,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "balance problem": [
-    {
-      "hi": "क्या आपको संतुलन बिगड़ने की समस्या हो रही है?",
-      "en": "Are you experiencing balance problems?",
-      "category": "balance_problems",
-      "symptom": "balance problems",
-    },
+ 
     {
       "hi": "क्या संतुलन बिगड़ने के साथ चक्कर आना भी हो रहा है?",
       "en": "Are you experiencing dizziness along with balance problems?",
@@ -4008,12 +3579,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Are your daily activities being affected due to balance problems?",
       "category": "daily_activity_impact_with_balance_problems",
       "symptom": None,
-    },
-    {
-      "hi": "क्या संतुलन बिगड़ने के साथ कान में कोई समस्या है?",
-      "en": "Do you have any ear problems along with balance issues?",
-      "category": "ear_problems_with_balance_problems",
-      "symptom": "ear discharge",
     },
     {
       "hi": "क्या संतुलन बिगड़ने के कारण आपको चलने-फिरने में कठिनाई हो रही है?",
@@ -4055,12 +3620,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "decreased appetite",
     },
     {
-      "hi": "क्या आपको स्वाद में बदलाव के साथ कोई अन्य लक्षण भी महसूस हो रहे हैं?",
-      "en": "Are you experiencing any other symptoms along with taste changes?",
-      "category": "other_symptoms_with_taste_changes",
-      "symptom": None,
-    },
-    {
       "hi": "क्या स्वाद में बदलाव अचानक शुरू हुआ है या धीरे-धीरे?",
       "en": "Did your taste changes start suddenly or gradually?",
       "category": "sudden_graduate_taste_changes",
@@ -4088,12 +3647,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": None,
     },
     {
-      "hi": "क्या आपको गंध में बदलाव के साथ कोई अन्य लक्षण भी महसूस हो रहे हैं?",
-      "en": "Are you experiencing any other symptoms along with smell changes?",
-      "category": "other_symptoms_with_smell_changes",
-      "symptom": None,
-    },
-    {
       "hi": "क्या गंध में बदलाव अचानक शुरू हुआ है या धीरे-धीरे?",
       "en": "Did your smell changes start suddenly or gradually?",
       "category": "sudden_graduate_smell_changes",
@@ -4114,18 +3667,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "rapid breathing": [
-    {
-      "hi": "क्या आपकी सांसें तेजी से आ रही हैं?",
-      "en": "Are your breaths coming rapidly?",
-      "category": "rapid_breathing",
-      "symptom": "rapid breathing",
-    },
-    {
-      "hi": "क्या तेजी से सांस लेने के साथ कोई अन्य लक्षण भी हैं?",
-      "en": "Are there any other symptoms along with rapid breathing?",
-      "category": "other_symptoms_with_rapid_breathing",
-      "symptom": None,
-    },
+    
     {
       "hi": "क्या तेजी से सांस लेने के कारण आपको सांस लेने में कठिनाई हो रही है?",
       "en": "Are you having difficulty breathing due to rapid breathing?",
@@ -4190,12 +3732,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "shortness of breath",
     },
     {
-      "hi": "क्या अनियमित धड़कन के साथ आपको कोई अन्य लक्षण भी महसूस हो रहे हैं?",
-      "en": "Are you experiencing any other symptoms along with an irregular heartbeat?",
-      "category": "other_symptoms_with_irregular_heartbeat",
-      "symptom": None,
-    },
-    {
       "hi": "क्या अनियमित धड़कन अचानक शुरू हुई है या धीरे-धीरे?",
       "en": "Did your irregular heartbeat start suddenly or gradually?",
       "category": "sudden_graduate_irregular_heartbeat",
@@ -4235,61 +3771,10 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": None,
     },
     {
-      "hi": "क्या गर्दन में दर्द के साथ किसी विशेष प्रकार का दर्द हो रहा है?",
-      "en": "Are you experiencing any specific type of pain in your neck?",
-      "category": "specific_pain_with_neck_pain",
-      "symptom": "pain",
-    },
-    {
       "hi": "क्या गर्दन का दर्द अचानक शुरू हुआ है या धीरे-धीरे?",
       "en": "Did your neck pain start suddenly or gradually?",
       "category": "sudden_graduate_neck_pain",
       "symptom": None,
-    },
-  ],
-
-  "sinus pressure": [
-    {
-      "hi": "क्या आपको साइनस में दबाव महसूस हो रहा है?",
-      "en": "Are you feeling pressure in your sinuses?",
-      "category": "sinus_pressure",
-      "symptom": "sinus pressure",
-    },
-    {
-      "hi": "क्या साइनस दबाव के साथ सिरदर्द भी हो रहा है?",
-      "en": "Are you experiencing headaches along with sinus pressure?",
-      "category": "headache_with_sinus_pressure",
-      "symptom": "headache",
-    },
-    {
-      "hi": "क्या साइनस दबाव के साथ आपको नाक बंद होना भी हो रहा है?",
-      "en": "Are you also experiencing a blocked nose along with sinus pressure?",
-      "category": "blocked_nose_with_sinus_pressure",
-      "symptom": "nasal congestion",
-    },
-    {
-      "hi": "क्या साइनस दबाव के कारण आपकी आँखों में सूजन हो रही है?",
-      "en": "Is sinus pressure causing swelling in your eyes?",
-      "category": "eye_swelling_with_sinus_pressure",
-      "symptom": "swelling",
-    },
-    {
-      "hi": "क्या साइनस दबाव के साथ आपकी आवाज़ में परिवर्तन आया है?",
-      "en": "Has your voice changed along with sinus pressure?",
-      "category": "voice_changes_with_sinus_pressure",
-      "symptom": "voice changes",
-    },
-    {
-      "hi": "क्या साइनस दबाव के कारण आपको सांस लेने में कठिनाई हो रही है?",
-      "en": "Are you having difficulty breathing due to sinus pressure?",
-      "category": "breathing_difficulty_with_sinus_pressure",
-      "symptom": "shortness of breath",
-    },
-    {
-      "hi": "क्या साइनस दबाव के साथ आपको चक्कर आ रहे हैं?",
-      "en": "Are you experiencing dizziness along with sinus pressure?",
-      "category": "dizziness_with_sinus_pressure",
-      "symptom": "dizziness",
     },
   ],
 
@@ -4330,12 +3815,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "swelling_with_muscle_spasms",
       "symptom": "swelling",
     },
-    {
-      "hi": "क्या स्पैसम्स के साथ आपको कोई अन्य लक्षण भी महसूस हो रहे हैं?",
-      "en": "Are you experiencing any other symptoms along with muscle spasms?",
-      "category": "other_symptoms_with_muscle_spasms",
-      "symptom": None,
-    },
+      
   ],
 
   "spasm": [
@@ -4381,21 +3861,11 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "swelling_with_muscle_spasms",
       "symptom": "swelling",
     },
-    {
-      "hi": "क्या स्पैसम्स के साथ आपको कोई अन्य लक्षण भी महसूस हो रहे हैं?",
-      "en": "Are you experiencing any other symptoms along with muscle spasms?",
-      "category": "other_symptoms_with_muscle_spasms",
-      "symptom": None,
-    },
+      
   ],
 
   "muscle strain": [
-    {
-      "hi": "क्या आपको मांसपेशियों में खिंचाव या तनाव महसूस हो रहा है?",
-      "en": "Are you feeling any muscle strain or tension?",
-      "category": "muscle_strain",
-      "symptom": "muscle strains",
-    },
+    
     {
       "hi": "क्या मांसपेशियों में तनाव के साथ दर्द भी हो रहा है?",
       "en": "Are you experiencing pain along with muscle strain?",
@@ -4421,12 +3891,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "swelling",
     },
     {
-      "hi": "क्या मांसपेशियों में तनाव के साथ कोई अन्य लक्षण भी हैं?",
-      "en": "Are there any other symptoms along with muscle strain?",
-      "category": "other_symptoms_with_muscle_strain",
-      "symptom": None,
-    },
-    {
       "hi": "क्या मांसपेशियों में तनाव अचानक शुरू हुआ है या धीरे-धीरे?",
       "en": "Did your muscle strain start suddenly or gradually?",
       "category": "sudden_graduate_muscle_strain",
@@ -4435,12 +3899,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "muscle injury": [
-    {
-      "hi": "क्या आपको किसी मांसपेशी में चोट लगी है?",
-      "en": "Have you injured any muscle?",
-      "category": "muscle_injury",
-      "symptom": "muscle injuries",
-    },
     {
       "hi": "क्या मांसपेशी में चोट के साथ दर्द भी हो रहा है?",
       "en": "Are you experiencing pain along with the muscle injury?",
@@ -4466,12 +3924,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "weakness",
     },
     {
-      "hi": "क्या मांसपेशी में चोट के साथ कोई अन्य लक्षण भी हैं?",
-      "en": "Are there any other symptoms along with the muscle injury?",
-      "category": "other_symptoms_with_muscle_injury",
-      "symptom": None,
-    },
-    {
       "hi": "क्या मांसपेशी में चोट अचानक हुई है या किसी दुर्घटना के बाद?",
       "en": "Did your muscle injury occur suddenly or after an accident?",
       "category": "sudden_or_accident_related_muscle_injury",
@@ -4479,7 +3931,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
     },
   ],
 
-  "skin rash": [
+  "rash": [
     {
       "hi": "क्या आपके शरीर पर कोई दाने या चकत्ते हैं?",
       "en": "Do you have any bumps or spots on your skin?",
@@ -4524,140 +3976,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
     },
   ],
 
-  "herpes": [
-    {
-      "hi": "क्या आपको मुंह या होंठों पर छाले हैं?",
-      "en": "Do you have sores on your mouth or lips?",
-      "category": "mouth_lips_sores_with_herpes",
-      "symptom": "mouth sores",
-    },
-    {
-      "hi": "क्या हर्पीज़ के साथ आपके होंठों में सूजन भी है?",
-      "en": "Is there any swelling in your lips along with herpes?",
-      "category": "lip_swelling_with_herpes",
-      "symptom": "swelling",
-    },
-    {
-      "hi": "क्या हर्पीज़ के कारण आपकी त्वचा में कोई परिवर्तन हो रहा है?",
-      "en": "Are there any changes in your skin due to herpes?",
-      "category": "skin_changes_with_herpes",
-      "symptom": "skin discoloration",
-    },
-    {
-      "hi": "क्या हर्पीज़ के साथ आपको दर्द भी हो रहा है?",
-      "en": "Are you experiencing pain along with herpes?",
-      "category": "pain_with_herpes",
-      "symptom": "pain",
-    },
-    {
-      "hi": "क्या हर्पीज़ के कारण आपको किसी विशेष गतिविधि में कठिनाई हो रही है?",
-      "en": "Are you having difficulty in any specific activity due to herpes?",
-      "category": "activity_difficulty_with_herpes",
-      "symptom": None,
-    },
-    {
-      "hi": "क्या हर्पीज़ के साथ आपको कोई अन्य लक्षण भी महसूस हो रहे हैं?",
-      "en": "Are you experiencing any other symptoms along with herpes?",
-      "category": "other_symptoms_with_herpes",
-      "symptom": None,
-    },
-    {
-      "hi": "क्या हर्पीज़ अचानक शुरू हुई है या किसी संक्रमण के बाद?",
-      "en": "Did your herpes start suddenly or after an infection?",
-      "category": "sudden_or_infection_related_herpes",
-      "symptom": None,
-    },
-  ],
-
-  "shingle": [
-    {
-      "hi": "क्या आपको त्वचा पर जलन या दर्द महसूस हो रही है?",
-      "en": "Are you feeling burning sensations or pain on your skin?",
-      "category": "burning_pain_with_shingles",
-      "symptom": "burning",
-    },
-    {
-      "hi": "क्या त्वचा पर पट्टियां या फफोले हो रहे हैं?",
-      "en": "Are you developing blisters or patches on your skin?",
-      "category": "blisters_patches_with_shingles",
-      "symptom": "skin lesions",
-    },
-    {
-      "hi": "क्या दर्द किसी विशेष क्षेत्र में केंद्रित है?",
-      "en": "Is the pain concentrated in any specific area?",
-      "category": "localized_pain_with_shingles",
-      "symptom": None,
-    },
-    {
-      "hi": "क्या आपको कमजोरी महसूस हो रही है?",
-      "en": "Are you feeling weak?",
-      "category": "weakness_with_shingles",
-      "symptom": "weakness",
-    },
-    {
-      "hi": "क्या दर्द के साथ आपको सूजन भी हो रही है?",
-      "en": "Is there any swelling along with the pain?",
-      "category": "swelling_with_shingles",
-      "symptom": "swelling",
-    },
-    {
-      "hi": "क्या आपको सिरदर्द या बुखार हो रहा है?",
-      "en": "Are you experiencing headaches or fever?",
-      "category": "headache_fever_with_shingles",
-      "symptom": "headache",
-    },
-    {
-      "hi": "क्या दर्द से आपकी नींद प्रभावित हो रही है?",
-      "en": "Is the pain affecting your sleep?",
-      "category": "sleep_disturbance_with_shingles",
-      "symptom": "insomnia",
-    },
-  ],
-
-  "wart": [
-    {
-      "hi": "क्या आपके शरीर पर वर्ट्स हो रहे हैं?",
-      "en": "Are you developing warts on your body?",
-      "category": "warts",
-      "symptom": "warts",
-    },
-    {
-      "hi": "क्या वर्ट्स के साथ कोई दर्द या खुजली हो रही है?",
-      "en": "Are you experiencing any pain or itching along with warts?",
-      "category": "pain_itching_with_warts",
-      "symptom": "itching",
-    },
-    {
-      "hi": "क्या वर्ट्स कहीं फैल रहे हैं या स्थिर हैं?",
-      "en": "Are the warts spreading or remaining static?",
-      "category": "spreading_vs_static_warts",
-      "symptom": None,
-    },
-    {
-      "hi": "क्या वर्ट्स किसी विशेष स्थान पर अधिक हो रहे हैं?",
-      "en": "Are the warts more prevalent in any specific area?",
-      "category": "localized_warts",
-      "symptom": None,
-    },
-    {
-      "hi": "क्या वर्ट्स के कारण आपकी त्वचा में कोई परिवर्तन हो रहा है?",
-      "en": "Are there any changes in your skin due to warts?",
-      "category": "skin_changes_with_warts",
-      "symptom": "skin discoloration",
-    },
-    {
-      "hi": "क्या वर्ट्स के साथ आपको कोई अन्य लक्षण भी महसूस हो रहे हैं?",
-      "en": "Are you experiencing any other symptoms along with warts?",
-      "category": "other_symptoms_with_warts",
-      "symptom": None,
-    },
-    {
-      "hi": "क्या वर्ट्स अचानक शुरू हुए हैं या किसी संक्रमण के बाद?",
-      "en": "Did your warts start suddenly or after an infection?",
-      "category": "sudden_or_infection_related_warts",
-      "symptom": None,
-    },
-  ],
+  
 
   "mole": [
     {
@@ -4694,12 +4013,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "hi": "क्या मौल्स अचानक हो गए हैं या धीरे-धीरे?",
       "en": "Did your moles appear suddenly or gradually?",
       "category": "sudden_graduate_moles",
-      "symptom": None,
-    },
-    {
-      "hi": "क्या मौल्स के साथ आपको कोई अन्य लक्षण भी महसूस हो रहे हैं?",
-      "en": "Are you experiencing any other symptoms along with moles?",
-      "category": "other_symptoms_with_moles",
       "symptom": None,
     },
   ],
@@ -4870,12 +4183,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "increasing_vs_static_skin_cracking",
       "symptom": None,
     },
-    {
-      "hi": "क्या त्वचा की दरारों के साथ कोई अन्य लक्षण भी हैं?",
-      "en": "Are there any other symptoms along with skin cracking?",
-      "category": "other_symptoms_with_skin_cracking",
-      "symptom": None,
-    },
+      
     {
       "hi": "क्या त्वचा की दरारें अचानक शुरू हुई हैं या धीरे-धीरे?",
       "en": "Did your skin cracks start suddenly or gradually?",
@@ -5000,12 +4308,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": None,
     },
     {
-      "hi": "क्या सूजन के साथ कोई अन्य लक्षण भी हैं?",
-      "en": "Are there any other symptoms along with swelling?",
-      "category": "other_symptoms_with_skin_swelling",
-      "symptom": None,
-    },
-    {
       "hi": "क्या सूजन किसी विशेष समय पर अधिक होती है?",
       "en": "Does the swelling occur more frequently at any specific time?",
       "category": "time_related_skin_swelling",
@@ -5074,12 +4376,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "acne triggers",
       "symptom": "acne triggers",
     },
-    {
-      "hi": "क्या आप अत्यधिक तनाव में हैं?",
-      "en": "Are you under a lot of stress?",
-      "category": "stress",
-      "symptom": "stress",
-    },
   ],
 
   "insomnia": [
@@ -5120,12 +4416,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "substance use",
     },
     {
-      "hi": "क्या आप कोई दवाइयाँ ले रहे हैं (प्रिस्क्रिप्शन, ओवर-द-काउंटर, या हर्बल)?",
-      "en": "Are you taking any medications (prescription, over-the-counter, or herbal)?",
-      "category": "medication",
-      "symptom": "medication",
-    },
-    {
       "hi": "क्या आपको कोई अन्य चिकित्सा समस्याएँ हैं (जैसे दर्द, सांस लेने में समस्या, मानसिक स्वास्थ्य समस्याएँ)?",
       "en": "Do you have any other medical conditions (e.g., pain, breathing problems, mental health conditions)?",
       "category": "medical conditions",
@@ -5140,12 +4430,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "memory loss": [
-    {
-      "hi": "आपको कितने समय से याददाश्त की कमी हो रही है?",
-      "en": "How long have you been experiencing memory loss?",
-      "category": "memory loss",
-      "symptom": "memory loss duration",
-    },
     {
       "hi": "आप किस प्रकार की याददाश्त की समस्याओं का सामना कर रहे हैं?",
       "en": "What type of memory problems are you experiencing?",
@@ -5251,18 +4535,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "urinary frequency",
       "symptom": "fluid intake habits",
     },
-    {
-      "hi": "क्या आप अन्य कोई लक्षण अनुभव कर रहे हैं, जैसे तीव्रता, रिसाव, या पेशाब में खून?",
-      "en": "Are you experiencing any other symptoms, such as urgency, leakage, or blood in your urine?",
-      "category": "urinary frequency",
-      "symptom": "other urinary symptoms",
-    },
-    {
-      "hi": "क्या आपको हाल ही में अपने स्वास्थ्य में कोई बदलाव महसूस हुआ है, जैसे वजन बढ़ना, मधुमेह, या गर्भावस्था?",
-      "en": "Have you had any recent changes in your health, such as weight gain, diabetes, or pregnancy?",
-      "category": "urinary frequency",
-      "symptom": "health changes",
-    },
   ],
 
   "ear pain": [
@@ -5283,12 +4555,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Do you have pain in one ear or both ears?",
       "category": "ear pain",
       "symptom": "ear affected",
-    },
-    {
-      "hi": "क्या आप अन्य लक्षण अनुभव कर रहे हैं, जैसे सुनाई में कमी, कान में घंटी बजने की आवाज (टिनिटस), या चक्कर आना?",
-      "en": "Are you experiencing any other symptoms, such as hearing loss, ringing in the ear (tinnitus), or dizziness?",
-      "category": "ear pain",
-      "symptom": "other symptoms",
     },
     {
       "hi": "क्या दर्द सर्दी, साइनस संक्रमण, या ऊपरी श्वसन संक्रमण के बाद शुरू हुआ था?",
@@ -5320,21 +4586,9 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "ear pain",
       "symptom": "touch pain",
     },
-    {
-      "hi": "क्या आपको कान में संक्रमण या अन्य कान संबंधित समस्याओं का इतिहास है?",
-      "en": "Do you have a history of ear infections or other ear-related issues?",
-      "category": "ear pain",
-      "symptom": "ear infection history",
-    },
   ],
 
   "hypertension": [
-    {
-      "hi": "आपको उच्च रक्तचाप के बारे में कितने समय से पता है?",
-      "en": "How long have you been aware of your high blood pressure?",
-      "category": "hypertension",
-      "symptom": "awareness of hypertension",
-    },
     {
       "hi": "क्या आपके परिवार में उच्च रक्तचाप या हृदय रोग का इतिहास है?",
       "en": "Do you have a family history of high blood pressure or heart disease?",
@@ -5372,12 +4626,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "physical activity",
     },
     {
-      "hi": "क्या आप सिरदर्द, चक्कर आना, या सीने में दर्द जैसे लक्षण अनुभव कर रहे हैं?",
-      "en": "Are you experiencing any symptoms like headaches, dizziness, or chest pain?",
-      "category": "hypertension",
-      "symptom": "hypertension symptoms",
-    },
-    {
       "hi": "आप अपने दैनिक जीवन में कितना तनाव महसूस कर रहे हैं?",
       "en": "How much stress are you experiencing in your daily life?",
       "category": "hypertension",
@@ -5392,12 +4640,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "tremor": [
-    {
-      "hi": "आपको कितने समय से कंपन महसूस हो रहे हैं?",
-      "en": "How long have you been experiencing tremors?",
-      "category": "tremors",
-      "symptom": "duration of tremors",
-    },
     {
       "hi": "क्या कंपन हमेशा होते हैं या यह आते-जाते हैं?",
       "en": "Are the tremors present all the time or do they come and go?",
@@ -5415,12 +4657,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Do the tremors get worse with certain activities, like holding something or moving?",
       "category": "tremors",
       "symptom": "activity-related worsening",
-    },
-    {
-      "hi": "क्या आप कोई अन्य लक्षण अनुभव कर रहे हैं, जैसे कमजोरी, कठोरता, या समन्वय में समस्या?",
-      "en": "Are you experiencing any other symptoms, such as weakness, stiffness, or difficulty with coordination?",
-      "category": "tremors",
-      "symptom": "associated symptoms",
     },
     {
       "hi": "क्या आपके परिवार में कंपन या न्यूरोलॉजिकल स्थितियों का इतिहास है (जैसे, पार्किंसंस रोग)?",
@@ -5456,22 +4692,10 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
 
   "panic attack": [
     {
-      "hi": "आपको कितने समय से पैनिक अटैक का अनुभव हो रहा है?",
-      "en": "How long have you been experiencing panic attacks?",
-      "category": "panic_attack",
-      "symptom": "duration of panic attacks",
-    },
-    {
       "hi": "आपको कितनी बार पैनिक अटैक होते हैं?",
       "en": "How often do you have panic attacks?",
       "category": "panic_attack",
       "symptom": "frequency of panic attacks",
-    },
-    {
-      "hi": "आप पैनिक अटैक के दौरान कौन-कौन से लक्षण अनुभव करते हैं (जैसे, तेज़ दिल की धड़कन, पसीना, छाती में दर्द, सांस लेने में कठिनाई)?",
-      "en": "What symptoms do you experience during a panic attack (e.g., rapid heartbeat, sweating, chest pain, shortness of breath)?",
-      "category": "panic_attack",
-      "symptom": "symptoms during panic attack",
     },
     {
       "hi": "क्या पैनिक अटैक अचानक होते हैं, या आपको कुछ विशेष उत्तेजक (जैसे, तनावपूर्ण स्थिति, भीड़) का पता चलता है?",
@@ -5509,21 +4733,11 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "panic_attack",
       "symptom": "medication use",
     },
-    {
-      "hi": "क्या आपने पैनिक अटैक के दौरान के अलावा कोई शारीरिक परिवर्तन महसूस किए हैं, जैसे सांस लेने में कठिनाई या छाती में दर्द?",
-      "en": "Have you noticed any physical changes, such as difficulty breathing or chest pain, when you are not having a panic attack?",
-      "category": "panic_attack",
-      "symptom": "physical changes outside of panic attacks",
-    },
+   
   ],
 
   "mood swing": [
-    {
-      "hi": "आपको कितने समय से मूड स्विंग्स का अनुभव हो रहा है?",
-      "en": "How long have you been experiencing mood swings?",
-      "category": "mood_swings",
-      "symptom": "duration of mood swings",
-    },
+      
     {
       "hi": "आपके मूड स्विंग्स कितनी बार होते हैं?",
       "en": "How often do your mood swings occur?",
@@ -5555,12 +4769,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "patterns of mood changes",
     },
     {
-      "hi": "क्या आप शारीरिक लक्षणों का अनुभव कर रहे हैं, जैसे नींद, भूख, या ऊर्जा स्तर में बदलाव?",
-      "en": "Are you experiencing any physical symptoms, such as changes in sleep, appetite, or energy levels?",
-      "category": "mood_swings",
-      "symptom": "physical symptoms during mood swings",
-    },
-    {
       "hi": "क्या आपने हाल ही में कोई बड़ा जीवन परिवर्तन, तनावपूर्ण घटना या आघातक अनुभव किया है?",
       "en": "Have you experienced any major life stressors, changes, or traumatic events recently?",
       "category": "mood_swings",
@@ -5581,12 +4789,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "difficulty concentrating": [
-    {
-      "hi": "आपको कितने समय से एकाग्रता में कठिनाई हो रही है?",
-      "en": "How long have you been experiencing difficulty concentrating?",
-      "category": "difficulty_concentrating",
-      "symptom": "duration of concentration difficulty",
-    },
     {
       "hi": "क्या एकाग्रता में कठिनाई स्थायी है या कभी-कभी होती है?",
       "en": "Is the difficulty with concentration constant or does it come and go?",
@@ -5644,12 +4846,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "hallucination": [
-    {
-      "hi": "आपको कितने समय से भ्रांतियाँ हो रही हैं?",
-      "en": "How long have you been experiencing hallucinations?",
-      "category": "hallucinations",
-      "symptom": "duration of hallucinations",
-    },
+    
     {
       "hi": "आप किस प्रकार की भ्रांतियाँ अनुभव कर रहे हैं (जैसे, आवाजें सुनना, चीज़ें देखना, गंध महसूस करना)?",
       "en": "What type of hallucinations are you experiencing (e.g., hearing voices, seeing things, smelling odors)?",
@@ -5698,21 +4895,9 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "hallucinations",
       "symptom": "head injuries or neurological conditions",
     },
-    {
-      "hi": "क्या आपके परिवार में मानसिक स्वास्थ्य विकारों का कोई इतिहास है, जैसे मानसिक विकृति या मादक पदार्थों का दुरुपयोग?",
-      "en": "Do you have a family history of mental health disorders, such as psychosis or substance abuse?",
-      "category": "hallucinations",
-      "symptom": "family history of mental health disorders",
-    },
   ],
 
   "delusion": [
-    {
-      "hi": "आपको कितने समय से भ्रांतियाँ हो रही हैं?",
-      "en": "How long have you been experiencing delusions?",
-      "category": "delusions",
-      "symptom": "duration of delusions",
-    },
     {
       "hi": "आप किस प्रकार की भ्रांतियाँ अनुभव कर रहे हैं (जैसे, संदेहवादी, महानता, विचित्र)?",
       "en": "What kind of delusions are you experiencing (e.g., paranoid, grandiose, bizarre)?",
@@ -5771,12 +4956,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
 
   "paranoia": [
     {
-      "hi": "आपको कितने समय से दूसरों के प्रति संदेह या भय महसूस हो रहा है?",
-      "en": "How long have you been feeling paranoid or suspicious of others?",
-      "category": "paranoia",
-      "symptom": "duration of paranoia",
-    },
-    {
       "hi": "आपके पास लोगों के बारे में क्या विशिष्ट डर या चिंता हैं (जैसे, यह मानना कि लोग आपके खिलाफ साजिश कर रहे हैं या आपकी जासूसी कर रहे हैं)?",
       "en": "What specific fears or concerns do you have about people (e.g., believing others are plotting against you or spying on you)?",
       "category": "paranoia",
@@ -5807,18 +4986,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "difficulty trusting others",
     },
     {
-      "hi": "क्या आप अन्य कोई लक्षण अनुभव कर रहे हैं, जैसे चिंता, मूड स्विंग्स, या नींद में कठिनाई?",
-      "en": "Are you experiencing any other symptoms, such as anxiety, mood swings, or difficulty sleeping?",
-      "category": "paranoia",
-      "symptom": "other symptoms (e.g., anxiety, sleep problems)",
-    },
-    {
-      "hi": "क्या आपने हाल ही में कोई महत्वपूर्ण तनाव, आघातपूर्ण घटनाएँ, या जीवन में कोई बड़ा परिवर्तन अनुभव किया है?",
-      "en": "Have you experienced any major stressors, traumatic events, or significant life changes recently?",
-      "category": "paranoia",
-      "symptom": "recent stressors or life changes",
-    },
-    {
       "hi": "क्या आप कोई दवाइयाँ, ओवर-द-काउंटर दवाइयाँ, या अवैध नशीली दवाएँ ले रहे हैं?",
       "en": "Are you taking any medications, including prescription, over-the-counter, or recreational drugs?",
       "category": "paranoia",
@@ -5834,12 +5001,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
 
   "euphoria": [
     {
-      "hi": "आपको कितने समय से उत्साह (अत्यधिक खुशी या खुशी का अनुभव) हो रहा है?",
-      "en": "How long have you been experiencing euphoria (feeling unusually happy or elated)?",
-      "category": "euphoria",
-      "symptom": "duration of euphoria",
-    },
-    {
       "hi": "इन उत्साही भावनाओं की तीव्रता कितनी है?",
       "en": "How intense are these feelings of euphoria?",
       "category": "euphoria",
@@ -5850,12 +5011,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Do you feel that the euphoria is out of proportion to the situation or events around you?",
       "category": "euphoria",
       "symptom": "disproportionate euphoria",
-    },
-    {
-      "hi": "क्या आप अन्य कोई लक्षण अनुभव कर रहे हैं, जैसे दौड़ते विचार, अत्यधिक ऊर्जा, या आवेगी व्यवहार?",
-      "en": "Are you experiencing any other symptoms, such as racing thoughts, excessive energy, or impulsive behavior?",
-      "category": "euphoria",
-      "symptom": "associated symptoms (e.g., racing thoughts, impulsivity)",
     },
     {
       "hi": "क्या आपको असामान्य रूप से आत्मविश्वासी, ऊर्जावान, या 'दुनिया के शीर्ष पर' जैसा महसूस हो रहा है?",
@@ -5887,21 +5042,9 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "euphoria",
       "symptom": "history of mental health conditions",
     },
-    {
-      "hi": "क्या आपके परिवार में मानसिक स्वास्थ्य विकारों का इतिहास है, विशेष रूप से मूड विकारों जैसे बाइपोलर डिसऑर्डर या स्किजोफ्रेनिया?",
-      "en": "Do you have a family history of mental health disorders, particularly mood disorders like bipolar disorder or schizophrenia?",
-      "category": "euphoria",
-      "symptom": "family history of mood disorders",
-    },
   ],
 
   "lack of motivation": [
-    {
-      "hi": "आपको कितने समय से प्रेरणा की कमी महसूस हो रही है?",
-      "en": "How long have you been feeling a lack of motivation?",
-      "category": "lack_of_motivation",
-      "symptom": "duration of lack of motivation",
-    },
     {
       "hi": "क्या प्रेरणा की कमी लगातार है, या यह आती-जाती रहती है?",
       "en": "Is the lack of motivation constant, or does it come and go?",
@@ -5919,12 +5062,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Have you noticed any changes in your energy levels or ability to focus?",
       "category": "lack_of_motivation",
       "symptom": "changes in energy and focus",
-    },
-    {
-      "hi": "क्या आप अन्य कोई लक्षण अनुभव कर रहे हैं, जैसे उदासी, चिंता, या चिड़चिड़ापन?",
-      "en": "Are you experiencing any other symptoms, such as sadness, anxiety, or irritability?",
-      "category": "lack_of_motivation",
-      "symptom": "associated symptoms (e.g., sadness, anxiety, irritability)",
     },
     {
       "hi": "क्या आपको ऐसा महसूस हो रहा है कि आप कार्य शुरू करने में असमर्थ हैं, यहां तक कि वे कार्य जिन्हें आप पहले पसंद करते थे?",
@@ -5971,23 +5108,12 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "bone_fracture",
       "symptom": "location and type of fracture",
     },
-    {
-      "hi": "चोट कब लगी थी?",
-      "en": "When did the injury happen?",
-      "category": "bone_fracture",
-      "symptom": "timing of injury",
-    },
+      
     {
       "hi": "क्या आपको चोट लगते समय कोई पॉपिंग या क्रैकिंग की आवाज़ सुनाई दी थी?",
       "en": "Did you hear a popping or cracking sound when the injury occurred?",
       "category": "bone_fracture",
       "symptom": "sound during injury",
-    },
-    {
-      "hi": "क्या आपको घायल क्षेत्र के आसपास सूजन, चोट, या विकृति का अनुभव हो रहा है?",
-      "en": "Are you experiencing any swelling, bruising, or deformity around the injured area?",
-      "category": "bone_fracture",
-      "symptom": "swelling, bruising, or deformity",
     },
     {
       "hi": "क्या आपको प्रभावित अंग या जोड़ों को हिलाने में कठिनाई हो रही है?",
@@ -6000,12 +5126,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Have you had any previous fractures or bone injuries?",
       "category": "bone_fracture",
       "symptom": "history of fractures or bone injuries",
-    },
-    {
-      "hi": "क्या आपके पास कोई मेडिकल स्थितियाँ हैं जो हड्डी स्वास्थ्य को प्रभावित करती हैं (जैसे, ऑस्टियोपोरोसिस, हड्डी का कैंसर)?",
-      "en": "Do you have any medical conditions that affect bone health (e.g., osteoporosis, bone cancer)?",
-      "category": "bone_fracture",
-      "symptom": "underlying medical conditions affecting bone health",
     },
     {
       "hi": "क्या आप कोई दवाइयाँ ले रहे हैं, जिसमें कैल्शियम या विटामिन D जैसे सप्लीमेंट शामिल हैं?",
@@ -6027,12 +5147,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Where exactly is the bone pain located?",
       "category": "bone_pain",
       "symptom": "location of bone pain",
-    },
-    {
-      "hi": "आपको यह दर्द कब से हो रहा है?",
-      "en": "How long have you been experiencing the pain?",
-      "category": "bone_pain",
-      "symptom": "duration of bone pain",
     },
     {
       "hi": "क्या यह दर्द लगातार है, या यह आता-जाता रहता है?",
@@ -6071,12 +5185,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "weakness or difficulty moving",
     },
     {
-      "hi": "क्या आपके पास कोई ऐसी मेडिकल स्थितियाँ हैं जो आपकी हड्डियों को प्रभावित करती हैं, जैसे कि ऑस्टियोपोरोसिस, आर्थ्राइटिस या कैंसर?",
-      "en": "Do you have any medical conditions that might affect your bones, such as osteoporosis, arthritis, or cancer?",
-      "category": "bone_pain",
-      "symptom": "underlying conditions affecting bones",
-    },
-    {
       "hi": "क्या आप कोई दवाइयाँ या सप्लीमेंट्स ले रहे हैं, जैसे कि कैल्शियम या विटामिन D?",
       "en": "Are you taking any medications or supplements, including calcium or vitamin D?",
       "category": "bone_pain",
@@ -6098,12 +5206,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "injured joint or ligament",
     },
     {
-      "hi": "चोट कब लगी थी?",
-      "en": "When did the injury happen?",
-      "category": "sprain",
-      "symptom": "time of injury",
-    },
-    {
       "hi": "क्या दर्द लगातार है, या यह हलचल या दबाव से बदलता है?",
       "en": "Is the pain constant, or does it vary with movement or pressure?",
       "category": "sprain",
@@ -6117,15 +5219,9 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
     },
     {
       "hi": "क्या आप प्रभावित जोड़े को हिला सकते हैं, या यह हिलाने में बहुत दर्द होता है?",
-      "en": "Can you move the affected joint, or is it too painful to move?",
+      "en": "Can you move the affected joint, or is it too painful tomove?",
       "category": "sprain",
       "symptom": "joint movement",
-    },
-    {
-      "hi": "क्या चोट के बाद प्रभावित जोड़े में कमजोरी या अस्थिरता महसूस हो रही है?",
-      "en": "Have you experienced any weakness or instability in the affected joint since the injury?",
-      "category": "sprain",
-      "symptom": "weakness or instability",
     },
     {
       "hi": "क्या चोट लगने के समय कोई पॉपिंग या स्नैपिंग की आवाज आई थी?",
@@ -6161,12 +5257,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "injured joint or area",
     },
     {
-      "hi": "चोट कब लगी थी, और क्या उस समय तुरंत दर्द या सूजन हुई थी?",
-      "en": "When did the injury happen, and was there any immediate pain or swelling?",
-      "category": "ligament injury",
-      "symptom": "pain and swelling onset",
-    },
-    {
       "hi": "क्या चोट के समय कोई पॉपिंग या स्नैपिंग की आवाज आई थी?",
       "en": "Did you hear a popping or snapping sound when the injury occurred?",
       "category": "ligament injury",
@@ -6179,22 +5269,10 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "pain variation with movement",
     },
     {
-      "hi": "क्या घायल जोड़े के आसपास सूजन, चोट या लाली है?",
-      "en": "Are you experiencing swelling, bruising, or redness around the injured joint?",
-      "category": "ligament injury",
-      "symptom": "swelling, bruising, or redness",
-    },
-    {
       "hi": "क्या आप प्रभावित जोड़े को हिला सकते हैं, या यह हिलाने में बहुत दर्दनाक या अस्थिर है?",
       "en": "Can you move the affected joint, or is it too painful or unstable to do so?",
       "category": "ligament injury",
       "symptom": "joint movement",
-    },
-    {
-      "hi": "क्या आपने कमजोर, अस्थिरता या वजन उठाने में कठिनाई महसूस की है?",
-      "en": "Have you noticed any weakness, instability, or difficulty bearing weight on the injured limb?",
-      "category": "ligament injury",
-      "symptom": "weakness or instability",
     },
     {
       "hi": "क्या आपने पहले कभी लिगामेंट की चोट या उसी जोड़े में बार-बार समस्याएँ महसूस की हैं?",
@@ -6211,23 +5289,12 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "gout": [
-    {
-      "hi": "आपको गाउट के लक्षणों का अनुभव कितने समय से हो रहा है?",
-      "en": "How long have you been experiencing symptoms of gout?",
-      "category": "gout",
-      "symptom": "duration of symptoms",
-    },
+    
     {
       "hi": "कौन सा जोड़ा प्रभावित है, और क्या वह सूजा हुआ, लाल, या छूने पर गर्म है?",
       "en": "Which joint is affected, and is it swollen, red, or warm to the touch?",
       "category": "gout",
       "symptom": "affected joint and signs",
-    },
-    {
-      "hi": "आपने पहले कब दर्द महसूस किया था, और क्या यह अचानक था या धीरे-धीरे बढ़ा?",
-      "en": "When did you first notice the pain, and was it sudden or gradual?",
-      "category": "gout",
-      "symptom": "onset of pain",
     },
     {
       "hi": "क्या आपको पहले कभी इसी तरह के लक्षण हुए थे, या यह गाउट का पहला दौरा है?",
@@ -6259,27 +5326,10 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "gout",
       "symptom": "medications",
     },
-    {
-      "hi": "क्या आपको कोई अन्य स्वास्थ्य समस्याएँ हैं, जैसे मोटापा, मधुमेह, या गुर्दे की बीमारी?",
-      "en": "Do you have any other health conditions, such as obesity, diabetes, or kidney disease?",
-      "category": "gout",
-      "symptom": "underlying health conditions",
-    },
-    {
-      "hi": "क्या आपको जोड़ों के दर्द के साथ बुखार या ठंड लगने जैसे लक्षण हो रहे हैं?",
-      "en": "Are you experiencing any symptoms like fever or chills along with the joint pain?",
-      "category": "gout",
-      "symptom": "associated symptoms",
-    },
+      
   ],
 
   "sciatica": [
-    {
-      "hi": "आपको साइटिका के लक्षणों (जैसे दर्द, सुन्नता, या झुनझुनी) का अनुभव कितने समय से हो रहा है?",
-      "en": "How long have you been experiencing sciatica symptoms (e.g., pain, numbness, or tingling)?",
-      "category": "sciatica",
-      "symptom": "duration of symptoms",
-    },
     {
       "hi": "दर्द कहाँ स्थित है (जैसे निचला पीठ, कूल्हे, पैर, पैरों के अंगूठे)?",
       "en": "Where is the pain located (e.g., lower back, buttocks, legs, feet)?",
@@ -6311,18 +5361,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "pain triggers",
     },
     {
-      "hi": "क्या आपको प्रभावित पैर में कमजोरी महसूस होती है या पैर उठाने या हिलाने में कठिनाई हो रही है?",
-      "en": "Do you have any weakness in the affected leg or difficulty moving or lifting your foot?",
-      "category": "sciatica",
-      "symptom": "leg weakness or mobility issues",
-    },
-    {
-      "hi": "क्या आपको हाल ही में कोई चोट, गिरावट, या दुर्घटना हुई है जो आपकी निचली पीठ या रीढ़ को प्रभावित कर सकती है?",
-      "en": "Have you had any recent injuries, falls, or accidents that might have affected your lower back or spine?",
-      "category": "sciatica",
-      "symptom": "recent injuries",
-    },
-    {
       "hi": "क्या आपको कोई अन्य चिकित्सीय स्थिति है, जैसे हर्नियेटेड डिस्क, डीजनरेटिव डिस्क रोग, या स्पाइनल स्टेनोसिस?",
       "en": "Do you have any other medical conditions, such as herniated discs, degenerative disc disease, or spinal stenosis?",
       "category": "sciatica",
@@ -6337,12 +5375,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "herniated disc": [
-    {
-      "hi": "आपको अपनी पीठ या गर्दन से संबंधित लक्षणों का अनुभव कितने समय से हो रहा है?",
-      "en": "How long have you been experiencing symptoms related to your back or neck?",
-      "category": "herniated_disc",
-      "symptom": "duration of symptoms",
-    },
     {
       "hi": "दर्द कहाँ स्थित है (जैसे निचला पीठ, गर्दन, हाथ, पैर)?",
       "en": "Where is the pain located (e.g., lower back, neck, arms, legs)?",
@@ -6386,12 +5418,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "mobility difficulties",
     },
     {
-      "hi": "क्या आपको पीठ से संबंधित कोई पिछला इतिहास है, जैसे पिछले हर्नियेटेड डिस्क, स्पाइनल स्टेनोसिस, या डीजनरेटिव डिस्क रोग?",
-      "en": "Do you have a history of back problems, such as previous herniated discs, spinal stenosis, or degenerative disc disease?",
-      "category": "herniated_disc",
-      "symptom": "history of back problems",
-    },
-    {
       "hi": "क्या आप वर्तमान में कोई दवाइयाँ ले रहे हैं, और क्या आपने फिजिकल थेरेपी, विश्राम, या दर्द निवारण जैसे उपचार किए हैं?",
       "en": "Are you currently taking any medications, and have you tried treatments like physical therapy, rest, or pain relief?",
       "category": "herniated_disc",
@@ -6400,12 +5426,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "back spasm": [
-    {
-      "hi": "आपको पीठ में ऐंठन का अनुभव कितने समय से हो रहा है?",
-      "en": "How long have you been experiencing back spasms?",
-      "category": "back_spasms",
-      "symptom": "duration of spasms",
-    },
     {
       "hi": "ऐंठन कहाँ स्थित है (जैसे निचली पीठ, ऊपरी पीठ, या गर्दन)?",
       "en": "Where is the spasm located (e.g., lower back, upper back, or neck)?",
@@ -6437,18 +5457,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "recent injury or strain",
     },
     {
-      "hi": "क्या आपको किसी अन्य लक्षण का अनुभव हो रहा है, जैसे सुन्नता, झुनझुनी, या पैरों या हाथों में कमजोरी?",
-      "en": "Do you experience any other symptoms, such as numbness, tingling, or weakness in your legs or arms?",
-      "category": "back_spasms",
-      "symptom": "numbness, tingling, or weakness",
-    },
-    {
-      "hi": "क्या ऐंठन के बाद आपको कोई कठोरता या चलने में कठिनाई हो रही है?",
-      "en": "Are you experiencing any stiffness or difficulty moving after the spasms?",
-      "category": "back_spasms",
-      "symptom": "stiffness or movement difficulty",
-    },
-    {
       "hi": "क्या आपको पीठ से संबंधित कोई पिछला इतिहास है, जैसे हर्नियेटेड डिस्क, गठिया, या डीजनरेटिव डिस्क रोग?",
       "en": "Do you have a history of back problems, such as herniated discs, arthritis, or degenerative disc disease?",
       "category": "back_spasms",
@@ -6463,12 +5471,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "whiplash": [
-    {
-      "hi": "चोट कब हुई थी, और क्या कारण था (जैसे कार दुर्घटना, गिरना, खेल की चोट)?",
-      "en": "How long ago did the injury occur, and what caused the whiplash (e.g., car accident, fall, sports injury)?",
-      "category": "whiplash",
-      "symptom": "cause and timing of injury",
-    },
     {
       "hi": "आपको कहाँ दर्द महसूस हो रहा है (जैसे गर्दन, कंधे, ऊपरी पीठ)?",
       "en": "Where exactly do you feel pain (e.g., neck, shoulders, upper back)?",
@@ -6494,22 +5496,10 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "headaches, dizziness, or tinnitus",
     },
     {
-      "hi": "क्या आपको हाथों या बाहों में सुन्नता, झुनझुनी, या कमजोरी महसूस हो रही है?",
-      "en": "Are you experiencing numbness, tingling, or weakness in your arms or hands?",
-      "category": "whiplash",
-      "symptom": "numbness, tingling, or weakness",
-    },
-    {
       "hi": "क्या आपने अन्य कोई चोटें खाई हैं, जैसे मस्तिष्क concussion या पीठ की चोटें, साथ में whiplash के?",
       "en": "Have you had any other injuries, such as a concussion or back injuries, along with the whiplash?",
       "category": "whiplash",
       "symptom": "other injuries",
-    },
-    {
-      "hi": "क्या आपको दर्द या असहजता के कारण सोने में कठिनाई हो रही है?",
-      "en": "Are you experiencing any difficulty sleeping due to the pain or discomfort?",
-      "category": "whiplash",
-      "symptom": "sleep disturbances",
     },
     {
       "hi": "क्या आपने किसी उपचार का प्रयास किया है (जैसे आराम, बर्फ, हीट, दर्द निवारक), और क्या उससे राहत मिली?",
@@ -6525,76 +5515,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
     },
   ],
 
-  "fibromyalgia": [
-    {
-      "hi": "आपको अपने मांसपेशियों और जोड़ो में व्यापक दर्द या कोमलता का अनुभव कब से हो रहा है?",
-      "en": "How long have you been experiencing widespread pain or tenderness in your muscles and joints?",
-      "category": "fibromyalgia",
-      "symptom": "pain and tenderness",
-    },
-    {
-      "hi": "आपको कहाँ दर्द महसूस हो रहा है, और क्या यह शरीर के दोनों तरफ समान रूप से प्रभावित होता है?",
-      "en": "Where do you feel the pain, and does it affect both sides of your body equally?",
-      "category": "fibromyalgia",
-      "symptom": "location and symmetry of pain",
-    },
-    {
-      "hi": "क्या दर्द लगातार है, या यह आता-जाता रहता है?",
-      "en": "Is the pain constant, or does it come and go?",
-      "category": "fibromyalgia",
-      "symptom": "pain pattern",
-    },
-    {
-      "hi": "क्या आपको अन्य लक्षण महसूस हो रहे हैं, जैसे थकान, नींद में गड़बड़ी, सिरदर्द, या याददाश्त की समस्याएँ (जो अक्सर 'फाइब्रो फॉग' के नाम से जानी जाती हैं)?",
-      "en": "Do you experience other symptoms, such as fatigue, sleep disturbances, headaches, or memory problems (often called 'fibro fog')?",
-      "category": "fibromyalgia",
-      "symptom": "other symptoms",
-    },
-    {
-      "hi": "क्या आपको कोई आघात, बीमारी, या संक्रमण हुआ है जो आपके लक्षणों को उत्तेजित कर सकता है?",
-      "en": "Do you have any history of trauma, illness, or infections that might have triggered your symptoms?",
-      "category": "fibromyalgia",
-      "symptom": "history of trauma or illness",
-    },
-    {
-      "hi": "क्या आपको ध्यान केंद्रित करने, सतर्क रहने, या चीजों को याद रखने में कोई कठिनाई हो रही है?",
-      "en": "Are you experiencing any difficulty concentrating, staying alert, or remembering things?",
-      "category": "fibromyalgia",
-      "symptom": "concentration and memory problems",
-    },
-    {
-      "hi": "क्या आपके लक्षण किसी विशेष समय पर बढ़ जाते हैं (जैसे तनाव के दौरान, शारीरिक गतिविधि के बाद, या मौसम में बदलाव के साथ)?",
-      "en": "Do your symptoms worsen at certain times (e.g., during stress, after physical activity, or with changes in the weather)?",
-      "category": "fibromyalgia",
-      "symptom": "symptom triggers",
-    },
-    {
-      "hi": "क्या आपकी नींद की आदतों में कोई महत्वपूर्ण परिवर्तन हुआ है, जैसे सोने में कठिनाई, या नींद से उठने के बाद थका हुआ महसूस करना?",
-      "en": "Have you had any significant changes in your sleep patterns, such as trouble falling or staying asleep, or waking up feeling unrefreshed?",
-      "category": "fibromyalgia",
-      "symptom": "sleep disturbances",
-    },
-    {
-      "hi": "क्या आपके परिवार में फाइब्रोमायल्गिया या अन्य पुरानी दर्द की स्थितियाँ, जैसे रुमेटोइड आर्थराइटिस या ल्यूपस का इतिहास है?",
-      "en": "Do you have a family history of fibromyalgia or other chronic pain conditions, such as rheumatoid arthritis or lupus?",
-      "category": "fibromyalgia",
-      "symptom": "family history",
-    },
-    {
-      "hi": "क्या आपने अपने लक्षणों के लिए कोई उपचार (जैसे दवाइयाँ, शारीरिक चिकित्सा, तनाव प्रबंधन) किया है, और यदि किया है, तो क्या वे मददगार रहे हैं?",
-      "en": "Have you tried any treatments (e.g., medications, physical therapy, stress management) for your symptoms, and if so, did they help?",
-      "category": "fibromyalgia",
-      "symptom": "treatment history",
-    },
-  ],
-
   "arthritis": [
-    {
-      "hi": "आपको जोड़ों में दर्द या जकड़न कब से हो रही है?",
-      "en": "How long have you been experiencing joint pain or stiffness?",
-      "category": "arthritis",
-      "symptom": "joint pain and stiffness",
-    },
     {
       "hi": "कौन से जोड़ों में समस्या है (जैसे घुटने, हाथ, कूल्हे, उंगलियाँ)?",
       "en": "Which joints are affected (e.g., knees, hands, hips, fingers)?",
@@ -6626,12 +5547,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "activity-related pain changes",
     },
     {
-      "hi": "क्या आपको प्रभावित जोड़ों में हाल ही में कोई चोट या आघात हुआ है?",
-      "en": "Have you had any recent injuries or trauma to the affected joints?",
-      "category": "arthritis",
-      "symptom": "recent injury or trauma",
-    },
-    {
       "hi": "क्या आपको दैनिक गतिविधियाँ करने में कठिनाई हो रही है, जैसे चलना, टाइप करना, या जार खोलना?",
       "en": "Do you have difficulty performing daily activities, such as walking, typing, or opening jars?",
       "category": "arthritis",
@@ -6649,259 +5564,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "arthritis",
       "symptom": "medication and treatment history",
     },
-  ],
-
-  "anhedonia": [
-    {
-      "hi": "आपको जो गतिविधियाँ पहले आनंददायक लगती थीं, उन्हें अब रुचि या खुशी क्यों नहीं हो रही है?",
-      "en": "How long have you been experiencing a lack of interest or pleasure in activities you used to enjoy?",
-      "category": "anhedonia",
-      "symptom": "loss of interest in enjoyable activities",
-    },
-    {
-      "hi": "कौन सी गतिविधियाँ या शौक अब आपको आनंददायक नहीं लगते (जैसे सामाजिक मेलजोल, शौक, भोजन, या काम)?",
-      "en": "Which activities or hobbies do you no longer find enjoyable (e.g., socializing, hobbies, eating, or work)?",
-      "category": "anhedonia",
-      "symptom": "specific activities no longer enjoyable",
-    },
-    {
-      "hi": "क्या आपको उन चीजों के प्रति उदासीनता या भावनात्मक 'न्यूम्नेस' महसूस हो रही है, जो पहले आपको खुशी देती थीं?",
-      "en": "Do you feel indifferent or emotionally 'numb' toward things that once brought you happiness?",
-      "category": "anhedonia",
-      "symptom": "emotional numbness",
-    },
-    {
-      "hi": "क्या आपने दैनिक गतिविधियों में भाग लेने की प्रेरणा, ऊर्जा, या इच्छा में कमी महसूस की है?",
-      "en": "Have you noticed a decline in motivation, energy, or desire to engage in daily activities?",
-      "category": "anhedonia",
-      "symptom": "decline in motivation and energy",
-    },
-    {
-      "hi": "क्या आप कोई मूड में बदलाव महसूस कर रहे हैं, जैसे उदासी, निराशा, या चिड़चिड़ापन?",
-      "en": "Are you experiencing any changes in mood, such as feelings of sadness, hopelessness, or irritability?",
-      "category": "anhedonia",
-      "symptom": "mood changes",
-    },
-    {
-      "hi": "क्या आपने अपनी भूख, नींद, या समग्र ऊर्जा स्तरों में कोई बदलाव महसूस किया है?",
-      "en": "Have you noticed any changes in your appetite, sleep, or overall energy levels?",
-      "category": "anhedonia",
-      "symptom": "changes in appetite, sleep, or energy",
-    },
-    {
-      "hi": "क्या आप शारीरिक लक्षणों, जैसे थकान, दर्द, या सिरदर्द, का अनुभव कर रहे हैं, जो आपके आनंद लेने की क्षमता को प्रभावित कर सकते हैं?",
-      "en": "Are you experiencing any physical symptoms, such as fatigue, pain, or headaches, that could be contributing to your lack of enjoyment?",
-      "category": "anhedonia",
-      "symptom": "physical symptoms affecting enjoyment",
-    },
-    {
-      "hi": "क्या आपने हाल ही में जीवन में कोई बदलाव, तनाव, या आघात महसूस किया है, जो आपके मानसिक स्वास्थ्य को प्रभावित कर सकता है?",
-      "en": "Have you experienced any recent life changes, stressors, or trauma that might be affecting your mental health?",
-      "category": "anhedonia",
-      "symptom": "life changes or stressors",
-    },
-    {
-      "hi": "क्या आपके पास मानसिक स्वास्थ्य स्थितियों, जैसे अवसाद, चिंता, या द्विध्रुवीय विकार, का इतिहास है?",
-      "en": "Do you have a history of mental health conditions, such as depression, anxiety, or bipolar disorder?",
-      "category": "anhedonia",
-      "symptom": "history of mental health conditions",
-    },
-    {
-      "hi": "क्या आप वर्तमान में कोई दवाइयाँ ले रहे हैं, जैसे एंटीडिप्रेसेंट्स या अन्य उपचार, और क्या उन्होंने आपके आनंद लेने की क्षमता को प्रभावित किया है?",
-      "en": "Are you currently taking any medications, including antidepressants or other treatments, and have they affected your ability to enjoy things?",
-      "category": "anhedonia",
-      "symptom": "effect of medications on enjoyment",
-    },
-  ],
-
-  "agitation": [
-    {
-      "hi": "आप कब से बेचैनी या उत्तेजना महसूस कर रहे हैं?",
-      "en": "How long have you been feeling agitated or restless?",
-      "category": "agitation",
-      "symptom": "feeling restless or agitated",
-    },
-    {
-      "hi": "आप किस प्रकार की भावनाओं या व्यवहारों का अनुभव कर रहे हैं (जैसे चिड़चिड़ापन, चहलकदमी, तेज बोलना, या शांत रहने में कठिनाई)?",
-      "en": "What specific feelings or behaviors are you experiencing (e.g., irritability, pacing, rapid speech, difficulty staying still)?",
-      "category": "agitation",
-      "symptom": "specific behaviors or feelings of agitation",
-    },
-    {
-      "hi": "क्या आप अत्यधिक चिंतित, घबराए हुए या तनावपूर्ण महसूस कर रहे हैं?",
-      "en": "Do you feel excessively anxious, nervous, or on edge?",
-      "category": "agitation",
-      "symptom": "excessive anxiety or nervousness",
-    },
-    {
-      "hi": "क्या उत्तेजना किसी विशेष घटना, स्थिति या विचारों से प्रेरित होती है?",
-      "en": "Is the agitation triggered by specific events, situations, or thoughts?",
-      "category": "agitation",
-      "symptom": "triggers of agitation",
-    },
-    {
-      "hi": "क्या आपको अपनी भावनाओं को नियंत्रित करने में कठिनाई हो रही है, या क्या आप पहले से ज्यादा जल्दी गुस्सा या परेशान हो जाते हैं?",
-      "en": "Do you have difficulty controlling your emotions, or are you more easily frustrated or upset than usual?",
-      "category": "agitation",
-      "symptom": "difficulty controlling emotions or frustration",
-    },
-    {
-      "hi": "क्या आप हाल ही में किसी महत्वपूर्ण तनाव या जीवन में बड़े बदलावों का सामना कर रहे हैं?",
-      "en": "Have you been under significant stress, facing major life changes, or dealing with emotional challenges recently?",
-      "category": "agitation",
-      "symptom": "stress or life changes",
-    },
-    {
-      "hi": "क्या आपको उत्तेजना के साथ कोई शारीरिक लक्षण जैसे बढ़ी हुई हृदय गति, पसीना, कांपना, या सांस लेने में कठिनाई हो रही है?",
-      "en": "Are you experiencing any physical symptoms along with the agitation, such as increased heart rate, sweating, trembling, or difficulty breathing?",
-      "category": "agitation",
-      "symptom": "physical symptoms associated with agitation",
-    },
-    {
-      "hi": "क्या आपको मानसिक स्वास्थ्य स्थितियों, जैसे चिंता, अवसाद, द्विध्रुवीय विकार, या PTSD का इतिहास है?",
-      "en": "Do you have a history of mental health conditions, such as anxiety, depression, bipolar disorder, or PTSD?",
-      "category": "agitation",
-      "symptom": "history of mental health conditions",
-    },
-    {
-      "hi": "क्या आप वर्तमान में कोई दवाइयाँ ले रहे हैं, जैसे प्रिस्क्रिप्शन, ओवर-द-काउंटर, या रिक्रिएशनल ड्रग्स?",
-      "en": "Are you currently taking any medications, including prescription, over-the-counter, or recreational drugs?",
-      "category": "agitation",
-      "symptom": "medications or substance use",
-    },
-    {
-      "hi": "क्या आपको हाल ही में नींद में कोई विघटन, थकान, या भूख में बदलाव महसूस हुआ है?",
-      "en": "Have you experienced any recent sleep disturbances, fatigue, or changes in appetite?",
-      "category": "agitation",
-      "symptom": "sleep disturbances, fatigue, or appetite changes",
-    },
-  ],
-
-  "convulsion": [
-    {
-      "hi": "आप कब से दौरे (माथे के झटके) का अनुभव कर रहे हैं?",
-      "en": "How long have you been experiencing convulsions or seizures?",
-      "category": "convulsions",
-      "symptom": "duration of seizures",
-    },
-    {
-      "hi": "पहला दौरा कब हुआ था, और वे कितनी बार होते हैं?",
-      "en": "When did the first seizure occur, and how often do they happen?",
-      "category": "convulsions",
-      "symptom": "frequency of seizures",
-    },
-    {
-      "hi": "दौरे के दौरान क्या दिखाई देता है (जैसे झटका, मरोड़, होश का चले जाना)?",
-      "en": "What does the seizure look like (e.g., shaking, jerking movements, loss of consciousness)?",
-      "category": "convulsions",
-      "symptom": "type of seizure",
-    },
-    {
-      "hi": "क्या आपको दौरे के शुरू होने से पहले कोई चेतावनी संकेत या आभास होता है (जैसे चक्कर आना, अजीब महसूस होना, दृष्टि में बदलाव)?",
-      "en": "Do you experience any warning signs or aura before the convulsions start (e.g., dizziness, strange sensations, visual disturbances)?",
-      "category": "convulsions",
-      "symptom": "warning signs or aura before seizure",
-    },
-    {
-      "hi": "क्या आपने कभी दौरे के दौरान या बाद में होश खो दिया है या याददाश्त में कमी अनुभव की है?",
-      "en": "Have you ever lost consciousness or memory during or after a seizure?",
-      "category": "convulsions",
-      "symptom": "loss of consciousness or memory",
-    },
-    {
-      "hi": "क्या दौरे के बाद कोई अन्य लक्षण जैसे भ्रम, सिरदर्द या मांसपेशियों में दर्द महसूस हो रहा है?",
-      "en": "Are you experiencing any other symptoms, such as confusion, headache, or muscle soreness, after the seizure?",
-      "category": "convulsions",
-      "symptom": "post-seizure symptoms",
-    },
-    {
-      "hi": "क्या आपको कोई ज्ञात चिकित्सा स्थिति है, जैसे मिर्गी, मस्तिष्क की चोट, या तंत्रिका संबंधी विकार?",
-      "en": "Do you have any known medical conditions, such as epilepsy, brain injury, or neurological disorders?",
-      "category": "convulsions",
-      "symptom": "medical history (epilepsy, brain injury)",
-    },
-    {
-      "hi": "क्या आप वर्तमान में कोई दवाइयाँ ले रहे हैं, जैसे प्रिस्क्रिप्शन, ओवर-द-काउंटर, या रिक्रिएशनल ड्रग्स?",
-      "en": "Are you taking any medications, including prescription, over-the-counter, or recreational drugs?",
-      "category": "convulsions",
-      "symptom": "medications and substance use",
-    },
-    {
-      "hi": "क्या आपको हाल ही में कोई सिर की चोट, संक्रमण, या बुखार हुआ है?",
-      "en": "Have you had any recent head injuries, infections, or fevers?",
-      "category": "convulsions",
-      "symptom": "recent head injuries, infections, or fevers",
-    },
-    {
-      "hi": "क्या आपके परिवार में मिर्गी, दौरे, या अन्य तंत्रिका संबंधी विकारों का इतिहास है?",
-      "en": "Is there a family history of epilepsy, seizures, or other neurological disorders?",
-      "category": "convulsions",
-      "symptom": "family history of seizures or neurological disorders",
-    },
-  ],
-
-  "hive": [
-    {
-      "hi": "आप कब से शरीर पर फफोले (उठे हुए, लाल, खुजलीदार धब्बे) का अनुभव कर रहे हैं?",
-      "en": "How long have you been experiencing hives (raised, red, itchy welts on your skin)?",
-      "category": "hives",
-      "symptom": "duration of hives",
-    },
-    {
-      "hi": "फफोले पहले कब दिखाई दिए थे, और क्या वे बढ़ते जा रहे हैं?",
-      "en": "When did the hives first appear, and have they been getting worse?",
-      "category": "hives",
-      "symptom": "onset and progression of hives",
-    },
-    {
-      "hi": "क्या फफोले किसी विशेष स्थान पर हैं, या वे आपके शरीर के विभिन्न हिस्सों में फैल रहे हैं?",
-      "en": "Are the hives localized to a specific area, or do they spread to different parts of your body?",
-      "category": "hives",
-      "symptom": "location and spread of hives",
-    },
-    {
-      "hi": "क्या फफोले आते-जाते हैं, या यह लगातार बने रहते हैं?",
-      "en": "Do the hives come and go, or are they persistent?",
-      "category": "hives",
-      "symptom": "frequency and persistence of hives",
-    },
-    {
-      "hi": "क्या आपने फफोले होने के कारण किसी विशेष पदार्थ, दवाओं, तनाव, गर्मी, या ठंड का अनुभव किया है?",
-      "en": "Have you noticed any triggers for the hives, such as certain foods, medications, stress, heat, or cold?",
-      "category": "hives",
-      "symptom": "triggers for hives",
-    },
-    {
-      "hi": "क्या फफोले के साथ कोई अन्य लक्षण हैं, जैसे सांस लेने में कठिनाई, होंठों या गले में सूजन, या चक्कर आना?",
-      "en": "Have you experienced any other symptoms along with the hives, such as difficulty breathing, swelling in your lips or throat, or dizziness?",
-      "category": "hives",
-      "symptom": "associated symptoms with hives",
-    },
-    {
-      "hi": "क्या आपको एलर्जी, अस्थमा, या अन्य त्वचा की समस्याओं (जैसे एक्जिमा, एलर्जिक रिएक्शन) का इतिहास है?",
-      "en": "Do you have a history of allergies, asthma, or other skin conditions (e.g., eczema, allergic reactions)?",
-      "category": "hives",
-      "symptom": "medical history of allergies or skin conditions",
-    },
-    {
-      "hi": "क्या आपने हाल ही में कोई नई दवाएं, खाद्य पदार्थ, या स्किनकेयर उत्पाद शुरू किए हैं?",
-      "en": "Have you recently started any new medications, foods, or skincare products?",
-      "category": "hives",
-      "symptom": "recent changes in medications or products",
-    },
-    {
-      "hi": "क्या आप हाल ही में किसी बड़े तनाव से गुजर रहे हैं या किसी संक्रमण का सामना कर रहे हैं?",
-      "en": "Have you been under significant stress or experienced any infections recently?",
-      "category": "hives",
-      "symptom": "stress or infections as potential triggers",
-    },
-    {
-      "hi": "क्या आपके परिवार में एलर्जी, फफोले, या अन्य एलर्जी संबंधित बीमारियों का इतिहास है?",
-      "en": "Do you have a family history of allergies, hives, or other allergic conditions?",
-      "category": "hives",
-      "symptom": "family history of allergies or hives",
-    },
-  ],
+    ],
 
   "dermatitis": [
     {
@@ -6927,18 +5590,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Is the skin irritation persistent, or does it flare up intermittently?",
       "category": "seborrheic_dermatitis",
       "symptom": "irritation pattern",
-    },
-    {
-      "hi": "क्या आपने कोई ऐसे ट्रिगर नोटिस किए हैं जो आपके लक्षणों को बढ़ाते हैं, जैसे तनाव, मौसम परिवर्तन, या कुछ खास स्किनकेयर उत्पाद?",
-      "en": "Have you noticed any triggers that make your symptoms worse, such as stress, weather changes, or certain skincare products?",
-      "category": "seborrheic_dermatitis",
-      "symptom": "triggers",
-    },
-    {
-      "hi": "क्या आपको कोई अन्य लक्षण महसूस हो रहे हैं, जैसे त्वचा पर लालिमा, परतें, या पीले रंग की पपड़ी?",
-      "en": "Are you experiencing any other symptoms, such as redness, scaling, or yellowish crusts on your skin?",
-      "category": "seborrheic_dermatitis",
-      "symptom": "other symptoms",
     },
     {
       "hi": "क्या आपको कोई अन्य स्थितियाँ हैं, जैसे तैलीय त्वचा, फंगल संक्रमण, या अन्य पुरानी त्वचा स्थितियाँ (जैसे सोरायसिस, एक्जिमा)?",
@@ -6967,12 +5618,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
   ],
 
   "cellulitis": [
-    {
-      "hi": "आप कब से सेल्यूलाइटिस के लक्षण महसूस कर रहे हैं (जैसे त्वचा में लालिमा, सूजन, गर्मी, या दर्द)?",
-      "en": "How long have you been experiencing symptoms of cellulitis (e.g., redness, swelling, warmth, or pain in the skin)?",
-      "category": "cellulitis",
-      "symptom": "duration of symptoms",
-    },
+   
     {
       "hi": "सेल्यूलाइटिस सबसे पहले आपके शरीर के किस हिस्से में दिखा (जैसे पैरों, हाथों, चेहरे)?",
       "en": "Where on your body did the cellulitis first appear (e.g., legs, arms, face)?",
@@ -6990,12 +5636,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Is the area of infection becoming more swollen, red, or painful over time?",
       "category": "cellulitis",
       "symptom": "infection progression",
-    },
-    {
-      "hi": "क्या आपको त्वचा के संक्रमण के साथ बुखार, ठंड लगना, या फ्लू जैसे लक्षण महसूस हुए हैं?",
-      "en": "Have you noticed any fever, chills, or flu-like symptoms along with the skin infection?",
-      "category": "cellulitis",
-      "symptom": "systemic symptoms",
     },
     {
       "hi": "क्या आपको कोई अन्य स्वास्थ्य समस्याएँ हैं, जैसे डायबिटीज, कमजोर इम्यून सिस्टम, या परिसंचरण संबंधी समस्याएँ, जो संक्रमण के जोखिम को बढ़ा सकती हैं?",
@@ -7029,144 +5669,12 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
     },
   ],
 
-  "impetigo": [
-    {
-      "hi": "आपको दाने या घाव कब से हैं, और ये पहले कब दिखाई दिए?",
-      "en": "How long have you had the rash or sores, and when did they first appear?",
-      "category": "impetigo",
-      "symptom": "duration of symptoms",
-    },
-    {
-      "hi": "घाव आपके शरीर के किस हिस्से पर हैं (जैसे चेहरा, हाथ, पैर, या नाक और मुँह के आस-पास)?",
-      "en": "Where on your body are the sores located (e.g., face, arms, legs, or around the nose and mouth)?",
-      "category": "impetigo",
-      "symptom": "location of sores",
-    },
-    {
-      "hi": "क्या घाव फफोले के रूप में शुरू होते हैं, और क्या ये फटते हैं या स्कैब बनते हैं?",
-      "en": "Do the sores start as blisters, and do they rupture or form scabs?",
-      "category": "impetigo",
-      "symptom": "type and progression of sores",
-    },
-    {
-      "hi": "क्या घाव आपके शरीर के अन्य हिस्सों में फैल गए हैं या आपके आसपास के किसी और व्यक्ति में भी हुए हैं?",
-      "en": "Have the sores spread to other areas of your skin or to anyone else around you?",
-      "category": "impetigo",
-      "symptom": "spread of infection",
-    },
-    {
-      "hi": "क्या घाव दर्दनाक, खुजलीदार, या छूने पर कोमल हैं?",
-      "en": "Are the sores painful, itchy, or tender to the touch?",
-      "category": "impetigo",
-      "symptom": "pain or discomfort",
-    },
-    {
-      "hi": "क्या आपको हाल ही में किसी कट, कीड़े के काटने, या त्वचा की जलन का सामना हुआ है, जो आपको संक्रमण के लिए अधिक संवेदनशील बना सकता है?",
-      "en": "Have you had any recent cuts, insect bites, or skin irritation that may have made you more prone to infection?",
-      "category": "impetigo",
-      "symptom": "skin injury or irritation",
-    },
-    {
-      "hi": "क्या आपको बुखार, सूजे हुए लिम्फ नोड्स, या संक्रमण के अन्य लक्षण महसूस हुए हैं?",
-      "en": "Do you have any fever, swollen lymph nodes, or other signs of infection?",
-      "category": "impetigo",
-      "symptom": "systemic infection signs",
-    },
-    {
-      "hi": "क्या आपको या आपके आसपास के किसी व्यक्ति को इम्पेटिगो या अन्य त्वचा संक्रमणों का इतिहास रहा है?",
-      "en": "Have you or anyone close to you had a history of impetigo or other skin infections?",
-      "category": "impetigo",
-      "symptom": "history of skin infections",
-    },
-    {
-      "hi": "क्या आप कोई दवा ले रहे हैं, जैसे एंटीबायोटिक्स या स्टेरॉयड, जो आपके इम्यून सिस्टम को प्रभावित कर सकते हैं?",
-      "en": "Are you currently taking any medications, such as antibiotics or steroids, that could affect your immune system?",
-      "category": "impetigo",
-      "symptom": "current medications",
-    },
-    {
-      "hi": "क्या आपने किसी ऐसे व्यक्ति से निकट संपर्क किया है जो इम्पेटिगो या किसी अन्य त्वचा संक्रमण से पीड़ित हो?",
-      "en": "Have you been in close contact with someone who has impetigo or another skin infection?",
-      "category": "impetigo",
-      "symptom": "exposure to infection",
-    },
-  ],
-
-  "eczema": [
-    {
-      "hi": "आपको एक्जिमा (जैसे खुजली, सूखी, या जलन वाली त्वचा) के लक्षण कब से हैं?",
-      "en": "How long have you been experiencing symptoms of eczema (e.g., itchy, dry, or inflamed skin)?",
-      "category": "eczema",
-      "symptom": "duration of symptoms",
-    },
-    {
-      "hi": "एक्जिमा आपके शरीर के किस हिस्से पर सबसे ज्यादा दिखाई देता है (जैसे चेहरा, कोहनी, घुटने, हाथ, या पैर)?",
-      "en": "Where on your body is the eczema most noticeable (e.g., face, elbows, knees, hands, or feet)?",
-      "category": "eczema",
-      "symptom": "location of eczema",
-    },
-    {
-      "hi": "क्या आपके एक्जिमा के लक्षण बढ़ते रहते हैं या यह एक स्थायी समस्या है?",
-      "en": "Do you experience flare-ups of your eczema, or is it a chronic issue?",
-      "category": "eczema",
-      "symptom": "flare-ups vs chronic issue",
-    },
-    {
-      "hi": "क्या खुजली लगातार होती है, या यह आती जाती है, और क्या खुजली से स्थिति और खराब होती है?",
-      "en": "Is the itching constant, or does it come and go, and does scratching worsen the condition?",
-      "category": "eczema",
-      "symptom": "itching patterns",
-    },
-    {
-      "hi": "क्या आपने किसी विशेष चीज़ या पैटर्न को देखा है जो आपके एक्जिमा को और बढ़ा देता है (जैसे कुछ साबुन, डिटर्जेंट, मौसम, तनाव, या खाद्य पदार्थ)?",
-      "en": "Have you noticed any specific triggers or patterns that worsen your eczema (e.g., certain soaps, detergents, weather changes, stress, or foods)?",
-      "category": "eczema",
-      "symptom": "triggers",
-    },
-    {
-      "hi": "क्या आपको अन्य एलर्जी स्थितियाँ हैं, जैसे अस्थमा, हे फीवर, या खाद्य एलर्जी?",
-      "en": "Do you have any other allergic conditions, such as asthma, hay fever, or food allergies?",
-      "category": "eczema",
-      "symptom": "allergic conditions",
-    },
-    {
-      "hi": "क्या आपको बचपन में ऐसी ही त्वचा की समस्याएँ हुई थीं, या यह आपके लिए एक नई समस्या है?",
-      "en": "Have you had similar skin problems as a child, or is this a new issue for you?",
-      "category": "eczema",
-      "symptom": "history of eczema",
-    },
-    {
-      "hi": "क्या आप कोई स्थानीय उपचार (जैसे मॉइस्चराइज़र, कॉर्टिकोस्टेरॉयड) उपयोग करते हैं, और क्या वे प्रभावी रहे हैं?",
-      "en": "Do you use any topical treatments (e.g., moisturizers, corticosteroids), and have they been effective?",
-      "category": "eczema",
-      "symptom": "treatment effectiveness",
-    },
-    {
-      "hi": "क्या आपको कोई जटिलताएँ हुई हैं, जैसे त्वचा के संक्रमण (जैसे खुजली या टूटे हुए त्वचा के कारण)?",
-      "en": "Have you had any complications, such as skin infections (e.g., due to scratching or broken skin)?",
-      "category": "eczema",
-      "symptom": "complications",
-    },
-    {
-      "hi": "क्या आपके परिवार में एक्जिमा, एलर्जी, अस्थमा, या अन्य त्वचा संबंधी समस्याओं का इतिहास है?",
-      "en": "Is there a family history of eczema, allergies, asthma, or other skin conditions?",
-      "category": "eczema",
-      "symptom": "family history",
-    },
-  ],
-
   "ulcer": [
     {
       "hi": "आपके शरीर पर अल्सर कहां स्थित हैं (जैसे पेट, मुँह, पैर, या पैर के तलवे)?",
       "en": "Where on your body are the ulcers located (e.g., stomach, mouth, legs, or feet)?",
       "category": "ulcer",
       "symptom": "location of ulcer",
-    },
-    {
-      "hi": "आपको अल्सर कब से हो रहे हैं, और यह कब पहली बार दिखाई दिया?",
-      "en": "How long have you been experiencing the ulcer, and when did it first appear?",
-      "category": "ulcer",
-      "symptom": "duration and onset",
     },
     {
       "hi": "क्या अल्सर से आपको दर्द होता है, और यदि हां, तो दर्द की तीव्रता कितनी है?",
@@ -7191,12 +5699,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "en": "Do you have a history of conditions like gastritis, acid reflux, Crohn's disease, or varicose veins?",
       "category": "ulcer",
       "symptom": "underlying conditions",
-    },
-    {
-      "hi": "क्या आप अन्य लक्षणों का अनुभव कर रहे हैं, जैसे वजन घटना, मिचली, बुखार, या भूख में बदलाव?",
-      "en": "Are you experiencing any other symptoms, such as weight loss, nausea, fever, or changes in appetite?",
-      "category": "ulcer",
-      "symptom": "other symptoms",
     },
     {
       "hi": "क्या आपने हाल ही में कोई चोट, संक्रमण, या दवाइयां (जैसे NSAIDs या स्टेरॉयड) ली हैं, जो अल्सर को बढ़ा सकती हैं?",
@@ -7232,18 +5734,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "eating habits",
     },
     {
-      "hi": "क्या आपको अन्य लक्षण महसूस हो रहे हैं, जैसे वजन कम होना, मिचली, उल्टी, या मल त्याग में बदलाव?",
-      "en": "Do you have any associated symptoms, such as weight loss, nausea, vomiting, or changes in bowel movements?",
-      "category": "loss_of_appetite",
-      "symptom": "associated symptoms",
-    },
-    {
-      "hi": "क्या आपने हाल ही में कोई तनाव, चिंता, या मानसिक बदलाव महसूस किए हैं जो आपकी भूख को प्रभावित कर सकते हैं?",
-      "en": "Have you experienced any recent stress, anxiety, or emotional changes that could affect your appetite?",
-      "category": "loss_of_appetite",
-      "symptom": "emotional factors",
-    },
-    {
       "hi": "क्या आप कोई दवाइयां ले रहे हैं, और क्या वे आपकी भूख पर प्रभाव डाल सकती हैं (जैसे दर्द निवारक, एंटीडिप्रेसेंट्स, या कीमोथेरेपी)?",
       "en": "Are you currently taking any medications, and could they be affecting your appetite (e.g., painkillers, antidepressants, or chemotherapy)?",
       "category": "loss_of_appetite",
@@ -7275,133 +5765,7 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
     },
   ],
 
-  "tinnitus": [
-    {
-      "hi": "क्या टिनिटस लगातार है, या यह आती-जाती रहती है?",
-      "en": "Is the tinnitus constant, or does it come and go?",
-      "category": "tinnitus",
-      "symptom": "pattern",
-    },
-    {
-      "hi": "कान में सुनाई देने वाली ध्वनि कैसी है (जैसे घंटी बजने, बजने, सीटी बजने या झींकने)?",
-      "en": "What does the sound in your ears sound like (e.g., ringing, buzzing, hissing, or whistling)?",
-      "category": "tinnitus",
-      "symptom": "sound description",
-    },
-    {
-      "hi": "क्या टिनिटस एक कान में है या दोनों कानों में?",
-      "en": "Is the tinnitus in one ear or both ears?",
-      "category": "tinnitus",
-      "symptom": "laterality",
-    },
-    {
-      "hi": "क्या आपने हाल ही में तेज शोर, जैसे संगीत, मशीनरी, या हेडफ़ोन, के संपर्क में आए हैं?",
-      "en": "Have you been exposed to loud noises, such as concerts, machinery, or headphones, recently?",
-      "category": "tinnitus",
-      "symptom": "noise exposure",
-    },
-    {
-      "hi": "क्या आपको टिनिटस के साथ सुनने में कठिनाई या सुनवाई हानि हो रही है?",
-      "en": "Do you have any hearing loss or difficulty hearing along with the tinnitus?",
-      "category": "tinnitus",
-      "symptom": "hearing loss",
-    },
-    {
-      "hi": "क्या आपको कान के स्वास्थ्य में कोई बदलाव महसूस हुआ है, जैसे दर्द, भरी हुई अनुभूति, स्राव, या संक्रमण?",
-      "en": "Have you experienced any changes in your ear health, such as pain, fullness, drainage, or infections?",
-      "category": "tinnitus",
-      "symptom": "ear health changes",
-    },
-    {
-      "hi": "क्या आप अन्य लक्षणों का अनुभव कर रहे हैं, जैसे चक्कर, संतुलन संबंधी समस्याएं, या सिरदर्द?",
-      "en": "Are you experiencing any other symptoms, such as dizziness, balance issues, or headaches?",
-      "category": "tinnitus",
-      "symptom": "associated symptoms",
-    },
-    {
-      "hi": "क्या आपको कान से संबंधित किसी समस्या का इतिहास है, जैसे कान में संक्रमण, कान में मोम जमा होना, या टेम्पोरोमैंडिबुलर जॉइंट (TMJ) समस्याएं?",
-      "en": "Do you have a history of ear problems, like ear infections, earwax buildup, or temporomandibular joint (TMJ) issues?",
-      "category": "tinnitus",
-      "symptom": "ear problems history",
-    },
-    {
-      "hi": "क्या आप कोई दवाइयां ले रहे हैं, विशेष रूप से उन दवाओं के बारे में जो सुनवाई को प्रभावित कर सकती हैं (जैसे एस्पिरिन, एंटीबायोटिक्स, या मूत्रवर्धक)?",
-      "en": "Are you currently taking any medications, particularly those known to affect hearing (e.g., aspirin, antibiotics, or diuretics)?",
-      "category": "tinnitus",
-      "symptom": "medications",
-    },
-  ],
-
-  "chest tightness": [
-    {
-      "hi": "आपको छाती में संकुचन कब से महसूस हो रहा है?",
-      "en": "How long have you been experiencing chest tightness?",
-      "category": "chest tightness",
-      "symptom": "duration",
-    },
-    {
-      "hi": "क्या छाती में संकुचन लगातार है, या यह आती-जाती रहती है?",
-      "en": "Is the chest tightness constant, or does it come and go?",
-      "category": "chest tightness",
-      "symptom": "pattern",
-    },
-    {
-      "hi": "क्या आपको संकुचन विश्राम की स्थिति में महसूस होता है, या यह शारीरिक गतिविधि, तनाव, या खाने के बाद होता है?",
-      "en": "Do you experience the tightness at rest, or does it occur during physical activity, stress, or after eating?",
-      "category": "chest tightness",
-      "symptom": "triggers",
-    },
-    {
-      "hi": "1 से 10 के पैमाने पर, संकुचन की गंभीरता कितनी है?",
-      "en": "On a scale of 1-10, how severe is the tightness?",
-      "category": "chest tightness",
-      "symptom": "severity",
-    },
-    {
-      "hi": "क्या आपको संकुचन के साथ कोई अन्य लक्षण महसूस हो रहे हैं, जैसे सांस की कमी, दर्द, चक्कर, या मितली?",
-      "en": "Do you have any associated symptoms, such as shortness of breath, pain, dizziness, or nausea?",
-      "category": "chest tightness",
-      "symptom": "associated symptoms",
-    },
-    {
-      "hi": "क्या आपको हाल ही में छाती क्षेत्र में कोई चोट या आघात लगा है?",
-      "en": "Have you had any recent injuries or trauma to the chest area?",
-      "category": "chest tightness",
-      "symptom": "injury/trauma",
-    },
-    {
-      "hi": "क्या आपको दिल की बीमारी, उच्च रक्तचाप, अस्थमा, या एसिड रिफ्लक्स का इतिहास है?",
-      "en": "Do you have a history of heart disease, high blood pressure, asthma, or acid reflux?",
-      "category": "chest tightness",
-      "symptom": "medical history",
-    },
-    {
-      "hi": "क्या आपको संकुचन के साथ खांसी, घरघराहट, या सांस लेने में कठिनाई हो रही है?",
-      "en": "Have you experienced any coughing, wheezing, or difficulty breathing in conjunction with the chest tightness?",
-      "category": "chest tightness",
-      "symptom": "respiratory symptoms",
-    },
-    {
-      "hi": "क्या आप वर्तमान में अत्यधिक तनाव, चिंता, या भावनात्मक दबाव में हैं?",
-      "en": "Are you currently under a lot of stress, anxiety, or emotional strain?",
-      "category": "chest tightness",
-      "symptom": "emotional factors",
-    },
-    {
-      "hi": "क्या आप धूम्रपान करते हैं, या क्या आपने प्रदूषण या एलर्जीजनक तत्वों से संपर्क किया है?",
-      "en": "Do you smoke, or have you been exposed to environmental factors like pollutants or allergens?",
-      "category": "chest tightness",
-      "symptom": "environmental factors",
-    },
-  ],
-
   "nail splitting": [
-    {
-      "hi": "क्या आपको नाखूनों में दरारें या फटने की समस्या हो रही है?",
-      "en": "Are you experiencing nail splitting or cracking?",
-      "category": "nail_splitting",
-      "symptom": "nail splitting",
-    },
     {
       "hi": "कौन से नाखून प्रभावित हैं (जैसे उंगलियां, पैर, या कोई विशेष नाखून)?",
       "en": "Which nails are affected (e.g., fingers, toes, specific nails)?",
@@ -7427,18 +5791,6 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "symptom": "trauma or chemical exposure",
     },
     {
-      "hi": "क्या आपके नाखूनों या त्वचा में कोई अन्य परिवर्तन जैसे कि सूखापन, छीलना, या नाखूनों पर रेखाएँ दिखाई दे रही हैं?",
-      "en": "Have you been experiencing any other skin or nail changes, such as dryness, peeling, or ridges on your nails?",
-      "category": "skin_or_nail_changes",
-      "symptom": "dryness, peeling, or ridges",
-    },
-    {
-      "hi": "क्या आपको कोई ऐसी स्वास्थ्य स्थिति है जैसे थायरॉयड विकार, सोरायसिस, या मधुमेह, जो आपके नाखूनों को प्रभावित कर सकती है?",
-      "en": "Do you have any underlying health conditions, such as thyroid disorders, psoriasis, or diabetes, that may affect your nails?",
-      "category": "health_conditions",
-      "symptom": "underlying health conditions",
-    },
-    {
       "hi": "क्या आप कोई ऐसी दवाइयाँ या सप्लीमेंट ले रहे हैं, जो आपके नाखूनों को प्रभावित कर सकते हैं (जैसे कि कीमोथेरेपी, बायोटिन, या अन्य विटामिन की कमी)?",
       "en": "Are you taking any medications or supplements that might be affecting your nails (e.g., chemotherapy, biotin, or other vitamin deficiencies)?",
       "category": "medications",
@@ -7450,13 +5802,968 @@ def determine_followup_questions(initial_symptoms, additional_info, asked_questi
       "category": "family_history",
       "symptom": "family history of skin or nail conditions",
     },
-    {
-      "hi": "क्या नाखूनों के प्रभावित हिस्सों में संक्रमण के लक्षण जैसे लालिमा, सूजन, या पस का स्राव हो रहा है?",
-      "en": "Have you experienced any symptoms of infection, such as redness, swelling, or pus around the affected nails?",
-      "category": "infection",
-      "symptom": "infection symptoms",
-    },
   ],
+
+    "migraine": [
+  {
+    "hi": "क्या आप दर्द का प्रकार वर्णित कर सकते हैं? (जैसे की धड़कता, पल्सिंग, चुभने वाला)",
+    "en": "Can you describe the type of pain (e.g., throbbing, pulsating, stabbing)?",
+    "category": "migraine",
+    "symptom": "migraine"
+  },
+  {
+    "hi": "क्या माइग्रेन से पहले कोई चेतावनी संकेत या लक्षण होते हैं? (जैसे की आरा, दृश्य समस्याएं)",
+    "en": "Do you experience any warning signs or symptoms before the migraine (e.g., aura, visual disturbances)?",
+    "category": "migraine",
+    "symptom": "migraine"
+  },
+  {
+    "hi": "क्या कुछ विशिष्ट कारक होते हैं जो आपके माइग्रेन को उत्तेजित करते हैं? (जैसे की तनाव, कुछ खाद्य पदार्थ, नींद की कमी)",
+    "en": "Are there specific triggers that seem to bring on your migraines (e.g., stress, certain foods, lack of sleep)?",
+    "category": "migraine",
+    "symptom": "migraine"
+  },
+  {
+    "hi": "आपके माइग्रेन आपके दैनिक जीवन या गतिविधियों को कैसे प्रभावित करते हैं?",
+    "en": "How do your migraines affect your daily life or activities?",
+    "category": "migraine",
+    "symptom": "migraine"
+  }
+],
+
+    "swollen lymph nodes": [
+  {
+    "hi": "सूजे हुए लिम्फ नोड्स कहां स्थित हैं? (जैसे गर्दन, बगल, कमर)",
+    "en": "Where exactly are the swollen lymph nodes located? (e.g., neck, underarms, groin)",
+    "category": "swollen lymph nodes",
+    "symptom": "swollen lymph nodes"
+  },
+  {
+    "hi": "क्या लिम्फ नोड्स दबाने पर दर्दनाक या कोमल हैं?",
+    "en": "Are the lymph nodes painful or tender to the touch?",
+    "category": "swollen lymph nodes",
+    "symptom": "swollen lymph nodes"
+  },
+  {
+    "hi": "क्या सूजे हुए लिम्फ नोड्स के आकार या स्थिरता में पहले देखे गए लक्षणों से कोई बदलाव हुआ है?",
+    "en": "Have the swollen lymph nodes changed in size or consistency since you first noticed them?",
+    "category": "swollen lymph nodes",
+    "symptom": "swollen lymph nodes"
+  },
+  {
+    "hi": "क्या आपको ऐसी कोई बीमारी का इतिहास है जो इम्यून सिस्टम या लिम्फैटिक सिस्टम को प्रभावित करती है? (जैसे ऑटोइम्यून बीमारियां, कैंसर, एचआईवी)",
+    "en": "Do you have a history of conditions that affect the immune system or lymphatic system (e.g., autoimmune diseases, cancer, HIV)?",
+    "category": "swollen lymph nodes",
+    "symptom": "swollen lymph nodes"
+  },
+  {
+    "hi": "क्या आपको संक्रमण के संभावित स्रोतों का सामना हुआ है? (जैसे बीमार संपर्क, ऐसी जगहों पर यात्रा जहां एंडेमिक बीमारियां हैं)",
+    "en": "Have you been exposed to any potential sources of infection (e.g., sick contacts, travel to areas with endemic diseases)?",
+    "category": "swollen lymph nodes",
+    "symptom": "swollen lymph nodes"
+  }
+],
+
+    "skin burning": [
+  {
+    "hi": "क्या जलन का एहसास लगातार है, या यह कभी-कभी होता है?",
+    "en": "Is the burning sensation constant, or does it come and go?",
+    "category": "skin burning",
+    "symptom": "skin burning"
+  },
+  {
+    "hi": "आपकी त्वचा के कौन से हिस्से जलन से प्रभावित हैं?",
+    "en": "Which areas of your skin are affected by the burning sensation?",
+    "category": "skin burning",
+    "symptom": "skin burning"
+  },
+  {
+    "hi": "क्या जलन के साथ कोई लाली, सूजन, या दाने हैं?",
+    "en": "Is the burning accompanied by any redness, swelling, or rashes?",
+    "category": "skin burning",
+    "symptom": "skin burning"
+  },
+  {
+    "hi": "क्या आपने हाल ही में कोई नई दवाइयां या उपचार शुरू किया है जो त्वचा की जलन या संवेदनशीलता का कारण बन सकते हैं?",
+    "en": "Have you recently started any new medications or treatments that could cause skin irritation or sensitivity?",
+    "category": "skin burning",
+    "symptom": "skin burning"
+  }
+    ],
+"bleeding": [
+    {
+      "hi": "खून कहां से बह रहा है?",
+      "en": "Where is the bleeding coming from?",
+      "category": "bleeding",
+      "symptom": "bleeding"
+    },
+    {
+      "hi": "आप कितनी मात्रा में खून खो रहे हैं?",
+      "en": "How much blood are you losing?",
+      "category": "bleeding",
+      "symptom": "bleeding"
+    },
+    {
+      "hi": "क्या खून बहना लगातार है या यह कभी-कभी होता है?",
+      "en": "Is the bleeding continuous or intermittent?",
+      "category": "bleeding",
+      "symptom": "bleeding"
+    },
+    {
+      "hi": "क्या आप कोई दवाइयां ले रहे हैं, विशेष रूप से रक्त पतला करने वाली दवाइयां?",
+      "en": "Are you taking any medications, particularly blood thinners?",
+      "category": "bleeding",
+      "symptom": "bleeding"
+    },
+],
+"anxiety": [
+    {
+      "hi": "क्या आपकी चिंता के कारण विशेष परिस्थितियाँ, विचार, या घटनाएँ हैं?",
+      "en": "What triggers your anxiety (specific situations, thoughts, or events)?",
+      "category": "anxiety",
+      "symptom": "anxiety"
+    },
+    {
+      "hi": "क्या आप अपनी चिंता के कारण कुछ विशेष परिस्थितियों से बचते हैं?",
+      "en": "Do you avoid certain situations because of your anxiety?",
+      "category": "anxiety",
+      "symptom": "anxiety"
+    },
+    {
+      "hi": "आप अपनी चिंता से निपटने या उसे प्रबंधित करने के लिए क्या उपाय करते हैं?",
+      "en": "How do you cope with or manage your anxiety?",
+      "category": "anxiety",
+      "symptom": "anxiety"
+    },
+    {
+      "hi": "क्या आपके परिवार में चिंता या अन्य मानसिक स्वास्थ्य समस्याओं का इतिहास है?",
+      "en": "Do you have a history of anxiety or other mental health conditions in your family?",
+      "category": "anxiety",
+      "symptom": "anxiety"
+    }
+],
+    "cancer": [
+    {
+      "hi": "क्या आपने कोई अप्रत्याशित वजन घटने का अनुभव किया है?",
+      "en": "Have you noticed any unexplained weight loss?",
+      "category": "cancer",
+      "symptom": "cancer"
+    },
+    {
+      "hi": "क्या आपको कोई लगातार दर्द या असुविधा महसूस हो रही है?",
+      "en": "Do you have any persistent pain or discomfort?",
+      "category": "cancer",
+      "symptom": "cancer"
+    },
+    {
+      "hi": "क्या आपने अपनी त्वचा में कोई बदलाव महसूस किया है, जैसे नए मस्से या वृद्धि?",
+      "en": "Have you experienced any changes in your skin, such as new moles or growths?",
+      "category": "cancer",
+      "symptom": "cancer"
+    },
+    {
+      "hi": "क्या आप किसी असामान्य रक्तस्राव या स्राव का अनुभव कर रहे हैं?",
+      "en": "Are you experiencing any unusual bleeding or discharge?",
+      "category": "cancer",
+      "symptom": "cancer"
+    },
+    {
+      "hi": "क्या आपको निगलने में कोई कठिनाई या लगातार खांसी का अनुभव हुआ है?",
+      "en": "Have you had any difficulty swallowing or persistent cough?",
+      "category": "cancer",
+      "symptom": "cancer"
+    },
+    {
+      "hi": "क्या आपको आंत्र या मूत्र संबंधी आदतों में कोई बदलाव महसूस हुआ है (जैसे, मल में खून, बार-बार पेशाब आना)?",
+      "en": "Do you have any changes in bowel or urinary habits (e.g., blood in stool, frequent urination)?",
+      "category": "cancer",
+      "symptom": "cancer"
+    },
+    {
+      "hi": "क्या आपको कोई असामान्य थकान या कमजोरी महसूस हो रही है जो आराम करने से ठीक नहीं होती?",
+      "en": "Have you had any unusual fatigue or weakness that doesn’t improve with rest?",
+      "category": "cancer",
+      "symptom": "cancer"
+    },
+    {
+      "hi": "क्या आपके परिवार में कैंसर या आनुवंशिक प्रवृत्तियाँ हैं?",
+      "en": "Do you have a family history of cancer or genetic predispositions?",
+      "category": "cancer",
+      "symptom": "cancer"
+    }
+],
+    "weight loss": [
+    {
+      "hi": "आपने कितनी वजन कम की है, और यह कितने समय में हुआ है?",
+      "en": "How much weight have you lost, and over what period of time?",
+      "category": "weight loss",
+      "symptom": "weight loss"
+    },
+    {
+      "hi": "क्या आपने अपनी भूख में कोई बदलाव महसूस किया है?",
+      "en": "Have you noticed any changes in your appetite?",
+      "category": "weight loss",
+      "symptom": "weight loss"
+    },
+    {
+      "hi": "क्या आपको खाने या निगलने में कोई कठिनाई हो रही है?",
+      "en": "Are you experiencing any difficulty eating or swallowing?",
+      "category": "weight loss",
+      "symptom": "weight loss"
+    },
+    {
+      "hi": "क्या आपने हाल ही में कोई बीमारी, संक्रमण या स्वास्थ्य समस्याएँ अनुभव की हैं?",
+      "en": "Have you had any recent illnesses, infections, or health conditions?",
+      "category": "weight loss",
+      "symptom": "weight loss"
+    },
+    {
+      "hi": "क्या आपको थायरॉयड समस्याएँ, डायबिटीज़, या अन्य चयापचय विकारों का इतिहास है?",
+      "en": "Do you have a history of thyroid problems, diabetes, or other metabolic disorders?",
+      "category": "weight loss",
+      "symptom": "weight loss"
+    }
+],
+    "frequent urination": [
+    {
+      "hi": "आपको दिन और रात में कितनी बार पेशाब करने की आवश्यकता होती है?",
+      "en": "How often do you need to urinate during the day and night?",
+      "category": "frequent urination",
+      "symptom": "frequent urination"
+    },
+    {
+      "hi": "क्या पेशाब करते समय कोई दर्द या असुविधा हो रही है?",
+      "en": "Is there any pain or discomfort when urinating?",
+      "category": "frequent urination",
+      "symptom": "frequent urination"
+    },
+    {
+      "hi": "क्या आपने पेशाब के रंग, गंध, या रूप में कोई बदलाव देखा है?",
+      "en": "Have you noticed any changes in the color, odor, or appearance of your urine?",
+      "category": "frequent urination",
+      "symptom": "frequent urination"
+    },
+    {
+      "hi": "क्या आपको पेशाब करने की अत्यधिक आवश्यकता या तात्कालिकता महसूस हो रही है?",
+      "en": "Are you experiencing any urgency or a strong need to urinate?",
+      "category": "frequent urination",
+      "symptom": "frequent urination"
+    },
+    {
+      "hi": "क्या आपने हाल ही में कोई मूत्र मार्ग संक्रमण (UTIs) या मूत्राशय की समस्याएं अनुभव की हैं?",
+      "en": "Have you had any recent urinary tract infections (UTIs) or bladder issues?",
+      "category": "frequent urination",
+      "symptom": "frequent urination"
+    },
+    {
+      "hi": "क्या आप सामान्य से अधिक तरल पदार्थ पी रहे हैं, या आपके आहार में कोई बदलाव हुआ है?",
+      "en": "Are you drinking more fluids than usual, or have there been any changes to your diet?",
+      "category": "frequent urination",
+      "symptom": "frequent urination"
+    },
+    {
+      "hi": "क्या आपको डायबिटीज़ या गुर्दे या मूत्राशय से संबंधित अन्य चिकित्सा समस्याओं का इतिहास है?",
+      "en": "Do you have a history of diabetes or any other medical conditions affecting the kidneys or bladder?",
+      "category": "frequent urination",
+      "symptom": "frequent urination"
+    },
+],
+    "strain": [
+    {
+      "hi": "चोट कैसे लगी? (जैसे, अचानक हरकत, उठाना, या व्यायाम)",
+      "en": "How did the injury occur? (e.g., sudden movement, lifting, or exercise)",
+      "category": "strain",
+      "symptom": "strain"
+    },
+    {
+      "hi": "शरीर का कौन सा हिस्सा प्रभावित है?",
+      "en": "Which part of the body is affected?",
+      "category": "strain",
+      "symptom": "strain"
+    },
+    {
+      "hi": "क्या आप दर्द का वर्णन कर सकते हैं? (तेज, हल्का, धड़कता हुआ, आदि)",
+      "en": "Can you describe the pain (sharp, dull, throbbing, etc.)?",
+      "category": "strain",
+      "symptom": "strain"
+    },
+    {
+      "hi": "क्या आपने उस क्षेत्र में सूजन, चोट, या लालिमा महसूस की है?",
+      "en": "Have you experienced any swelling, bruising, or redness in the area?",
+      "category": "strain",
+      "symptom": "strain"
+    },
+    {
+      "hi": "क्या आप प्रभावित मांसपेशी या जोड़ी को हिला सकते हैं, या गति की सीमा सीमित है?",
+      "en": "Are you able to move the affected muscle or joint, or is there limited range of motion?",
+      "category": "strain",
+      "symptom": "strain"
+    },
+    {
+      "hi": "क्या आपको इस क्षेत्र में पहले कोई चोट या खिंचाव हुआ है?",
+      "en": "Have you had any previous injuries or strains in this area?",
+      "category": "strain",
+      "symptom": "strain"
+    },
+    {
+      "hi": "क्या आपने किसी उपचार की कोशिश की है (जैसे, विश्राम, बर्फ, गर्मी, या दवा), और यदि हां, तो क्या उन्होंने मदद की?",
+      "en": "Have you tried any treatments (e.g., rest, ice, heat, or medication), and if so, did they help?",
+      "category": "strain",
+      "symptom": "strain"
+    }
+],
+    "jaw pain": [
+    {
+      "hi": "क्या आप दर्द का वर्णन कर सकते हैं? (तेज, हल्का, धड़कता हुआ, या पीड़ा)?",
+      "en": "Can you describe the pain (sharp, dull, throbbing, or aching)?",
+      "category": "jaw pain",
+      "symptom": "jaw pain"
+    },
+    {
+      "hi": "क्या दर्द लगातार है, या यह कभी-कभी होता है?",
+      "en": "Is the pain constant, or does it come and go?",
+      "category": "jaw pain",
+      "symptom": "jaw pain"
+    },
+    {
+      "hi": "क्या दर्द चबाने, बोलने, या मुँह खोलने से बढ़ जाता है?",
+      "en": "Does the pain worsen with chewing, speaking, or opening your mouth wide?",
+      "category": "jaw pain",
+      "symptom": "jaw pain"
+    },
+    {
+      "hi": "क्या आपको अपने काटने या जबड़े की गति में कोई कठिनाई हो रही है?",
+      "en": "Are you having any difficulty with your bite or jaw movement?",
+      "category": "jaw pain",
+      "symptom": "jaw pain"
+    },
+    {
+      "hi": "क्या आप रात में अपने दांतों को पीसते हैं या जबड़े को दबाते हैं?",
+      "en": "Do you grind your teeth or clench your jaw, especially at night?",
+      "category": "jaw pain",
+      "symptom": "jaw pain"
+    },
+],
+    "tooth pain": [
+    {
+      "hi": "क्या आप दर्द का वर्णन कर सकते हैं? (तेज, धड़कता हुआ, स्थायी, या आवधिक)?",
+      "en": "Can you describe the pain (sharp, throbbing, constant, or intermittent)?",
+      "category": "tooth pain",
+      "symptom": "tooth pain"
+    },
+    {
+      "hi": "क्या यह दर्द गर्म, ठंडा, या मीठे खाद्य या पेय पदार्थों से उत्तेजित होता है?",
+      "en": "Is the pain triggered by hot, cold, or sweet foods or drinks?",
+      "category": "tooth pain",
+      "symptom": "tooth pain"
+    },
+    {
+      "hi": "क्या आपने हाल ही में दंत चिकित्सा कार्य या दांत में किसी प्रकार का आघात अनुभव किया है?",
+      "en": "Have you had any recent dental work or trauma to the tooth?",
+      "category": "tooth pain",
+      "symptom": "tooth pain"
+    },
+    {
+      "hi": "क्या आपको चबाने या काटने में कोई कठिनाई हो रही है?",
+      "en": "Are you having difficulty chewing or biting down?",
+      "category": "tooth pain",
+      "symptom": "tooth pain"
+    },
+    {
+      "hi": "क्या आपको कीड़े, मसूड़ों की बीमारी, या अन्य दंत समस्याओं का इतिहास है?",
+      "en": "Have you had a history of cavities, gum disease, or other dental issues?",
+      "category": "tooth pain",
+      "symptom": "tooth pain"
+    }
+],
+"fainting": [
+    {
+      "hi": "आपने आखिरी बार बेहोशी या बेहोशी के निकट अनुभव कब किया था?",
+      "en": "When did you last experience fainting or a near-fainting episode?",
+      "category": "fainting",
+      "symptom": "fainting"
+    },
+    {
+      "hi": "क्या बेहोश होने से पहले कोई विशिष्ट उत्तेजक या चेतावनी संकेत थे (जैसे चक्कर आना, मितली)?",
+      "en": "Were there any specific triggers or warning signs before you fainted (e.g., dizziness, nausea)?",
+      "category": "fainting",
+      "symptom": "fainting"
+    },
+    {
+      "hi": "क्या आपने पूरी तरह से चेतना खो दी थी, या आपको बस हल्का महसूस हो रहा था?",
+      "en": "Did you lose consciousness completely, or were you just lightheaded?",
+      "category": "fainting",
+      "symptom": "fainting"
+    },
+    {
+      "hi": "बेहोशी का अनुभव कितना समय चला?",
+      "en": "How long did the fainting episode last?",
+      "category": "fainting",
+      "symptom": "fainting"
+    },
+    {
+      "hi": "क्या आपने हाल ही में कोई बीमारी, निर्जलीकरण, या दवाओं में बदलाव अनुभव किया है?",
+      "en": "Have you had any recent illnesses, dehydration, or changes in medication?",
+      "category": "fainting",
+      "symptom": "fainting"
+    },
+    {
+      "hi": "क्या आप खड़े थे या कोई विशेष स्थिति में थे जब आप बेहोश हुए?",
+      "en": "Were you standing up or in a particular position when you fainted?",
+      "category": "fainting",
+      "symptom": "fainting"
+    },
+    {
+      "hi": "क्या आपको हृदय की समस्याओं, मिर्गी, या कम रक्तचाप का इतिहास है?",
+      "en": "Do you have a history of heart problems, seizures, or low blood pressure?",
+      "category": "fainting",
+      "symptom": "fainting"
+    },
+],
+  "nervousness": [
+    {
+      "hi": "आप सामान्यतः कब नर्वस या चिंतित महसूस करते हैं?",
+      "en": "When do you typically feel nervous or anxious?",
+      "category": "nervousness",
+      "symptom": "nervousness"
+    },
+    {
+      "hi": "क्या ऐसी कोई विशिष्ट स्थिति या उत्तेजक है जो आपको नर्वस महसूस कराती है?",
+      "en": "Are there specific situations or triggers that make you feel nervous?",
+      "category": "nervousness",
+      "symptom": "nervousness"
+    },
+    {
+      "hi": "यह नर्वसनेस की भावना आमतौर पर कितनी देर तक रहती है?",
+      "en": "How long do these feelings of nervousness usually last?",
+      "category": "nervousness",
+      "symptom": "nervousness"
+    },
+    {
+      "hi": "क्या आपको अपनी नर्वसनेस को नियंत्रित या प्रबंधित करने में कठिनाई होती है?",
+      "en": "Do you find it difficult to control or manage your nervousness?",
+      "category": "nervousness",
+      "symptom": "nervousness"
+    },
+    {
+      "hi": "क्या आपने हाल ही में अधिक तनाव महसूस किया है?",
+      "en": "Have you been under increased stress recently?",
+      "category": "nervousness",
+      "symptom": "nervousness"
+    },
+],
+"blurred vision": [
+    {
+      "hi": "क्या धुंधली दृष्टि एक आंख में है या दोनों आंखों में?",
+      "en": "Is the blurred vision in one eye or both eyes?",
+      "category": "blurred vision",
+      "symptom": "blurred vision"
+    },
+    {
+      "hi": "क्या धुंधलापन आता-जाता है, या यह निरंतर है?",
+      "en": "Does the blurriness come and go, or is it constant?",
+      "category": "blurred vision",
+      "symptom": "blurred vision"
+    },
+    {
+      "hi": "क्या आपको रात के समय या कुछ विशेष रोशनी की परिस्थितियों में देखने में कठिनाई हो रही है?",
+      "en": "Are you experiencing any difficulty seeing at night or in certain lighting conditions?",
+      "category": "blurred vision",
+      "symptom": "blurred vision"
+    },
+    {
+      "hi": "क्या आपको आंखों से संबंधित कोई पुरानी समस्या है, जैसे मोतियाबिंद, ग्लूकोमा, या मॅक्यूलर डिजेनेरेशन?",
+      "en": "Do you have a history of eye conditions, such as cataracts, glaucoma, or macular degeneration?",
+      "category": "blurred vision",
+      "symptom": "blurred vision"
+    },
+    {
+      "hi": "क्या आप वर्तमान में कोई दवाइयाँ ले रहे हैं या कोई अंतर्निहित स्वास्थ्य समस्याएँ हैं (जैसे, मधुमेह या उच्च रक्तचाप)?",
+      "en": "Are you currently taking any medications or have any underlying health conditions (e.g., diabetes or hypertension)?",
+      "category": "blurred vision",
+      "symptom": "blurred vision"
+    }
+],
+"restlessness": [
+    {
+      "hi": "क्या कोई विशेष परिस्थितियाँ या उत्तेजक हैं जो आपको अधिक बेचैन महसूस कराते हैं?",
+      "en": "Are there specific situations or triggers that make you feel more restless?",
+      "category": "restlessness",
+      "symptom": "restlessness"
+    },
+    {
+      "hi": "यह बेचैनी की भावना आमतौर पर कितनी देर तक रहती है?",
+      "en": "How long do these feelings of restlessness usually last?",
+      "category": "restlessness",
+      "symptom": "restlessness"
+    },
+    {
+      "hi": "क्या आप आराम करने या शांत होने में सक्षम हैं, या यह बेचैनी बनी रहती है?",
+      "en": "Are you able to relax or calm down, or does the restlessness persist?",
+      "category": "restlessness",
+      "symptom": "restlessness"
+    },
+    {
+      "hi": "क्या आपको सोने में या सोकर बने रहने में कठिनाई हो रही है?",
+      "en": "Do you have trouble sleeping or staying asleep?",
+      "category": "restlessness",
+      "symptom": "restlessness"
+    },
+    {
+      "hi": "क्या आपने हाल ही में अपनी दिनचर्या, आहार, या दवाइयों में कोई बदलाव किया है?",
+      "en": "Have you had any changes in your routine, diet, or medications recently?",
+      "category": "restlessness",
+      "symptom": "restlessness"
+    }
+],
+
+"difficulty swallowing": [
+    {
+      "hi": "क्या निगलने में कठिनाई ठोस पदार्थों, तरल पदार्थों, या दोनों में है?",
+      "en": "Is the difficulty with swallowing solids, liquids, or both?",
+      "category": "difficulty swallowing",
+      "symptom": "difficulty swallowing"
+    },
+    {
+      "hi": "क्या आपको लगता है कि खाना या तरल पदार्थ आपके गले या सीने में अटक रहे हैं?",
+      "en": "Do you feel like food or liquids are getting stuck in your throat or chest?",
+      "category": "difficulty swallowing",
+      "symptom": "difficulty swallowing"
+    },
+    {
+      "hi": "क्या आपको एसिड रिफ्लक्स, आहार नलिका की समस्याएं, या तंत्रिका संबंधी स्थितियों का इतिहास है?",
+      "en": "Do you have a history of acid reflux, esophageal issues, or neurological conditions?",
+      "category": "difficulty swallowing",
+      "symptom": "difficulty swallowing"
+    }
+],
+"dry mouth": [
+    {
+      "hi": "क्या मुंह में सूखापन लगातार है, या यह कभी-कभी होता है?",
+      "en": "Is the dryness constant, or does it come and go?",
+      "category": "dry mouth",
+      "symptom": "dry mouth"
+    },
+    {
+      "hi": "क्या आपने दिनभर में पर्याप्त मात्रा में तरल पदार्थ पिए हैं?",
+      "en": "Have you been drinking enough fluids throughout the day?",
+      "category": "dry mouth",
+      "symptom": "dry mouth"
+    },
+    {
+      "hi": "क्या आप वर्तमान में किसी दवा का सेवन कर रहे हैं, जैसे एंटीहिस्टामिन या एंटीडिप्रेसेंट, जो मुंह के सूखने का कारण बन सकती है?",
+      "en": "Are you currently taking any medications, such as antihistamines or antidepressants, that could cause dry mouth?",
+      "category": "dry mouth",
+      "symptom": "dry mouth"
+    },
+    {
+      "hi": "क्या आप तंबाकू उत्पादों या शराब का सेवन करते हैं, जो मुंह के सूखने का कारण बन सकते हैं?",
+      "en": "Are you using any tobacco products or alcohol, which may contribute to dry mouth?",
+      "category": "dry mouth",
+      "symptom": "dry mouth"
+    },
+    {
+      "hi": "क्या आपको कोई अंतर्निहित स्वास्थ्य स्थितियां हैं, जैसे मधुमेह, शोज़ग्रेन सिंड्रोम, या ऑटोइम्यून विकार?",
+      "en": "Do you have any underlying health conditions, such as diabetes, Sjögren's syndrome, or autoimmune disorders?",
+      "category": "dry mouth",
+      "symptom": "dry mouth"
+    }
+],
+"flu": [
+    {
+      "hi": "क्या आपको बुखार हो रहा है, और अगर हां, तो यह कितने उच्च स्तर का रहा है?",
+      "en": "Are you experiencing a fever, and if so, how high has it been?",
+      "category": "flu",
+      "symptom": "flu"
+    },
+    {
+      "hi": "क्या आपको खांसी, गले में खराश, या नाक बंद/बहना हो रहा है?",
+      "en": "Do you have a cough, sore throat, or runny/stuffy nose?",
+      "category": "flu",
+      "symptom": "flu"
+    },
+    {
+      "hi": "क्या आप थका हुआ या कमजोर महसूस कर रहे हैं?",
+      "en": "Are you feeling fatigued or weak?",
+      "category": "flu",
+      "symptom": "flu"
+    },
+    {
+      "hi": "क्या आपने हाल ही में किसी ऐसे व्यक्ति के संपर्क में आया है जिसे फ्लू या सर्दी जैसे लक्षण हो?",
+      "en": "Have you been in contact with anyone who has recently had the flu or cold-like symptoms?",
+      "category": "flu",
+      "symptom": "flu"
+    },
+],
+"confusion": [
+    {
+      "hi": "क्या भ्रम लगातार है, या यह आता जाता है?",
+      "en": "Is the confusion constant, or does it come and go?",
+      "category": "confusion",
+      "symptom": "confusion"
+    },
+    {
+      "hi": "क्या आपको हाल की घटनाओं या विवरणों को याद रखने में समस्या हो रही है?",
+      "en": "Are you having trouble remembering recent events or details?",
+      "category": "confusion",
+      "symptom": "confusion"
+    },
+    {
+      "hi": "क्या आप परिचित लोगों और स्थानों को पहचानने में सक्षम हैं?",
+      "en": "Are you able to recognize familiar people and places?",
+      "category": "confusion",
+      "symptom": "confusion"
+    },
+    {
+      "hi": "क्या आपको किसी चिकित्सीय स्थिति का इतिहास है, जैसे डिमेंशिया, स्ट्रोक, या संक्रमण?",
+      "en": "Do you have any history of medical conditions, such as dementia, stroke, or infections?",
+      "category": "confusion",
+      "symptom": "confusion"
+    },
+    {
+      "hi": "क्या आपने हाल ही में कोई नई दवाएं शुरू की हैं या अपने दिनचर्या में कोई बदलाव महसूस किया है?",
+      "en": "Have you started any new medications or experienced any changes in your routine recently?",
+      "category": "confusion",
+      "symptom": "confusion"
+    }
+],
+"runny nose": [
+    {
+      "hi": "क्या बलगम साफ, पीला, या हरा है?",
+      "en": "Is the mucus clear, yellow, or green?",
+      "category": "runny nose",
+      "symptom": "runny nose"
+    },
+    {
+      "hi": "क्या आपको एलर्जी या अस्थमा का इतिहास है?",
+      "en": "Do you have a history of allergies or asthma?",
+      "category": "runny nose",
+      "symptom": "runny nose"
+    },
+    {
+      "hi": "क्या आपने हाल ही में यात्रा की है या पर्यावरणीय उत्तेजकों (जैसे धूल, धुंआ, प्रदूषण) से संपर्क किया है?",
+      "en": "Have you recently traveled or been in contact with environmental irritants (e.g., dust, smoke, pollution)?",
+      "category": "runny nose",
+      "symptom": "runny nose"
+    }
+],
+  "sneezing": [
+    {
+      "hi": "क्या आप दिन के कुछ विशेष समय पर या कुछ विशेष वातावरण में ज्यादा छींकते हैं?",
+      "en": "Do you sneeze more at certain times of day or in specific environments?",
+      "category": "sneezing",
+      "symptom": "sneezing"
+    },
+    {
+      "hi": "क्या आपने किसी एलर्जी उत्पन्न करने वाले तत्वों (जैसे पराग, धूल, या पालतू जानवरों की रूसी) से संपर्क किया है?",
+      "en": "Have you been exposed to any allergens, such as pollen, dust, or pet dander?",
+      "category": "sneezing",
+      "symptom": "sneezing"
+    },
+    {
+      "hi": "क्या आपने हाल ही में बिमार महसूस किया है या सर्दी या फ्लू के लक्षण थे?",
+      "en": "Have you recently been sick or had symptoms of a cold or flu?",
+      "category": "sneezing",
+      "symptom": "sneezing"
+    },
+    {
+      "hi": "क्या आपको एलर्जी या अस्थमा का इतिहास है?",
+      "en": "Do you have a history of allergies or asthma?",
+      "category": "sneezing",
+      "symptom": "sneezing"
+    },
+    {
+      "hi": "क्या आपने हाल ही में मजबूत गंध, धुंआ, या रासायनिक उत्तेजकों से संपर्क किया है?",
+      "en": "Have you recently been in contact with strong odors, smoke, or chemical irritants?",
+      "category": "sneezing",
+      "symptom": "sneezing"
+    }
+],
+ 
+  "throat pain": [
+    {
+      "hi": "क्या आपको निगलने में कठिनाई या निगलते समय दर्द हो रहा है?",
+      "en": "Are you experiencing any difficulty swallowing or pain when swallowing?",
+      "category": "throat pain",
+      "symptom": "throat pain"
+    },
+    {
+      "hi": "क्या आपने हाल ही में किसी ऐसे व्यक्ति से संपर्क किया है जिसे गले में दर्द या सर्दी हो?",
+      "en": "Have you been exposed to anyone with a sore throat or cold recently?",
+      "category": "throat pain",
+      "symptom": "throat pain"
+    },
+    {
+      "hi": "क्या आप धूम्रपान करते हैं या आपको धुंआ या अन्य उत्तेजकों से संपर्क हुआ है?",
+      "en": "Do you smoke or have you been exposed to smoke or other irritants?",
+      "category": "throat pain",
+      "symptom": "throat pain"
+    },
+],
+  "eye pain": [
+    {
+      "hi": "क्या दर्द एक आंख में है या दोनों आंखों में?",
+      "en": "Is the pain in one eye or both eyes?",
+      "category": "eye pain",
+      "symptom": "eye pain"
+    },
+    {
+      "hi": "क्या आपको हाल ही में आंखों में चोट या आघात लगा है?",
+      "en": "Have you had any recent eye injuries or trauma?",
+      "category": "eye pain",
+      "symptom": "eye pain"
+    },
+    {
+      "hi": "क्या आपको आंखों से संबंधित कोई समस्या का इतिहास है, जैसे ग्लूकोमा या सूखी आंखें?",
+      "en": "Do you have a history of eye conditions, such as glaucoma or dry eyes?",
+      "category": "eye pain",
+      "symptom": "eye pain"
+    },
+    {
+      "hi": "क्या आपको धुंआ, रसायन, या अन्य उत्तेजकों का संपर्क हुआ है?",
+      "en": "Have you been exposed to smoke, chemicals, or other irritants?",
+      "category": "eye pain",
+      "symptom": "eye pain"
+    },
+],
+  "hand pain": [
+    {
+      "hi": "क्या दर्द एक हाथ में है या दोनों हाथों में?",
+      "en": "Is the pain in one hand or both hands?",
+      "category": "hand pain",
+      "symptom": "hand pain"
+    },
+    {
+      "hi": "क्या दर्द लगातार है, या यह आता-जाता रहता है?",
+      "en": "Is the pain constant, or does it come and go?",
+      "category": "hand pain",
+      "symptom": "hand pain"
+    },
+    {
+      "hi": "क्या आपको हाल ही में हाथों में चोट या आघात लगा है?",
+      "en": "Have you had any recent injuries or trauma to your hands?",
+      "category": "hand pain",
+      "symptom": "hand pain"
+    },
+    {
+      "hi": "क्या आपको हाथ में सूजन, लाली, या जकड़न का अनुभव हो रहा है?",
+      "en": "Are you experiencing any swelling, redness, or stiffness in the hand?",
+      "category": "hand pain",
+      "symptom": "hand pain"
+    },
+    {
+      "hi": "क्या आपको अपनी उंगलियों या हाथों में सुन्नता या झनझनाहट का अनुभव हो रहा है?",
+      "en": "Do you have any numbness or tingling in your fingers or hands?",
+      "category": "hand pain",
+      "symptom": "hand pain"
+    },
+    {
+      "hi": "क्या आप उन गतिविधियों में शामिल हैं जो आपके हाथों पर दबाव डालती हैं, जैसे टाइपिंग या उठाना?",
+      "en": "Are you involved in activities that put strain on your hands, like typing or lifting?",
+      "category": "hand pain",
+      "symptom": "hand pain"
+    },
+],
+  "arm pain": [
+    {
+      "hi": "क्या दर्द एक हाथ में है या दोनों हाथों में?",
+      "en": "Is the pain in one arm or both arms?",
+      "category": "arm pain",
+      "symptom": "arm pain"
+    },
+    {
+      "hi": "क्या दर्द तेज, हल्का, या धड़कता हुआ है?",
+      "en": "Is the pain sharp, dull, or throbbing?",
+      "category": "arm pain",
+      "symptom": "arm pain"
+    },
+    {
+      "hi": "क्या आपको हाल ही में हाथ में कोई चोट, गिरने या आघात का सामना करना पड़ा है?",
+      "en": "Have you had any recent injuries, falls, or trauma to your arm?",
+      "category": "arm pain",
+      "symptom": "arm pain"
+    },
+    {
+      "hi": "क्या आपको अपने हाथ या कंधे को हिलाने में कठिनाई हो रही है?",
+      "en": "Do you have difficulty moving your arm or shoulder?",
+      "category": "arm pain",
+      "symptom": "arm pain"
+    },
+    {
+      "hi": "क्या आपको हाथ या हाथों में सुन्नता, झनझनाहट, या कमजोरी का अनुभव हो रहा है?",
+      "en": "Are you experiencing any numbness, tingling, or weakness in the arm or hand?",
+      "category": "arm pain",
+      "symptom": "arm pain"
+    },
+],
+  "foot pain": [
+    {
+      "hi": "क्या दर्द एक पैर में है या दोनों पैरों में?",
+      "en": "Is the pain in one foot or both feet?",
+      "category": "foot pain",
+      "symptom": "foot pain"
+    },
+    {
+      "hi": "क्या दर्द लगातार है, या यह आता-जाता रहता है?",
+      "en": "Is the pain constant, or does it come and go?",
+      "category": "foot pain",
+      "symptom": "foot pain"
+    },
+    {
+      "hi": "क्या आपको पैरों में सूजन, लाली, या चोट का अनुभव हो रहा है?",
+      "en": "Are you experiencing any swelling, redness, or bruising in the foot?",
+      "category": "foot pain",
+      "symptom": "foot pain"
+    },
+    {
+      "hi": "क्या आपको हाल ही में पैर में कोई चोट या आघात हुआ है?",
+      "en": "Have you had any recent injuries or trauma to your foot?",
+      "category": "foot pain",
+      "symptom": "foot pain"
+    },
+    {
+      "hi": "क्या दर्द कुछ गतिविधियों के साथ बढ़ जाता है, जैसे लंबी अवधि तक चलना या खड़ा होना?",
+      "en": "Does the pain get worse with certain activities, like walking or standing for long periods?",
+      "category": "foot pain",
+      "symptom": "foot pain"
+    },
+],
+  "shoulder pain": [
+    {
+      "hi": "क्या दर्द एक कंधे में है या दोनों कंधों में?",
+      "en": "Is the pain in one shoulder or both shoulders?",
+      "category": "shoulder pain",
+      "symptom": "shoulder pain"
+    },
+    {
+      "hi": "क्या दर्द तेज, हल्का, या दर्दनाक है?",
+      "en": "Is the pain sharp, dull, or achy?",
+      "category": "shoulder pain",
+      "symptom": "shoulder pain"
+    },
+    {
+      "hi": "क्या आपको हाल ही में कंधे में कोई चोट या आघात हुआ है?",
+      "en": "Have you had any recent injuries or trauma to your shoulder?",
+      "category": "shoulder pain",
+      "symptom": "shoulder pain"
+    },
+    {
+      "hi": "क्या दर्द विशिष्ट आंदोलनों या गतिविधियों, जैसे उठाने या पहुंचने से बढ़ता है?",
+      "en": "Does the pain worsen with specific movements or activities, such as lifting or reaching?",
+      "category": "shoulder pain",
+      "symptom": "shoulder pain"
+    },
+    {
+      "hi": "क्या आपने कंधे में सूजन, चोट या गति सीमा में प्रतिबंध महसूस किया है?",
+      "en": "Have you noticed any swelling, bruising, or restricted range of motion in the shoulder?",
+      "category": "shoulder pain",
+      "symptom": "shoulder pain"
+    },
+],
+  "hip pain": [
+    {
+      "hi": "क्या दर्द एक कूल्हे में है या दोनों कूल्हों में?",
+      "en": "Is the pain in one hip or both hips?",
+      "category": "hip pain",
+      "symptom": "hip pain"
+    },
+    {
+      "hi": "क्या दर्द लगातार है, या यह आता-जाता रहता है?",
+      "en": "Is the pain constant, or does it come and go?",
+      "category": "hip pain",
+      "symptom": "hip pain"
+    },
+    {
+      "hi": "क्या आपको हाल ही में कूल्हे में कोई चोट या आघात हुआ है?",
+      "en": "Have you had any recent injuries or trauma to your hip?",
+      "category": "hip pain",
+      "symptom": "hip pain"
+    },
+    {
+      "hi": "क्या दर्द कुछ विशिष्ट आंदोलनों के साथ बढ़ता है, जैसे चलना, झुकना, या खड़ा होना?",
+      "en": "Does the pain worsen with certain movements, such as walking, bending, or standing up?",
+      "category": "hip pain",
+      "symptom": "hip pain"
+    },
+],
+"jaundice": [
+  {
+    "hi": "क्या आपने अपनी त्वचा या आंखों के पीले होने को महसूस किया है?",
+    "en": "Have you noticed the yellowing of your skin or eyes?",
+    "category": "jaundice",
+    "symptom": "jaundice"
+  },
+  {
+    "hi": "क्या आपने अपनी मूत्र या मल के रंग में कोई बदलाव महसूस किया है?",
+    "en": "Have you noticed any changes in the color of your urine or stool?",
+    "category": "jaundice",
+    "symptom": "jaundice"
+  },
+  {
+    "hi": "क्या आपको पेट में कोई दर्द है, विशेष रूप से दाहिने ऊपरी हिस्से में?",
+    "en": "Do you have any pain in your abdomen, especially in the upper right side?",
+    "category": "jaundice",
+    "symptom": "jaundice"
+  },
+  {
+    "hi": "क्या आपने हाल ही में वजन घटने या भूख में कमी महसूस की है?",
+    "en": "Have you experienced any recent weight loss or loss of appetite?",
+    "category": "jaundice",
+    "symptom": "jaundice"
+  },
+  {
+    "hi": "क्या आपको हेपेटाइटिस या किसी संक्रामक रोग से संक्रमित किसी व्यक्ति के संपर्क में आने का कोई इतिहास है?",
+    "en": "Have you been exposed to anyone with hepatitis or any infectious diseases?",
+    "category": "jaundice",
+    "symptom": "jaundice"
+  },
+  {
+    "hi": "क्या आप शराब का सेवन करते हैं या किसी प्रकार की दवाइयां लेते हैं?",
+    "en": "Do you have a history of alcohol use or take any medications?",
+    "category": "jaundice",
+    "symptom": "jaundice"
+  },
+],
+"exhaustion": [
+  {
+    "hi": "क्या थकान लगातार है, या यह आती-जाती रहती है?",
+    "en": "Is the exhaustion constant, or does it come and go?",
+    "category": "exhaustion",
+    "symptom": "exhaustion"
+  },
+  {
+    "hi": "क्या आपने अपनी नींद के पैटर्न में कोई बदलाव महसूस किया है (जैसे, सोने में कठिनाई, बहुत अधिक सोना)?",
+    "en": "Have you noticed any changes in your sleep patterns (e.g., difficulty sleeping, sleeping too much)?",
+    "category": "exhaustion",
+    "symptom": "exhaustion"
+  },
+  {
+    "hi": "क्या आपको पूरी रात की नींद या आराम के बाद भी थकान महसूस होती है?",
+    "en": "Do you feel fatigued even after a full night’s sleep or rest?",
+    "category": "exhaustion",
+    "symptom": "exhaustion"
+  },
+  {
+    "hi": "क्या आपको कोई तनाव, चिंता या भावनात्मक बदलाव महसूस हो रहे हैं?",
+    "en": "Do you have any stress, anxiety, or emotional changes?",
+    "category": "exhaustion",
+    "symptom": "exhaustion"
+  },
+  {
+    "hi": "क्या आपको कोई ज्ञात चिकित्सीय स्थिति है, जैसे एनीमिया, थायरॉयड समस्याएं, या डायबिटीज?",
+    "en": "Do you have a history of any medical conditions, such as anemia, thyroid problems, or diabetes?",
+    "category": "exhaustion",
+    "symptom": "exhaustion"
+  },
+  {
+    "hi": "क्या आपने हाल ही में अपनी आहार, व्यायाम दिनचर्या या जीवनशैली में कोई बदलाव किया है?",
+    "en": "Have you made any recent changes to your diet, exercise routine, or lifestyle?",
+    "category": "exhaustion",
+    "symptom": "exhaustion"
+  },
+],
+
+
 }
 
 
