@@ -594,7 +594,7 @@ def extract_body_parts_clause(text):
 # -------------------------
 # SBERT-based Synonym Matching
 # -------------------------
-SYMPTOM_SYNONYM_THRESHOLD = 0.80
+SYMPTOM_SYNONYM_THRESHOLD = 0.90
 
 def map_synonym_with_sbert(user_input):
     """
@@ -631,14 +631,14 @@ def try_all_methods(normalized_input):
     candidate_symptom = None
     
     # If fuzzy confidence is high enough
-    if fuzzy_result and fuzzy_result[1] > 80:
+    if fuzzy_result and fuzzy_result[1] > 90:
         candidate_symptom = fuzzy_result[0]
     else:
         # Attempt SBERT embeddings only if fuzzy not successful
         user_embedding = model.encode(normalized_input, convert_to_tensor=True)
         cos_scores = util.cos_sim(user_embedding, symptom_embeddings)
         max_score = torch.max(cos_scores).item()
-        if max_score > 0.8:
+        if max_score > 0.9:
             best_match_idx = torch.argmax(cos_scores)
             candidate_symptom = symptom_list[best_match_idx]
 
