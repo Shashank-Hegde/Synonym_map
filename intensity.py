@@ -595,7 +595,7 @@ def extract_body_parts_clause(text):
 # -------------------------
 # SBERT-based Synonym Matching
 # -------------------------
-SYMPTOM_SYNONYM_THRESHOLD = 0.85
+SYMPTOM_SYNONYM_THRESHOLD = 0.92
 
 def map_synonym_with_sbert(user_input):
     """
