@@ -551,6 +551,7 @@ symptom_synonyms = {
     'skin burning' : ['burning', 'burn'],
     'itching': ['skin itching'],
     'jaundice' : ['icterus','yellow skin'],
+    'yellow eyes' : ['eyes are yellow'],
    }
 
 
