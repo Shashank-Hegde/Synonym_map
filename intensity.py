@@ -512,8 +512,8 @@ body_parts = [
 ]
 
 # NEW CODE COMMENT: Symptoms that must only be detected if their exact word or synonyms are found
-#strict_symptoms = ['itching']
-strict_symptoms = []
+strict_symptoms = ['itching']
+#strict_symptoms = []
 
 # Words to exclude from mapping to symptoms through fuzzy/embedding
 filtered_words = ['got', 'old']  # We can add more words here if needed
