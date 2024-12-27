@@ -31,12 +31,12 @@ symptom_list = [
 'chest pain', 'back pain', 'constipation', 'throat pain', 'diarrhea', 'flu', 'shortness of breath', 'rapid breathing', 'stomach pain', 'migraine',
 'skin burning', 'itching', 'swelling', 'vomiting', 'infection', 'inflammation', 'cramp', 'bleeding', 'irritation', 'anxiety', 'depression',
 'nausea', 'swollen lymph nodes', 'insomnia', 'cancer', 'diabetes', 'allergy', 'weight loss', 'weight gain', 'hair loss', 'blurred vision', 'ear pain',
-'numbness', 'dry mouth', 'frequent urination', 'acne', 'confusion', 'memory loss', 'difficulty swallowing', 'restlessness', 'yellow eyes', 'bloating', 
+'numbness', 'dry mouth', 'frequent urination', 'acne', 'confusion', 'memory loss', 'difficulty swallowing', 'restlessness', 'bloating', 
 'gas', 'indigestion', 'heartburn', 'mouth sore', 'nosebleed', 'ear ringing', 'dark urine', 'blood in urine', 'blood in stool', 'high blood pressure', 
-'low blood pressure', 'excessive thirst', 'dehydration', 'skin burning', 'sweat', 'eye pain', 'red eyes', 'eye discharge', 'ear discharge',
+'low blood pressure', 'excessive thirst', 'dehydration', 'skin burning', 'sweat', 'eye pain', 'eye discharge', 'ear discharge',
 'hearing loss', 'balance problem', 'irregular heartbeat', 'fainting', 'tremor', 'nervousness', 'panic attack', 'mood swing', 'difficulty concentrating',
 'hallucination', 'lack of motivation', 'exhaustion', 'bone pain', 'wrist pain', 'sprain', 'strain', 'arthritis', 'gout', 'headache', 'injury', 'chills', 'leg pain', 'hand pain',
-'arm pain', 'foot pain', 'knee pain', 'shoulder pain', 'hip pain', 'jaw pain', 'tooth pain'   
+'arm pain', 'foot pain', 'knee pain', 'shoulder pain', 'hip pain', 'jaw pain', 'tooth pain', 'sleepy'   
 ]
 
 # -------------------------
@@ -76,7 +76,7 @@ symptom_synonyms = {
         'respiratory allergy', 'allergic reactions in skin', 'excessive histamine release', 'redness from allergy', 'swollen throat from allergies', 'asthma attack triggered by allergens', 'increased mucus production',
         'throat irritation due to allergens', 'difficulty breathing from allergies', 'sneezing fits due to pollen', 'allergic asthma', 'seasonal allergic reactions', 'itchy nose', 'nasal discharge from allergies',
         'blocked sinuses', 'itchy throat from allergies', 'dry throat from allergies', 'allergy flare-up', 'anaphylactic reaction', 'anaphylaxis', 'allergic dermatitis', 'rashes from allergens', 'swelling of lips',
-        'swollen tongue', 'red eyes from allergies', 'tearing eyes from allergies', 'itchy and watery eyes', 'difficulty in breathing due to allergens'
+        'swollen tongue', 'tearing eyes from allergies', 'itchy and watery eyes', 'difficulty in breathing due to allergens'
     ],
     'fever': [
         'high temperature', 'elevated body temperature', 'feeling feverish', 'fevering', 'running a fever', 'burning up', 'feeling internally hot', 'having a temperature', 'spiking a fever', 'febrile state',
@@ -482,6 +482,8 @@ symptom_synonyms = {
     'hearing loss': ['damaging hearing', 'loss in hearing'],
     'skin burning' : ['burning', 'burn'],
     'itching': ['skin itching','itch','itches'],
+    'yellow eyes' : ['eyes are yellow'],
+    'sleepy': ['sleeping'],
    }
 
 # -------------------------
@@ -512,8 +514,8 @@ stop_words = set(stopwords.words('english'))
 # Symptom keywords, body parts, intensities
 # -------------------------
 symptom_keywords = [
-    'pain', 'discomfort', 'ache', 'sore', 'burning', 'itching', 'tingling', 
-    'numbness', 'trouble'
+    'pain', 'discomfort', 'ache', 'sore', 'burning', 'tingling', 
+    'numbness', 'trouble', 'lumps'
 ]
 
 intensity_words = {
@@ -594,7 +596,7 @@ def extract_body_parts_clause(text):
 # -------------------------
 # SBERT-based Synonym Matching
 # -------------------------
-SYMPTOM_SYNONYM_THRESHOLD = 0.90
+SYMPTOM_SYNONYM_THRESHOLD = 0.85
 
 def map_synonym_with_sbert(user_input):
     """
@@ -631,14 +633,14 @@ def try_all_methods(normalized_input):
     candidate_symptom = None
     
     # If fuzzy confidence is high enough
-    if fuzzy_result and fuzzy_result[1] > 80:
+    if fuzzy_result and fuzzy_result[1] > 90:
         candidate_symptom = fuzzy_result[0]
     else:
         # Attempt SBERT embeddings only if fuzzy not successful
         user_embedding = model.encode(normalized_input, convert_to_tensor=True)
         cos_scores = util.cos_sim(user_embedding, symptom_embeddings)
         max_score = torch.max(cos_scores).item()
-        if max_score > 0.7:
+        if max_score > 0.9:
             best_match_idx = torch.argmax(cos_scores)
             candidate_symptom = symptom_list[best_match_idx]
 
