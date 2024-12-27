@@ -475,7 +475,7 @@ symptom_synonyms = {
     'weight gain': ['increase in weight', 'gain in body mass'],
     'hearing loss': ['damaging hearing', 'loss in hearing'],
     'skin burning' : ['burning', 'burn'],
-    'itching': ['skin itching','itch','itches'],
+    'itching': ['skin itching','itch','itches','itching'],
    }
 
 # NEW CODE COMMENT: Words to exclude from mapping to symptoms through fuzzy/embedding
