@@ -22,17 +22,21 @@ ensure_nltk_resources(['stopwords', 'wordnet'])
 model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
 # Symptom list
-symptom_list = [ 
+symptom_list = [
 'fever', 'cold', 'runny nose', 'sneezing', 'rash', 'back spasm', 'dizziness', 'weakness', 'loss of appetite', 'cough', 'muscle pain', 'joint pain',
 'chest pain', 'back pain', 'constipation', 'throat pain', 'diarrhea', 'flu', 'shortness of breath', 'rapid breathing', 'stomach pain', 'migraine',
-'skin burning', 'itching', 'swelling', 'vomiting', 'infection', 'inflammation', 'cramp', 'bleeding', 'irritation', 'anxiety', 'depression',
+'skin burning', 'itching', 'swelling', 'vomiting', 'infection', 'inflammation', 'cramp', 'bleeding', 'irritation', 'anxiety', 'depression','congestion',
 'nausea', 'swollen lymph nodes', 'insomnia', 'cancer', 'diabetes', 'allergy', 'weight loss', 'weight gain', 'hair loss', 'blurred vision', 'ear pain',
-'numbness', 'dry mouth', 'frequent urination', 'acne', 'confusion', 'memory loss', 'difficulty swallowing', 'restlessness', 'yellow eyes', 'bloating', 
-'gas', 'indigestion', 'heartburn', 'mouth sore', 'nosebleed', 'ear ringing', 'dark urine', 'blood in urine', 'blood in stool', 'high blood pressure', 
-'low blood pressure', 'excessive thirst', 'dehydration', 'skin burning', 'sweat', 'eye pain', 'red eyes', 'eye discharge', 'ear discharge',
+'numbness', 'dry mouth', 'frequent urination', 'acne', 'confusion', 'memory loss', 'difficulty swallowing', 'restlessness', 'bloating',
+'gas', 'indigestion', 'heartburn', 'mouth sore', 'nosebleed', 'ear ringing', 'dark urine', 'blood in urine', 'blood in stool', 'high blood pressure',
+'low blood pressure', 'excessive thirst', 'dehydration', 'skin burning', 'sweat', 'eye pain',  'eye discharge', 'ear discharge', 'jaundice',
 'hearing loss', 'balance problem', 'irregular heartbeat', 'fainting', 'tremor', 'nervousness', 'panic attack', 'mood swing', 'difficulty concentrating',
-'hallucination', 'lack of motivation', 'exhaustion', 'bone pain', 'wrist pain', 'sprain', 'strain', 'arthritis', 'gout', 'headache', 'injury', 'chills', 'leg pain', 'hand pain',
-'arm pain', 'foot pain', 'knee pain', 'shoulder pain', 'hip pain', 'jaw pain', 'tooth pain'   
+'hallucination', 'lack of motivation', 'exhaustion', 'bone pain', 'wrist pain', 'sprain', 'strain', 'arthritis', 'gout', 'headache', 'injury', 'chills',
+'leg pain', 'hand pain', 'arm pain', 'foot pain', 'knee pain', 'shoulder pain', 'hip pain', 'jaw pain', 'tooth pain','sleepy', 'bone fracture','sleepy','back bone issue',
+'female issue', 'thyroid', 'piles',
+# weakness symtom
+'eye weakness','leg weakness'
+  #'yellow eyes', 'red eyes'
 ]
 
 # Symptom synonyms dictionary
@@ -70,7 +74,7 @@ symptom_synonyms = {
         'respiratory allergy', 'allergic reactions in skin', 'excessive histamine release', 'redness from allergy', 'swollen throat from allergies', 'asthma attack triggered by allergens', 'increased mucus production',
         'throat irritation due to allergens', 'difficulty breathing from allergies', 'sneezing fits due to pollen', 'allergic asthma', 'seasonal allergic reactions', 'itchy nose', 'nasal discharge from allergies',
         'blocked sinuses', 'itchy throat from allergies', 'dry throat from allergies', 'allergy flare-up', 'anaphylactic reaction', 'anaphylaxis', 'allergic dermatitis', 'rashes from allergens', 'swelling of lips',
-        'swollen tongue', 'red eyes from allergies', 'tearing eyes from allergies', 'itchy and watery eyes', 'difficulty in breathing due to allergens'
+        'swollen tongue', 'red eyes from allergies', 'tearing eyes from allergies', 'itchy and watery eyes'
     ],
     'fever': [
         'high temperature', 'elevated body temperature', 'feeling feverish', 'fevering', 'running a fever', 'burning up', 'feeling internally hot', 'having a temperature', 'spiking a fever', 'febrile state',
@@ -93,34 +97,34 @@ symptom_synonyms = {
         'chronic phlegm cough', 'intense wheezing cough', 'grating cough', 'wet chesty cough', 'gurgling cough'
     ],
     'sore throat': [
-        'throat pain', 'scratchy throat', 'painful throat', 'burning throat', 'irritated throat', 'swollen throat', 'inflamed throat', 'throat discomfort', 'throat scratchiness',
+        'scratchy throat', 'painful throat', 'burning throat', 'irritated throat', 'swollen throat', 'inflamed throat', 'throat discomfort', 'throat scratchiness',
         'raw throat', 'tight throat', 'feeling of something stuck in throat', 'hoarse throat', 'swollen tonsils', 'throat inflammation', 'red throat', 'sore and swollen throat',
         'gritty throat', 'tender throat', 'raspy throat', 'dry throat', 'throat burning sensation', 'feeling of throat swelling', 'pain on swallowing', 'raw feeling in throat',
-        'difficulty swallowing', 'sore feeling when talking', 'throat soreness', 'painful swallowing', 'constant throat irritation', 'throat muscle soreness', 'tight feeling in throat',
+        'sore feeling when talking', 'throat soreness', 'painful swallowing', 'constant throat irritation', 'throat muscle soreness', 'tight feeling in throat',
         'throat dryness', 'itchy throat', 'burning sensation in throat', 'scratching feeling in throat', 'tenderness in throat', 'chronic throat discomfort', 'raspiness in voice',
         'feeling like throat is closing', 'constant need to clear throat', 'sore throat with hoarseness', 'dry cough with sore throat', 'sharp throat pain'
     ],
     'stomach pain': [
-        'stomach pain', 'stomach ache', 'abdominal pain', 'belly ache', 'intestinal discomfort', 'cramps', 'stomach cramps', 'gastric discomfort', 'bloated feeling', 'nauseous stomach pain',
+        'stomach pain', 'stomach ache', 'abdominal pain', 'belly ache', 'intestinal discomfort', 'stomach cramps', 'nauseous stomach pain',
         'sharp stomach pain', 'stomach tenderness', 'sharp abdominal cramps', 'stomach upset', 'abdominal tenderness', 'intestinal bloating', 'tummy pain', 'swollen belly',
-        'feeling of fullness', 'feeling heavy in stomach', 'digestive pain', 'stomach spasms', 'soreness in abdomen', 'gas in stomach', 'bloating', 'nausea and stomach ache',
-        'gastric pain', 'pain after eating', 'belly discomfort', 'gurgling stomach', 'stomach churning', 'sharp abdominal pain', 'dull abdominal pain', 'stomach bloating',
-        'abdominal tightness', 'cramping feeling', 'aching belly', 'painful digestion', 'nausea and bloating', 'gassy feeling', 'pain under ribs', 'discomfort after meals',
-        'uncomfortable stomach', 'intestinal cramps', 'sharp pain in lower abdomen', 'feeling of indigestion', 'pain around stomach area', 'belly pain', 'pain in the abdomen', 'stomach discomfort', 'gastric pain',
+        'feeling of fullness', 'feeling heavy in stomach', 'digestive pain', 'stomach spasms', 'soreness in abdomen', 'nausea and stomach ache',
+        'gastric pain', 'pain after eating', 'belly discomfort', 'gurgling stomach', 'stomach churning', 'sharp abdominal pain', 'dull abdominal pain',
+        'abdominal tightness', 'aching belly', 'painful digestion', 'pain under ribs', 'discomfort after meals',
+        'uncomfortable stomach', 'intestinal cramps', 'sharp pain in lower abdomen', 'feeling of indigestion', 'pain around stomach area', 'belly pain', 'pain in the abdomen', 'stomach discomfort',
         'sharp stomach pain', 'dull abdominal pain', 'cramping in the abdomen', 'bloating with pain',
         'gas pain in the abdomen', 'stabbing pain in the belly', 'abdominal cramps', 'sharp pain in the stomach area', 'pain from indigestion', 'pain after eating', 'nauseating abdominal pain',
-        'pain from gas buildup', 'pressure in the stomach', 'pain from constipation', 'burning sensation in the stomach', 'distended abdomen', 'pain from ulcers', 'pain from bloating', 'pain from food intolerance',
+        'pain from gas buildup', 'pressure in the stomach', 'pain from constipation', 'distended abdomen', 'pain from ulcers', 'pain from bloating', 'pain from food intolerance',
         'sore stomach', 'pain from intestinal issues', 'gastrointestinal pain', 'tenderness in the stomach', 'pain near the navel', 'pain from diarrhea', 'stomach flu pain', 'pain in the lower abdomen',
-        'pain from stress', 'feeling of fullness with pain', 'pain in the upper abdomen', 'stomach cramping', 'sharp abdominal cramps', 'nausea with stomach pain', 'abdominal swelling with pain', 'abdominal pain',
+        'feeling of fullness with pain', 'pain in the upper abdomen', 'stomach cramping', 'sharp abdominal cramps', 'nausea with stomach pain', 'abdominal swelling with pain', 'abdominal pain',
         'chronic stomach pain', 'pain with digestive issues', 'pain from food poisoning', 'pain from gallbladder issues', 'pain from acid reflux'
     ],
     'weakness': [
-        'tiredness', 'extreme tiredness', 'exhaustion', 'weariness', 'fatigued feeling', 'lack of energy', 'physical depletion', 'mental fatigue', 'chronic tiredness',
-        'drained', 'feeling wiped out', 'feeling run down', 'fatigue','low energy', 'total exhaustion', 'severe fatigue', 'feeling sluggish', 'morning fatigue', 'fatigue after exertion',
+        'tiredness', 'extreme tiredness','weariness', 'fatigued feeling', 'lack of energy', 'physical depletion', 'mental fatigue', 'chronic tiredness',
+        'drained', 'feeling wiped out', 'feeling run down', 'fatigue','low energy', 'severe fatigue', 'feeling sluggish', 'morning fatigue', 'fatigue after exertion',
         'debilitating tiredness', 'drowsiness', 'chronic fatigue syndrome', 'feeling lethargic', 'mental sluggishness', 'physical tiredness', 'difficulty keeping eyes open',
         'lack of vitality', 'energy depletion', 'feeling drained', 'listlessness', 'burned out', 'exhausted state', 'feeling zoned out', 'tired all the time', 'fatigued state',
-        'mental exhaustion', 'constant tiredness', 'feeling sleepy', 'no motivation', 'fatigued muscles', 'endless tiredness', 'exhaustion after minimal effort', 'lethargic movements',
-        'lacking strength', 'body fatigue', 'complete exhaustion', 'feeling disconnected'
+       'constant tiredness', 'no motivation', 'fatigued muscles', 'endless tiredness', 'lethargic movements',
+        'lacking strength', 'body fatigue',  'feeling disconnected'
     ],
     'nausea': [
         'feeling nauseous', 'upset stomach', 'queasy', 'stomach turning', 'sick feeling', 'feeling like vomiting', 'gagging sensation', 'discomfort in stomach', 'unsettled stomach',
@@ -141,9 +145,9 @@ symptom_synonyms = {
     ],
 
     'shortness of breath': [
-        'Shortness of breath', 'breathlessness', 'difficulty breathing', 'difficulty in breathing', 'feeling air hunger', 'fast breathing', 'shallow breathing', 'gasping for air',
-        'labored breathing', 'struggling to breathe', 'tightness in chest while inhaling', 'feeling suffocated', 'can’t catch my breath', 'panting heavily', 'air feeling thin',
-        'lungs working overtime', 'chest feels restricted', 'fighting for each breath', 'wheezing for air', 'strained respiration', 'feeling smothered', 'desperate for oxygen',
+        'Shortness of breath', 'breathlessness', 'difficulty breathing', 'feeling air hunger', 'fast breathing', 'shallow breathing', 'gasping for air',
+        'labored breathing', 'struggling to breathe', 'tightness in chest while inhaling', 'feeling suffocated', 'cannot catch my breath', 'panting heavily', 'air feeling thin',
+        'lungs working overtime', 'chest feels restricted', 'fighting for each breath', 'difficulty in breathing', 'strained respiration', 'feeling smothered', 'desperate for oxygen',
         'winded easily', 'constant puffing', 'breathing feels blocked', 'inhaling with effort', 'forced breathing', 'constant need to gulp air', 'sensation of drowning in open air',
         'chest heaviness on breathing', 'incomplete lung expansion', 'inadequate airflow', 'lungs not filling properly', 'needing to breathe harder', 'stuck in half-breath',
         'breath cut short', 'huffing and puffing', 'shallow panting', 'frantic search for air', 'hyperventilating feeling', 'feeling as if air is too thick', 'minimal air exchange',
@@ -154,14 +158,6 @@ symptom_synonyms = {
     ],
    'rapid breathing': [
          'heavy breathing', 'shallow breathing', 'heart skipping beats'
-    ],
-    'chest pain': [
-        'chest discomfort', 'sharp chest pain', 'tightness in chest', 'aching chest', 'burning chest', 'soreness in chest', 'chest pressure', 'tight chest', 'chest heaviness',
-        'stabbing chest pain', 'gripping chest pain', 'pain across chest', 'chest muscle soreness', 'sharp stabbing in chest', 'chronic chest pain', 'dull chest pain', 'mild chest ache',
-        'sharp twinges in chest', 'pleuritic chest pain', 'pain in left side of chest', 'pain in right side of chest', 'pain with deep breath', 'sharp pain when coughing',
-        'crushing chest pain', 'sensitive chest area', 'burning sensation in chest', 'tightness when breathing', 'sharp chest discomfort', 'radiating chest pain', 'underlying chest discomfort',
-        'aching on chest movement', 'sore chest muscles', 'pain in the rib cage', 'pressure across chest', 'stabbing pain with movement', 'cramp-like chest pain', 'tension in chest',
-        'stinging pain in chest', 'gripping sensation in chest', 'pain under the breastbone', 'breastbone discomfort', 'sharpness in the heart region', 'feeling of chest constriction'
     ],
     'muscle pain': [
         'muscle ache', 'muscle soreness', 'muscle strain', 'muscle discomfort', 'muscle stiffness', 'muscle tension', 'muscle fatigue', 'muscle injury', 'muscle cramps',
@@ -179,7 +175,7 @@ symptom_synonyms = {
         'waking up too early', 'difficulty with sleep onset', 'difficulty getting comfortable at night', 'sleep anxiety', 'sleeping problems', 'frequent nighttime awakenings', 'irregular sleep cycle',
         'poor sleep habits', 'nighttime restlessness', 'waking in the middle of the night', 'sleep deprivation symptoms', 'daytime sleepiness from poor sleep', 'sleep fragmentation',
         'restless sleep', 'persistent insomnia', 'sleep troubles', 'light sleeping', 'short sleep duration', 'restorative sleep deprivation', 'fatigue from sleeplessness',
-        'waking up exhausted', 'sleep cycle disruption', 'sleep onset difficulty', 'insomnia due to stress', 'mental hyperactivity preventing sleep'
+        'waking up exhausted', 'sleep cycle disruption', 'sleep onset difficulty', 'insomnia due to stress', 'mental hyperactivity preventing sleep', 'cannot sleep', 'unable to sleep'
     ],
     'rash': [
         'skin rash', 'redness on skin', 'skin irritation', 'skin inflammation', 'skin breakout', 'itchy rash', 'hives', 'blotchy skin', 'skin eruption', 'skin lesions',
@@ -187,12 +183,12 @@ symptom_synonyms = {
         'eczema', 'psoriasis patches', 'contact dermatitis', 'hives breakout', 'heat rash', 'prickly heat', 'scaly rash', 'rash on face', 'body rash', 'rashes on arms',
         'welts on skin', 'itchy patches on skin', 'skin redness', 'chronic skin rash', 'dry, scaly rash', 'blistering rash', 'swollen rash', 'rash that won’t heal', 'rash with swelling',
         'inflamed, sore rash', 'rash with pus', 'pimple-like rash', 'rash caused by allergic reaction', 'skin irritation with swelling', 'flaky rash', 'raw skin from rash',
-         'rashes from medication', 'burning sensation from rash'
+        'horrible itching rash', 'rashes from medication', 'painful itching on skin', 'burning sensation from rash'
     ],
     'congestion': [
         'nasal congestion', 'blocked nose', 'stuffy nose', 'clogged nasal passages', 'nasal obstruction', 'sinus congestion', 'sinus blockage', 'stuffy sinuses', 'pressure in sinuses',
-        'nasal blockage', 'difficulty breathing through nose', 'swollen nasal passages', 'congested sinuses', 'nose congestion', 'nasal stuffiness', 'head congestion',
-        'swelling of nasal tissues', 'difficulty breathing through nostrils', 'sinus pressure', 'stuffy feeling in head', 'congestion in sinus cavities', 'nasal stuffy feeling',
+        'nasal blockage', 'swollen nasal passages', 'congested sinuses', 'nose congestion', 'nasal stuffiness', 'head congestion',
+        'swelling of nasal tissues', 'sinus pressure', 'stuffy feeling in head', 'congestion in sinus cavities', 'nasal stuffy feeling',
         'inflamed nasal passages', 'feeling of a blocked nose', 'swollen nostrils', 'nasal airway blockage', 'heavy feeling in head from congestion', 'sinus drainage blockage',
         'clogged airways', 'full nose', 'stuffy head', 'excess mucus in nose', 'thick mucus in nostrils', 'nasal obstruction from mucus', 'inability to breathe through nose',
         'nasal phlegm buildup', 'blocked airways', 'increased mucus production', 'congested nasal lining', 'swelling in nasal cavity', 'unpleasant nose feeling from congestion',
@@ -209,7 +205,7 @@ symptom_synonyms = {
     'sneezing': [
         'Sneezing fits', 'frequent sneezing', 'sneezing spells', 'sneezing bouts', 'sneezing attacks', 'sneezing episodes', 'uncontrollable sneezing', 'explosive sneezes',
         'repetitive sneezes', 'unstoppable nasal explosions', 'constant “Achoo!”', 'serial sneezing', 'sneeze after sneeze', 'chain-sneezing', 'nasal expulsions',
-        'nasal reflex outbursts', 'convulsive sneezing', 'rapid-fire sneezes', 'machine-gun sneezing', 'persistent nasal expulsions', 'surprise sneezes',
+        'nasal reflex outbursts', 'convulsive sneezing', 'rapid-fire sneezes', 'machine-gun sneezing', 'persistent nasal expulsions', 'surprise sneezes', 'itching sneeze reflex',
         'tickling in nose triggering sneezes', 'staccato sneezing', 'sneeze cascades', 'recurrent sneezing', 'violent sneezing', 'spontaneous sneezes', 'sudden sneezing',
         'blasting sneezes', 'paroxysmal sneezing', 'intense sneezing', 'frequent sneezing attacks', 'sneezing with watery eyes', 'sudden fit of sneezing', 'uncontrollable nasal reflex',
         'hayfever sneezing', 'sneeze bursts', 'non-stop sneezing', 'gasping after sneezing', 'nasal reflex reactions', 'irritated sneezing', 'allergic sneezing', 'multiple sneeze cycles'
@@ -223,11 +219,11 @@ symptom_synonyms = {
         'swelling in the throat', 'pain in swollen glands', 'pain from swollen lymph nodes', 'inflamed and tender lymph nodes', 'lymphatic swelling with pain'
     ],
     'joint pain': [
-        'arthritis', 'joint ache', 'joint discomfort', 'joint inflammation', 'joint stiffness', 'joint tenderness', 'pain in joints', 'arthritic pain', 'swollen joint', 'joint soreness',
+        'joint ache', 'joint discomfort', 'joint inflammation', 'joint stiffness', 'joint tenderness', 'pain in joints', 'arthritic pain', 'swollen joint', 'joint soreness',
         'joint irritation', 'musculoskeletal pain', 'painful joints', 'joint stiffness', 'grating joint feeling', 'aching joints', 'joint tightness', 'joint swelling', 'rheumatoid pain', 'stiff joints',
         'painful knees', 'painful shoulders', 'pain in elbows', 'wrist joint pain', 'ankle joint pain', 'hip joint pain', 'persistent joint pain', 'severe joint pain', 'uncomfortable joint pressure',
         'popping joints', 'clicking joints', 'cracking joints', 'sore knees', 'joint inflammation in fingers', 'inflamed joints', 'stiffened knee joints', 'swollen ankles', 'excessive joint pain',
-        'joint tenderness', 'joint soreness from strain', 'arthralgia', 'aching knees', 'hip pain', 'painful wrists', 'sharp joint pain', 'stabbing joint pain', 'chronic joint ache', 'inflamed elbow joints',
+        'joint tenderness', 'joint soreness from strain', 'arthralgia', 'aching knees', 'sharp joint pain', 'stabbing joint pain', 'chronic joint ache', 'inflamed elbow joints',
         'chronic knee pain', 'joint damage', 'strained joint', 'degenerative joint disease', 'discomfort in joints', 'dull joint ache', 'acute joint pain', 'swollen hands', 'weakening joint flexibility',
         'muscle and joint discomfort', 'continuous joint pain', 'painful back joints', 'arthritic inflammation', 'joint locking', 'joint clicking', 'joint popping', 'joint dislocation'
 
@@ -249,7 +245,7 @@ symptom_synonyms = {
         'nauseated vomiting', 'vomit-induced gagging', 'stomach-purging sensation', 'retching uncontrollably', 'throwing up after eating', 'puking episodes', 'sick and throwing up',
         'puking from irritation', 'regurgitating food', 'empty stomach vomiting', 'morning sickness vomiting', 'nausea attacks with vomiting', 'emesis due to motion sickness', 'heaving up'
     ],
-    
+
     'ear pain': [
         'ear ache', 'pain in the ear', 'ear discomfort', 'ear irritation', 'painful ear', 'throbbing ear ache', 'sharp ear pain', 'dull ear pain', 'stabbing pain in ear', 'ringing ear pain',
         'pressure in ear', 'ear sensitivity', 'intense ear discomfort', 'itchy ear', 'swollen ear', 'ear tenderness', 'ear pulsations', 'persistent ear pain', 'ear infection pain',
@@ -284,17 +280,17 @@ symptom_synonyms = {
         'sweat running down temples', 'sweat-induced chafing', 'slick and slippery feeling', 'sweating like in a steam room', 'permanent dampness', 'sweat stains on clothing'
     ],
     'swelling': [
-        'swollen area', 'inflammation', 'edema', 'swelling of body part', 'fluid retention', 'swollen body part', 'inflamed tissue', 'swollen limbs', 'puffiness', 'bloated feeling',
-        'swollen joints', 'swollen ankle', 'swollen hands', 'swollen feet', 'localized swelling', 'bloating', 'swollen skin', 'swelling in legs', 'swelling due to injury', 'swollen belly',
+        'swollen area', 'edema', 'swelling of body part', 'fluid retention', 'swollen body part', 'inflamed tissue', 'swollen limbs', 'puffiness',
+        'swollen joints', 'swollen ankle', 'swollen hands', 'swollen feet', 'localized swelling', 'swollen skin', 'swelling in legs', 'swelling due to injury', 'swollen belly',
         'swollen face', 'swollen knees', 'edematous swelling', 'painful swelling', 'swollen extremities', 'swelling from infection', 'swelling from trauma', 'swelling after surgery',
         'swelling of the face', 'swelling under the skin', 'swollen throat', 'swelling with discomfort', 'puffy hands', 'swelling after a fall', 'generalized swelling', 'swelling in eyes',
         'swelling from arthritis', 'swelling around wounds', 'enlarged tissue area', 'swelling from allergic reaction', 'swelling in body cavity', 'swelling around the joints','bruising'
     ],
     'tremor': [
-        'shaking', 'shivering', 'involuntary movements', 'nervous shaking', 'muscle tremors', 'rhythmic shaking', 'trembling hands', 'uncontrolled muscle movement',
+        'shaking', 'shivering', 'twitching', 'involuntary movements', 'nervous shaking', 'muscle tremors', 'rhythmic shaking', 'trembling hands', 'uncontrolled muscle movement',
         'shaking limbs', 'twitchy fingers', 'uncontrolled tremor', 'flickering motion', 'trembling body', 'shaky movements', 'muscle spasms', 'jerking', 'shivering body', 'shaky hands',
         'shaking from cold', 'nervous tremors', 'trembling sensation', 'shuddering', 'uncontrollable shaking', 'flickering muscles', 'twitching eyes', 'nervous jerks', 'shaky fingers',
-         'muscle jerks', 'nervous body shakes', 'subtle muscle tremors', 'involuntary shaking', 'feeling of tremors', 'trembling body parts', 'sporadic body shaking',
+        'twitching limbs', 'muscle jerks', 'nervous body shakes', 'subtle muscle tremors', 'involuntary shaking', 'feeling of tremors', 'trembling body parts', 'sporadic body shaking',
         'hand shaking', 'shaky voice', 'rhythmic tremors', 'shivering fingers', 'body quivering', 'body shudders', 'shaking from anxiety'
     ],
     'chills': [
@@ -304,7 +300,7 @@ symptom_synonyms = {
         'rattled by chill', 'shudders running down spine', 'uncontrollable cold tremors', 'shaky fingers and toes', 'rattling teeth', 'jittering from cold', 'frigid trembles',
         'cold-induced shaking', 'body frozen in chills', 'deep chills', 'numbing cold'
     ],
- 
+
     'eye pain': [
         'ocular pain', 'eye discomfort', 'pain in the eye', 'eye ache', 'sore eye', 'sharp pain in the eye', 'pain around the eyes', 'painful vision', 'pain behind the eye',
         'irritation in the eye', 'burning sensation in the eye', 'dry eye pain', 'stabbing eye pain', 'eye strain', 'pressure in the eye', 'throbbing in the eye',
@@ -362,11 +358,11 @@ symptom_synonyms = {
         'dull aching chest pain', 'pain in the upper left chest', 'pain when lying down', 'sore chest', 'pain from trauma to chest', 'persistent chest pain', 'discomfort after exercise',
         'pain in the center of the chest', 'pain from chest cold', 'pain in the chest while breathing', 'sore chest area', 'pain in the left side of the chest', 'pain from coughing', 'pain from deep breathing'
     ],
-   
+
     'knee pain': [
         'knee discomfort', 'pain in the knee', 'joint pain in the knee', 'knee ache', 'sharp knee pain', 'throbbing knee pain', 'stabbing pain in the knee', 'pain in the knee joint',
         'pain from knee injury', 'pain from knee strain', 'knee swelling', 'pain when bending knee', 'pain while walking', 'pain after exercise', 'pain from knee overuse', 'pain with knee movement',
-        'pain in the kneecap', 'pain on the outer knee', 'pain on the inner knee', 'pain from arthritis', 'pain from ligament injury', 'pain from torn meniscus', 'sharp pain in the knee cap',
+        'pain in the kneecap', 'pain on the outer knee', 'pain on the inner knee', 'pain from ligament injury', 'pain from torn meniscus', 'sharp pain in the knee cap',
         'knee joint inflammation', 'pain when climbing stairs', 'pain with swelling', 'pain from running', 'pain from twisting knee', 'pain when standing up', 'knee tenderness', 'pain from patella dislocation',
         'pain with knee instability', 'pain from bursitis', 'pain with osteoarthritis', 'pain from cartilage damage', 'pain after knee surgery', 'pain in the back of the knee'
     ],
@@ -438,13 +434,6 @@ symptom_synonyms = {
         'chronic back pain', 'pain from spinal degeneration', 'aching back muscles', 'back pain with tingling', 'pain from back strain', 'pain when sitting for too long', 'swollen back muscles',
         'pain from muscle spasms in the back', 'pain with back movement', 'sharp shooting pain in the back'
     ],
-    'muscle pain': [
-        'muscle soreness', 'muscle ache', 'muscle tenderness', 'muscle fatigue', 'muscle strain', 'muscle injury', 'aching muscles', 'muscle cramps', 'tender muscles', 'sore muscles',
-        'muscle inflammation', 'muscle tightness', 'muscle discomfort', 'muscle spasms', 'pain from overworked muscles', 'muscle stiffness', 'muscle pull', 'muscle weakness', 'muscle stiffness from exercise',
-        'muscle soreness after workout', 'muscle pain from exercise', 'deep muscle pain', 'pain from muscle overload', 'chronic muscle pain', 'dull muscle ache', 'sharp muscle pain', 'muscle knots',
-        'muscle tension', 'pain from stretching muscles', 'tired muscles', 'pain from muscle injury during sports', 'fatigued muscles', 'swollen muscles', 'pain from repetitive muscle movement',
-        'muscle ache after physical activity', 'muscle pain from lifting weights'
-    ],
     'memory loss': [
         'forgetfulness', 'difficulty recalling', 'poor memory', 'memory lapses', 'amnestic episodes', 'short-term memory issues', 'difficulty remembering recent events', 'blanking out on details',
         'slip of the mind', 'fuzzy recollections', 'failing memory', 'losing track of thoughts', 'can’t recall names', 'vacant mental storage', 'holes in memory', 'patchy recollection',
@@ -459,23 +448,484 @@ symptom_synonyms = {
         'rattled mental library', 'concept slip-through', 'flickering data in mind', 'barren mental shelves', 'no retrieval of recent facts', 'thinking it’s on the tip of my tongue but never surfacing',
         'losing track of recent conversations', 'difficulty holding new info', 'memory short-circuits frequently', 'mental vacancy', 'ephemeral recollections', 'passing mental clouds with no retention',
         'drifting away from details', 'no anchor to past events'
-    ],  
-   'hallucination': [
-        'visual disturbance', 'illusion', 'seeing things', 'auditory hallucinations', 'sensory distortion', 'false perception', 'psychotic episode', 'delusion', 'perceptual misinterpretation', 'false vision',
-        'seeing unreal things', 'hearing voices', 'mind tricks', 'imagined sights', 'fictitious perception', 'phantom sensations', 'visual or auditory illusion', 'perceptual disorder', 'seeing illusions',
-        'false images', 'confused perceptions', 'distorted reality', 'seeing non-existent objects', 'hallucinatory experience', 'visual hallucinations', 'mental mirages', 'mind-created visions', 'cognitive disorientation',
-        'illusionary sights', 'out of body perception', 'distorted vision', 'unreal sensory inputs', 'dream-like experience', 'delirium', 'brain-generated images', 'unseen figures', 'fantasy perception',
-        'mind-induced voices', 'mind generated images', 'psychosis-related perception', 'perception delusions', 'hallucinated sounds', 'out of touch with reality', 'auditory delusion', 'seeing the impossible',
-        'false sensory perception', 'misinterpreted reality', 'altered state of perception', 'phantasmagoria', 'delusional thoughts', 'imaginative perception', 'delirious hallucinations', 'unfounded sensations',
-        'falsified sensory experience', 'experiencing the non existent'
     ],
-    'vomiting': ['throwing up', 'puking', 'stomach upset'],
-    'hearing loss' : ['loss of hearing'],
-    'bone pain': ['bone tenderness', 'bone swelling'],
-    'weight gain': ['increase in weight', 'gain in body mass'],
-    'hearing loss': ['damaging hearing', 'loss in hearing'],
-    'skin burning' : ['burning', 'burn'],
-    'itching': ['skin itching','itch','itches','itching'],
+  'hallucination': [
+    'delusion', 'illusion', 'false perception', 'sensory distortion', 'visual disturbance', 'auditory hallucination',
+    'perceptual distortion', 'false sensory experience', 'phantom perception', 'psychotic episode', 'imagined sight', 'imagined sound', 'mind illusion',
+    'sensory misperception', 'hallucinatory experience', 'out-of-body experience', 'visual illusion', 'auditory illusion', 'mental delusion', 'altered reality'
+],
+
+  'loss of appetite': [
+    'decreased appetite', 'reduced appetite', 'appetite loss', 'lack of appetite', 'poor appetite', 'no desire to eat', 'loss of interest in food', 'unwillingness to eat',
+    'inability to eat', 'diminished appetite', 'eating less', 'loss of hunger', 'food aversion', 'food intolerance', 'decreased desire to eat', 'lack of hunger',
+    'decrease in food intake', 'disinterest in eating', 'feeling full quickly', 'loss of taste for food', 'sudden loss of appetite', 'absence of hunger', 'nausea with food',
+    'difficulty eating', 'reduced food consumption', 'lack of craving for food', 'feeling satiated quickly', 'loss of appetite due to illness', 'loss of appetite from stress',
+    'loss of appetite from medication', 'anorexia', 'anorexia nervosa', 'feeling no appetite', 'feeling disinterested in food', 'poor food intake', 'reduced food desire'
+],
+
+'constipation': [
+    'difficulty passing stool', 'infrequent bowel movements', 'hard stools', 'painful bowel movements', 'feeling of incomplete evacuation', 'straining during bowel movement',
+    'constipated', 'dry stool', 'difficulty in defecation', 'delayed bowel movements', 'irregular bowel movements', 'hard and dry stool', 'chronic constipation', 'temporary constipation',                'trouble with bowel movements', 'trouble passing stool', 'slow bowel transit', 'stool retention', 'decreased bowel movement frequency', 'bowel sluggishness',
+    'straining to poop', 'bowel movement difficulty', 'slow bowel function', 'lack of bowel movement', 'intestinal irregularity'
+],
+
+'flu': [
+    'influenza', 'seasonal flu', 'viral flu', 'flu virus', 'common flu', 'flu infection', 'respiratory flu', 'flu-like symptoms', 'flu illness',
+    'acute influenza', 'viral infection', 'cold and flu', 'influenza virus', 'flu sickness', 'contagious flu', 'pandemic flu',
+    'swine flu', 'avian flu', 'H1N1 flu', 'influenza strain', 'cough and flu', 'flu symptoms', 'body aches from flu', 'cold flu',
+    'influenza fever', 'flu epidemic', 'general flu discomfort', 'influenza outbreak', 'flu season illness', 'sudden flu'
+],
+
+'infection': [
+    'contamination', 'infectious disease', 'germ infection', 'bacterial infection', 'viral infection', 'fungal infection', 'parasite infection', 'microbial infection',
+    'pathogen invasion', 'infected area', 'infection outbreak', 'systemic infection', 'local infection', 'wound infection', 'skin infection', 'respiratory infection',
+    'urinary tract infection', 'ear infection', 'sinus infection', 'blood infection', 'sepsis', 'foodborne illness', 'infected tissue', 'infection of the bloodstream',
+    'infection of the lungs', 'bacterial contamination', 'inflammation from infection', 'infectious agent', 'disease-causing infection', 'contagion', 'infection symptoms',
+    'chronic infection', 'acute infection', 'health infection', 'infection spread', 'infection risk', 'infectious condition', 'contagious disease'
+],
+
+'inflammation': [
+    'inflammatory response', 'immune response', 'chronic inflammation', 'acute inflammation', 'inflammatory reaction', 'inflammation of tissues', 'inflammation in the body',
+    'inflammation of the skin', 'joint inflammation', 'internal inflammation', 'inflammatory condition', 'cellular inflammation', 'inflammatory disorder', 'local inflammation',
+    'systemic inflammation', 'inflammation from infection', 'inflammation from injury', 'inflammation from disease', 'autoimmune inflammation', 'inflammation in the joints',
+    'stiffness from inflammation', 'inflammation from trauma', 'inflammation due to allergies'
+],
+
+'cramp': [
+    'paining cramp', 'cramped muscle', 'cramping sensation', 'cramping'
+],
+
+'bleeding': [
+    'blood loss', 'hemorrhage', 'hemorrhaging', 'bloodshed', 'wound bleeding', 'internal bleeding', 'external bleeding', 'bleeding from injury', 'blood flow',
+    'spurting blood', 'bleeding wound', 'gushing blood', 'cut bleeding', 'profuse bleeding', 'minor bleeding', 'heavy bleeding', 'excessive bleeding',
+    'periodic bleeding', 'bleeding from incision', 'bleeding from surgery', 'abnormal bleeding', 'uncontrolled bleeding', 'bleeding disorder'
+],
+
+'irritation': [
+    'annoyance', 'chronic irritation', 'temporary irritation', 'allergic irritation', 'irritated feeling'
+],
+
+'anxiety': [
+    'worry', 'unease', 'stress', 'fear', 'apprehension', 'nervous tension', 'anxiousness', 'nervous anxiety', 'social anxiety', 'generalized anxiety', 'anxiety disorder',   'anticipatory anxiety', 'anxiety attack', 'apprehensive feeling', 'distress', 'emotional unease', 'worrying', 'overthinking', 'mental tension'
+],
+
+'depression': [
+    'sadness', 'melancholy', 'despair', 'low mood', 'dismay', 'hopelessness', 'discouragement', 'despondency', 'blues', 'dejectedness', 'very sad', 'sad',
+    'feeling down', 'feeling hopeless', 'loss of interest', 'unhappiness', 'mental exhaustion', 'loss of joy', 'major depressive disorder',
+    'clinical depression', 'chronic depression', 'depressive episode', 'anhedonia', 'negative mood', 'downheartedness'
+],
+
+'nausea': [
+    'queasiness',  'feeling nauseous', 'nauseousness', 'feeling of nausea', 'feeling queasy'
+],
+
+'cancer': [
+    'malignant tumor', 'carcinoma', 'neoplasm', 'oncological disease', 'cancerous growth', 'tumor', 'metastatic cancer', 'cancer cells', 'tumor growth',
+    'breast cancer', 'lung cancer', 'skin cancer', 'prostate cancer', 'colon cancer', 'leukemia', 'lymphoma', 'sarcoma', 'head and neck cancer',
+    'pancreatic cancer', 'bladder cancer', 'stomach cancer', 'cancer diagnosis', 'cancerous tumor', 'fatal cancer', 'chronic cancer', 'advanced cancer',
+    'stage 4 cancer', 'cancer treatment', 'chemotherapy', 'radiation therapy', 'cancer stage', 'oncology'
+],
+
+'diabetes': [
+    'diabetes mellitus', 'high blood sugar', 'high sugar', 'insulin resistance', 'type 1 diabetes', 'type 2 diabetes', 'gestational diabetes', 'sugar diabetes',
+    'chronic high blood sugar', 'endocrine disorder', 'metabolic disorder', 'insulin deficiency', 'insulin imbalance', 'glucose intolerance', 'sugar level is high',
+    'blood sugar imbalance', 'hyperglycemia', 'diabetic condition', 'diabetic disease', 'diabetic disorder', 'pancreatic disorder', 'non-insulin dependent diabetes',
+    'insulin-dependent diabetes', 'pre-diabetes', 'diabetic symptoms', 'diabetic complications', 'diabetes management', 'diabetes treatment'
+],
+
+'weight loss': [
+    'fat loss', 'loss of body weight', 'slimming down', 'losing pounds', 'weight reduction', 'weight management', 'fat burning', 'weight cut',
+    'body slimming', 'reduction in weight', 'fat shedding', 'calorie burning', 'trimming down', 'losing inches', 'dropping weight', 'healthy weight loss',
+    'body fat reduction', 'weight loss journey', 'sustainable weight loss', 'rapid weight loss', 'gradual weight loss', 'controlled weight loss',
+    'dieting', 'fitness weight loss', 'weight loss goals'
+],
+
+'hair loss': [
+    'alopecia', 'balding', 'thinning hair', 'hair thinning', 'hair shedding', 'hair fall', 'scalp hair loss', 'bald spots', 'receding hairline',
+    'hairline recession', 'hair breakage', 'excessive hair loss', 'temporary hair loss', 'pattern baldness', 'male pattern baldness', 'female pattern baldness',
+    'androgenic alopecia', 'patchy hair loss', 'diffuse hair loss', 'hair loss due to stress', 'postpartum hair loss', 'age-related hair loss', 'genetic hair loss',
+    'hair fall disorder', 'alopecia areata', 'hair loss condition', 'scalp thinning', 'hair loss treatment'
+],
+
+'blurred vision': [
+    'vision impairment', 'unclear vision', 'fuzzy vision', 'distorted vision', 'foggy vision', 'hazy vision', 'blurry eyesight', 'impaired vision', 'cannot see properly',
+    'vision distortion', 'clouded vision', 'poor vision', 'vision fuzziness', 'difficulty seeing clearly', 'blurred eyesight', 'visual disturbance',
+    'unclear eyesight', 'visual impairment', 'blurry sight', 'sight distortion', 'vision problems', 'temporary blurred vision', 'chronic blurred vision',
+    'blurry perception'
+],
+
+'numbness': [
+    'loss of sensation', 'tingling', 'pins and needles', 'lack of feeling', 'reduced sensation', 'sensory loss', 'numb sensation', 'feeling of numbness',
+    'numb feeling', 'sensory numbness', 'partial numbness', 'temporary numbness', 'persistent numbness'
+],
+
+'dry mouth': [
+    'xerostomia', 'cottonmouth', 'parched mouth', 'thirsty mouth', 'dryness in the mouth', 'lack of saliva', 'reduced saliva production', 'mouth dryness',
+    'sticky mouth', 'dryness of the oral cavity', 'uncomfortable dry mouth', 'dry tongue', 'thirsty feeling in the mouth', 'saliva deficiency', 'oral dryness',
+    'mouth discomfort', 'dryness in the mouth and throat', 'sore dry mouth', 'dehydrated mouth', 'dryness due to medication', 'mouth feels dry', 'no saliva'
+],
+
+'frequent urination': [
+    'urinary frequency', 'increased urination', 'urinary urgency', 'excessive urination', 'frequent trips to the bathroom', 'overactive bladder',
+    'need to urinate often', 'urination urgency', 'recurrent urination', 'constant urination', 'frequent need to pee', 'urgent urination', 'pollakiuria',
+    'urinary incontinence', 'nighttime urination', 'nocturia', 'constant need to urinate', 'increased frequency of urination'
+],
+
+'acne': [
+    'pimples', 'blemishes', 'zits', 'whiteheads', 'blackheads', 'cystic acne', 'teenage acne', 'adult acne', 'pimple outbreaks', 'clogged pores', 'acne vulgaris', 'skin spots', 'face pimples', 'hormonal acne', 'acne lesions', 'acne scars', 'clogged follicles', 'sebaceous gland activity', 'oil acne', 'acne on the back', 'acne on the chest'
+],
+
+'difficulty swallowing': [
+    'dysphagia', 'trouble swallowing', 'swallowing difficulty', 'painful swallowing', 'difficulty with swallowing', 'difficulty in swallowing food',
+    'difficulty swallowing liquids', 'inability to swallow', 'swallowing discomfort', 'choking sensation', 'difficulty swallowing pills', 'food getting stuck',
+    'difficulty in throat swallowing', 'swallowing obstruction', 'swallowing problems', 'gagging while swallowing', 'swallowing trouble',
+    'feeling of blockage while swallowing'
+],
+
+'restlessness': [
+    'unease', 'fidgeting', 'inability to relax', 'impatience', 'uneasiness', 'hyperactivity', 'jitteriness', 'inability to stay still', 'unsettledness',
+    'fidgety feeling', 'lack of calm', 'shaky feeling'
+],
+
+'bloating': [
+    'abdominal bloating', 'stomach bloating', 'gas buildup', 'swollen belly', 'feeling of fullness', 'abdominal distention',
+    'overfull stomach', 'stomach discomfort', 'stomach swelling', 'intestinal bloating', 'bloated stomach', 'feeling puffed up', 'bloating sensation',
+    'gassy stomach', 'stomach pressure', 'bloating after eating', 'digestive bloating', 'feeling bloated', 'bloating in the abdomen', 'gas pain',
+    'cramping and bloating'
+],
+
+'gas': [
+    'flatulence', 'intestinal gas', 'stomach gas', 'abdominal gas', 'gassy feeling', 'farting', 'passing gas', 'gas buildup',
+    'wind', 'belching', 'burping', 'gas discomfort', 'gas pains', 'digestive gas', 'stomach is full', 'gassy stomach', 'trapped gas',
+    'excessive gas', 'gas expulsion', 'intestinal discomfort', 'gas release', 'unwanted gas', 'gas in the stomach', 'passing wind'
+],
+
+'indigestion': [
+    'dyspepsia', 'digestive discomfort', 'fullness after eating', 'nausea after eating', 'acidic stomach', 'belching', 'feeling of heaviness', 'difficulty digesting', 'food intolerance', 'excessive burping'
+],
+
+'heartburn': [
+    'acid reflux', 'gastroesophageal reflux', 'GERD', 'acid indigestion', 'stomach acid', 'burning sensation in the chest', 'burning throat',
+    'acidic taste in the mouth', 'chronic heartburn', 'esophageal burning', 'gastric reflux', 'burning chest pain', 'sour stomach', 'acid regurgitation',
+    'acid backflow', 'stomach acid reflux', 'acid reflux disease', 'heartburn symptoms', 'irritated esophagus', 'burning sensation after eating',
+    'heartburn discomfort'
+],
+
+'mouth sore': [
+    'oral ulcer', 'canker sore', 'cold sore', 'blister in the mouth', 'mouth ulcer', 'painful mouth lesion', 'sores in the mouth', 'lesions on the gums',
+    'painful spot in the mouth', 'mouth blister', 'mouth irritation', 'gum ulcer', 'sore inside the mouth', 'ulcerated mouth tissue', 'painful mouth spot',
+    'burning mouth', 'painful tongue spot', 'sores on the lips', 'swollen mouth tissue', 'open mouth wound', 'oral lesion', 'mouth wound', 'infected mouth area'
+],
+
+'nosebleed': [
+    'epistaxis', 'bleeding from the nose', 'nasal hemorrhage', 'nose bleeding', 'bloody nose', 'hemorrhaging from the nose', 'nose blood flow',
+    'spontaneous nosebleed', 'anterior nosebleed', 'posterior nosebleed', 'frequent nosebleeds', 'nosebleed episode', 'bleeding nostrils',
+    'blood coming out from the nose', 'nasal bleeding', 'bloody discharge from the nose', 'nasal passage bleeding', 'nosebleed symptoms', 'internal nasal bleeding',
+    'nose injury bleeding'
+],
+'ear ringing': [
+    'tinnitus', 'ringing in the ears', 'ear buzzing', 'ear noise', 'persistent ear sound', 'ear whistling', 'ear humming', 'sounds in the ears',
+    'ear roaring', 'ringing sound in the ear', 'constant ringing', 'ear congestion', 'noises in the ear', 'buzzing in the ear', 'hissing in the ear',
+    'whistling in the ear', 'high-pitched sound', 'low-pitched ear sound', 'phantom sounds', 'ear sensation', 'auditory disturbance'
+],
+
+'dark urine': [
+    'dark-colored urine', 'dark yellow urine', 'brown urine', 'amber-colored urine', 'tea-colored urine', 'concentrated urine', 'urine with strong color',
+    'deep yellow urine', 'urine discoloration', 'darkened urine', 'urine with reddish tint', 'dark brown urine', 'urine with high concentration', 'cloudy urine',
+    'urine with abnormal color', 'dark urine caused by medication', 'urine with blood', 'urine with high pigment', 'strong urine color'
+],
+
+'blood in urine': [
+    'hematuria', 'urinary blood', 'bloody urine', 'red urine', 'urine with blood', 'blood-tinged urine', 'blood in the urine stream', 'pink urine',
+    'urinary tract bleeding', 'blood in the urinary tract', 'hemorrhagic urine', 'urinary bleeding', 'presence of blood in urine', 'blood in the bladder',
+    'bloody discharge in urine', 'urine with reddish tint', 'blood in the urine sample', 'bleeding from the kidneys', 'blood in the urine after urination',
+    'visible blood in urine', 'microscopic hematuria'
+],
+
+'blood in stool': [
+    'hematochezia', 'rectal bleeding', 'bloody stool', 'stool with blood', 'bright red blood in stool', 'dark blood in stool', 'blood in the bowel movement',
+    'blood-tinged stool', 'bloody feces', 'blood in feces', 'stool with reddish tint', 'blood in the stool sample', 'melena', 'dark tarry stool',
+    'fecal blood', 'visible blood in stool', 'blood after bowel movement', 'stool with clots', 'bloody discharge from the rectum', 'abnormal stool color'
+],
+
+'high blood pressure': [
+    'hypertension', 'elevated blood pressure', 'high BP', 'high arterial pressure', 'raised blood pressure', 'increased blood pressure', 'high systolic pressure',
+    'high diastolic pressure', 'chronic hypertension', 'hypertensive condition', 'uncontrolled blood pressure', 'borderline hypertension', 'stage 1 hypertension',
+    'stage 2 hypertension', 'persistent high blood pressure', 'high blood pressure disorder', 'abnormal blood pressure', 'hypertensive crisis', 'cardiovascular hypertension',
+    'risk of hypertension', 'elevated BP', 'hypertensive state', 'BP is high'
+],
+
+'low blood pressure': [
+    'hypotension', 'low BP', 'decreased blood pressure', 'low arterial pressure', 'reduced blood pressure', 'hypotensive condition', 'low systolic pressure',
+    'low diastolic pressure', 'abnormally low blood pressure', 'postural hypotension', 'orthostatic hypotension', 'chronic hypotension', 'mild hypotension',
+    'severe hypotension', 'low blood pressure symptoms', 'blood pressure drop', 'low cardiovascular pressure', 'circulatory hypotension', 'inadequate blood pressure',
+    'dizzy blood pressure', 'low blood pressure episode', 'BP is low'
+],
+
+'excessive thirst': [
+    'polydipsia', 'intense thirst', 'uncontrollable thirst', 'extreme thirst', 'constant thirst', 'increased thirst', 'abnormal thirst', 'drinking more water', 'consuming more water',
+    'compulsive thirst', 'thirsty all the time', 'unquenchable thirst', 'chronic thirst', 'intense desire to drink', 'frequent thirst', 'dehydration thirst','thirsty feeling',
+    'abnormal fluid intake desire', 'thirst without relief', 'excessive fluid consumption', 'thirst due to dehydration', 'thirsty feeling', 'abnormal hydration needs'
+],
+
+'dehydration': [
+    'fluid loss', 'water depletion', 'lack of hydration', 'electrolyte imbalance', 'insufficient water intake', 'dehydrating',
+    'dehydrated state', 'water deficiency', 'reduced fluid levels', 'severe dehydration', 'mild dehydration', 'dehydration symptoms',
+    'fluid imbalance', 'low body water', 'loss of body fluids', 'heat exhaustion', 'low hydration', 'hypohydration'
+],
+
+'red eyes': [
+    'eye redness', 'bloodshot eyes', 'conjunctival redness', 'inflamed eyes', 'eye irritation', 'eyes with blood vessels',
+    'swollen eyes', 'sore eyes', 'tired eyes', 'watery eyes', 'eye inflammation', 'pink eye', 'eye congestion', 'eye discomfort', 'eyes looking inflamed',
+    'redness in the eyes', 'burning eyes', 'allergic eyes', 'eyes with a reddish tint'
+],
+
+'eye discharge': [
+    'ocular discharge', 'eye mucus', 'eye secretion', 'eye crust', 'sticky eyes', 'eye pus', 'yellow eye discharge', 'clear eye discharge', 'water coming out of eyes',
+    'green eye discharge', 'gunky eyes', 'eye drainage', 'teary eyes', 'eye secretion buildup', 'crusty eyes', 'eye fluid', 'excessive tear production',
+    'morning eye crust', 'sticky eyelids', 'eye infection discharge', 'pus from the eye', 'watery eye discharge', 'eye discharge after sleep',
+    'discharge from the tear duct', 'rheum in the eye','something coming out of eyes'
+],
+
+'ear discharge': [
+    'otorrhea', 'ear fluid', 'ear drainage', 'pus from the ear', 'ear pus', 'ear infection discharge', 'fluid from the ear', 'ear secretion',
+    'yellow ear discharge', 'green ear discharge', 'watery ear discharge', 'bloody ear discharge', 'ear mucus', 'crust in the ear', 'excessive ear fluid',
+    'ear leakage', 'ear wax buildup', 'discharge from the ear canal', 'discharge from the middle ear', 'infection-related ear discharge', 'ear discharge after swimming',
+    'ear drainage after injury', 'something coming out of ears'
+],
+
+'balance problem': [
+    'vertigo', 'loss of balance', 'balance disorder', 'impaired balance', 'unsteady gait', 'lack of coordination', 'dizziness and unsteadiness',
+    'balance difficulty', 'feeling of instability', 'spatial disorientation', 'postural imbalance', 'equilibrium disturbance', 'feeling off-balance',
+    'gait imbalance', 'disequilibrium', 'vestibular dysfunction', 'balance issues', 'vertiginous symptoms', 'coordination problems', 'stumbling', 'feeling lightheaded'
+],
+
+'irregular heartbeat': [
+    'arrhythmia', 'abnormal heartbeat', 'heart palpitations', 'irregular pulse', 'heart rhythm disorder', 'uneven heartbeat', 'skipped heartbeat',
+    'rapid heartbeat', 'slow heartbeat', 'tachycardia', 'bradycardia', 'atrial fibrillation', 'ventricular fibrillation', 'heart flutter', 'irregular heart rhythm',
+    'heart irregularities', 'palpitations', 'fluttering heart', 'cardiac arrhythmia', 'dysrhythmia', 'irregular pulse rate', 'heartbeat irregularity',
+    'irregular heart rate', 'heart pounding'
+],
+
+'fainting': [
+    'syncope', 'passing out', 'loss of consciousness', 'blackout', 'going unconscious', 'faint', 'collapse', 'temporary unconsciousness',
+    'sudden fainting', 'faint spell', 'dizziness and fainting', 'dizzy spell', 'feeling lightheaded', 'near fainting', 'brief loss of consciousness',
+    'head rush', 'staggering', 'fainting episode', 'loss of awareness', 'unconsciousness', 'momentary blackout', 'unconscious',
+    'dizzy and lightheaded', 'feeling woozy'
+],
+
+'nervousness': [
+    'nervous tension', 'nervous energy', 'uneasiness', 'nervous feeling', 'worry', 'uneasy feeling', 'jitters', 'nervous anticipation', 'fearfulness', 'shakiness', 'edginess',
+    'fidgeting', 'mental unease', 'trepidation', 'feeling on edge', 'worrying', 'nervous butterflies'
+],
+
+'panic attack': [
+    'anxiety attack', 'nervous breakdown', 'stress attack', 'overwhelming fear', 'intense fear episode', 'fight-or-flight response', 'panic episode', 'emotional breakdown',
+    'sudden panic', 'heart-pounding anxiety', 'fear attack', 'panic episode', 'anxiety episode', 'intense panic', 'acute stress response', 'terror attack', 'nervous episode',
+    'severe panic', 'acute emotional distress', 'uncontrollable fear', 'chronic panic disorder'
+],
+
+'mood swing': [
+    'emotional swing', 'mood fluctuation', 'emotional rollercoaster', 'mood shift', 'mood change', 'mood variation', 'mood disorder',
+    'rapid mood change', 'emotional instability', 'mood instability', 'mood alteration', 'emotional shift', 'temper fluctuation',
+    'emotional lability', 'mood fluctuations', 'unstable mood', 'irregular mood', 'affective swing', 'mood imbalance', 'emotional outbursts',
+    'highs and lows', 'emotional extremes'
+],
+
+'difficulty concentrating': [
+    'inability to focus', 'lack of focus', 'poor concentration', 'trouble focusing', 'concentration problems', 'distractibility',
+    'difficulty paying attention', 'lack of mental clarity', 'difficulty staying focused', 'inattention', 'short attention span', 'mind wandering',
+    'difficulty concentrating on tasks', 'poor attention span', 'difficulty maintaining focus', 'lack of mental focus', 'difficulty with concentration',
+    'easily distracted', 'unable to focus', 'attention issues', 'concentration challenges'
+],
+
+'lack of motivation': [
+    'demotivated', 'low motivation', 'disinterest', 'lack of drive', 'lack of ambition', 'lack of initiative', 'apathy', 'unmotivated',
+    'loss of drive', 'lack of enthusiasm', 'indifference', 'lack of determination', 'lack of purpose', 'loss of interest', 'lack of energy',
+    'procrastination', 'lack of willpower', 'lack of focus', 'lack of passion', 'feeling uninspired', 'demotivation', 'lack of commitment', 'indifferent attitude'
+],
+
+'exhaustion': [
+    'fatigue', 'tiredness', 'weariness', 'drained', 'burnout', 'physical exhaustion', 'mental exhaustion', 'extreme fatigue', 'lack of energy',
+    'overwhelming tiredness', 'complete fatigue', 'depletion', 'lack of stamina', 'total exhaustion', 'exhausted feeling', 'chronic fatigue',
+    'fatigued state', 'drowsiness', 'wearing out', 'energy depletion', 'fatigue syndrome', 'feeling drained', 'exhaustive tiredness', 'loss of energy',
+    'profound fatigue', 'fatigue and weakness'
+],
+
+'sprain': [
+    'ligament injury', 'joint sprain', 'ligament strain', 'stretched ligament', 'ligament tear',
+    'sprained ligament', 'mild sprain', 'severe sprain', 'ligament damage'
+],
+
+'strain': [
+
+    'soft tissue strain', 'overexertion', 'overworked muscle', 'acute strain', 'chronic strain', 'ligament strain'
+],
+
+'arthritis': [
+    'inflammatory arthritis', 'rheumatoid arthritis', 'osteoarthritis', 'degenerative joint disease',  'rheumatism',  'pain from arthritis',
+    'arthralgia', 'chronic arthritis', 'autoimmune arthritis', 'psoriatic arthritis'
+
+],
+
+'gout': [
+    'uric acid buildup', 'acute gout', 'chronic gout', 'gout attack', 'joint pain from gout', 'gout flare-up', 'gouty inflammation', 'gouty attack',
+    'painful gout episode', 'gouty swelling', 'gout in the foot', 'gout in the big toe', 'gouty condition', 'uric acid crystals', 'gouty joint disease'
+],
+
+'shoulder pain': [
+    'shoulder discomfort', 'pain in the shoulder', 'shoulder ache', 'sharp shoulder pain', 'dull shoulder pain', 'shoulder stiffness', 'rotator cuff pain',
+    'shoulder joint pain', 'pain in the shoulder joint', 'shoulder strain', 'shoulder injury', 'shoulder inflammation', 'pain in the upper arm',
+    'muscle pain in the shoulder', 'shoulder tenderness', 'pain when moving the shoulder', 'shoulder sprain', 'pain in the deltoid', 'shoulder dislocation pain',
+    'pain in the scapula', 'pain after shoulder surgery', 'shoulder impingement pain', 'frozen shoulder', 'pain from shoulder overuse', 'referred shoulder pain'
+],
+
+'bone fracture': [
+    'broken bone', 'bone break', 'fractured bone', 'cracked bone', 'bone crack', 'bone injury', 'fracture', 'compound fracture', 'closed fracture',
+    'stress fracture', 'hairline fracture', 'complete fracture', 'incomplete fracture', 'displaced fracture', 'non-displaced fracture', 'bone splinter',
+    'fractured limb', 'fractured bone segment', 'broken limb', 'broken bone segment', 'cracked bone injury', 'bone rupture', 'bone fracture symptoms',
+    'fractured bone tissue', 'fracture of the bone', 'crack in bone'
+],
+
+'back bone issue': [
+    'spinal problem', 'back bone pain', 'spinal condition', 'vertebral issue', 'spinal disorder', 'back injury', 'spinal misalignment', 'back bone is paining',
+    'disc herniation', 'sciatica', 'spinal injury', 'neck and back issues', 'spinal discomfort', 'lumbar pain', 'spinal cord issue', 'slipped disc', 'musculoskeletal disorder',
+    'spinal health issue', 'postural problems', 'spondylosis', 'degenerative disc disease', 'spine misalignment', 'spinal deformity', 'spinal arthritis', 'spinal stenosis'
+],
+
+'female issue': [
+    'women’s health', 'gynecological issue', 'female reproductive health', 'menstrual problems', 'menstrual irregularities', 'PCOS', 'endometriosis', 'fibroids', 'ovarian cysts',
+    'vaginal infection', 'vaginal discharge', 'fertility issues', 'menopause', 'pre-menopause', 'post-menopause', 'infertility', 'vaginal dryness', 'prolapsed uterus',
+    'birth control issues', 'female urinary issues', 'pregnancy complications','white discharge'
+],
+
+'thyroid': [
+    'thyroid gland', 'hypothyroidism', 'hyperthyroidism', 'thyroid disorder', 'thyroid imbalance', 'underactive thyroid', 'overactive thyroid', 'goiter', 'thyroid dysfunction',
+    'thyroid disease', 'thyroid cancer', 'thyroiditis', 'low thyroid function', 'high thyroid function', 'endocrine disorder', 'thyroid nodules', 'thyroid hormone imbalance',
+    'TSH imbalance', 'thyroid condition', 'thyroid problems', 'autoimmune thyroid disease', 'pituitary-thyroid dysfunction', 'thyroid health', 'thyroid testing'
+],
+
+'piles': [
+    'hemorrhoids', 'anal piles', 'rectal swelling', 'swollen veins', 'internal hemorrhoids', 'external hemorrhoids',
+    'hemorrhoidal disease', 'rectal discomfort', 'anal itching', 'anal bleeding', 'rectal bleeding', 'chronic hemorrhoids',
+    'painful hemorrhoids', 'prolapsed hemorrhoids', 'thrombosed hemorrhoids', 'anal fissures', 'blood clots in hemorrhoids',
+    'swollen hemorrhoids', 'anal prolapse', 'inflamed hemorrhoids', 'rectal irritation', 'constipation-related hemorrhoids',
+    'itchy anus', 'hemorrhoid treatment', 'hemorrhoid relief'
+],
+
+'vomiting': [
+'food throwing up', 'puking', 'stomach upset', 'retching', 'nauseated vomiting', 'projectile vomiting', 'forceful expulsion', 'stomach evacuation',
+'regurgitation', 'gag reflex', 'vomit episode', 'bilious vomiting', 'dry heaving', 'stomach upheaval', 'continuous vomiting', 'acidic vomit', 'vomiting bile',
+'upset stomach leading to vomiting', 'cyclic vomiting', 'food rejection', 'nausea-induced vomiting', 'vomiting spells', 'recurrent vomiting', 'violent vomiting',
+'vomiting after eating', 'motion sickness vomiting', 'morning sickness vomiting', 'dehydration from vomiting', 'vomiting blood', 'gastrointestinal vomiting',
+'digestive tract expulsion', 'vomiting sensation', 'persistent nausea', 'induced vomiting', 'uncontrollable vomiting', 'abdominal vomiting', 'stomach spasms causing vomiting',
+'vomiting reflex', 'vomiting from food poisoning', 'travel sickness vomiting', 'chronic vomiting episodes', 'sudden vomiting', 'intense vomiting', 'frequent retching',
+'vomiting with dizziness', 'vomiting due to illness', 'nervous vomiting', 'vomiting from indigestion', 'bitter vomit taste', 'post-vomit weakness', 'vomiting accompanied by sweating'
+],
+
+'hearing loss': [
+'loss of hearing', 'partial hearing loss', 'complete hearing loss', 'reduced hearing', 'impaired hearing', 'difficulty hearing', 'diminished hearing ability',
+'hearing impairment', 'sensorineural hearing loss', 'conductive hearing loss', 'temporary hearing loss', 'permanent hearing loss', 'age-related hearing loss', 'noise-induced hearing loss',
+'hearing deficiency', 'blocked hearing', 'muffled hearing', 'ringing in ears', 'ear damage', 'auditory dysfunction', 'ear canal blockage', 'inner ear damage',
+'hearing weakness', 'fading hearing', 'loss of sound perception', 'difficulty understanding speech', 'distorted hearing', 'ear drum damage', 'hearing sensitivity reduction',
+'unilateral hearing loss', 'bilateral hearing loss', 'gradual hearing loss', 'sudden hearing loss', 'ear infection-related hearing loss', 'fluid in ear causing hearing loss',
+'hearing clarity reduction', 'speech comprehension difficulty', 'auditory decline', 'nerve damage causing hearing loss', 'inability to detect sound frequencies', 'ear trauma',
+'hearing impairment due to illness', 'hearing degradation', 'low sound perception', 'high-frequency hearing loss', 'earwax blockage hearing loss', 'acoustic trauma',
+'temporary auditory loss', 'chronic hearing damage', 'progressive hearing loss'
+],
+
+'bone pain': [
+'bone tenderness', 'bone swelling', 'aching bones', 'deep bone pain', 'sharp bone pain', 'bone discomfort', 'persistent bone pain', 'localized bone pain',
+'throbbing bone sensation', 'bone sensitivity', 'bone ache during movement', 'chronic bone pain', 'bone bruising', 'bone soreness', 'inflammatory bone pain',
+'fracture-related bone pain', 'joint and bone pain', 'dull bone ache', 'piercing bone pain', 'bone pain during rest', 'bone pain under pressure', 'bone stiffness',
+'osteopathic pain', 'bone fragility pain', 'bone strain', 'bone inflammation', 'bone pain with swelling', 'tender bone surface', 'aching joints and bones',
+'deep-seated bone ache', 'bone discomfort while standing', 'bone pain due to injury', 'radiating bone pain', 'stress fracture pain', 'bone pain from infection',
+'cancer-related bone pain', 'bone tenderness to touch', 'nighttime bone pain', 'sensitive bone tissue', 'bone marrow pain', 'bone pain during activity',
+'osteoporosis-related bone pain', 'bone pain with movement', 'skeletal pain', 'generalized bone pain', 'acute bone discomfort', 'bone stress pain',
+'pressure-induced bone pain', 'intense bone ache', 'stiff bone joints', 'localized skeletal pain'
+],
+
+'weight gain': [
+'increase in weight', 'gain in body mass', 'unintended weight gain', 'gradual weight gain', 'rapid weight gain', 'excess body weight', 'body mass increase',
+'weight fluctuation', 'caloric surplus', 'fat accumulation', 'body fat increase', 'muscle mass gain', 'bloating-related weight gain', 'water retention weight gain',
+'unhealthy weight gain', 'sudden weight gain', 'weight gain from overeating', 'hormonal weight gain', 'stress-related weight gain', 'weight gain due to inactivity',
+'metabolic weight gain', 'post-pregnancy weight gain', 'age-related weight gain', 'diet-induced weight gain', 'weight gain from medication', 'insulin-related weight gain',
+'abdominal weight gain', 'upper body weight gain', 'lower body weight gain', 'excess calorie intake', 'fluid retention weight gain', 'chronic weight gain',
+'weight gain around the waist', 'poor diet weight gain', 'sedentary lifestyle weight gain', 'hormone imbalance weight gain', 'slow metabolism weight gain',
+'unexplained weight gain', 'overeating-induced weight gain', 'fat storage increase', 'weight gain from sugary foods', 'weight gain due to lack of exercise',
+'weight gain with bloating', 'hormone-related fat storage', 'weight gain caused by stress eating', 'body composition change', 'progressive weight gain',
+'weight gain due to emotional eating', 'weight gain from poor sleep', 'unbalanced diet weight gain','gained weight'
+],
+
+'skin burning': [
+'burning', 'burning feeling', 'skin irritation', 'skin stinging', 'skin redness', 'skin inflammation', 'burning sensation', 'skin discomfort', 'tingling burn',
+'localized skin burn', 'skin heat sensation', 'raw skin feeling', 'skin hypersensitivity', 'sunburn', 'chemical burn', 'skin scorching', 'skin sensitivity to touch',
+'prickling skin sensation', 'hot skin feeling', 'burning skin pain', 'skin abrasion burn', 'nerve-related burning', 'itchy burning skin', 'skin damage from burn',
+'skin burning after contact', 'intense burning sensation', 'surface skin burn', 'skin blistering', 'persistent skin burn', 'burned skin surface',
+'red inflamed skin', 'skin discomfort from heat', 'skin burning from friction', 'skin chafing burn', 'thermal skin burn', 'abrasive skin burn', 'sensitive skin after burn',
+'stinging skin pain', 'skin burn from chemicals', 'skin damage sensation', 'skin peeling from burn', 'acute burning feeling', 'skin burn with swelling',
+'lingering skin burn', 'burnt skin tenderness', 'skin hot spot', 'irritated skin burn', 'sharp skin burn sensation', 'skin burning rash', 'skin burning itch'
+],
+
+'itching': [
+'skin itching', 'pruritus', 'itchy sensation', 'persistent itching', 'intense itching', 'localized itching', 'generalized itching', 'skin irritation',
+'itchy rash', 'dry skin itching', 'allergic itching', 'itching from insect bites', 'itchy skin patches', 'scalp itching', 'itching sensation under the skin',
+'chronic itching', 'temporary itching', 'burning itch', 'itching with redness', 'itching from dryness', 'irritated skin itch', 'tickling skin sensation',
+'itchy skin bumps', 'itchy welts', 'itchy hives', 'skin crawling sensation', 'itching from heat rash', 'itchy blisters', 'itching from eczema', 'itching from psoriasis',
+'itching with flaking skin', 'itching from fungal infection', 'itching from dermatitis', 'nighttime itching', 'itching due to allergies', 'itching from contact dermatitis',
+'itching after sunburn', 'itching from insect stings', 'itching with swelling', 'prickly itching sensation', 'itching from poison ivy', 'itching with dryness',
+'itching from skin irritation', 'itching from chemicals', 'itchy mosquito bites', 'itching with inflammation', 'nerve-related itching', 'itching from medication side effects',
+'itching due to sweat', 'itching from poor hygiene', 'itchy skin lesions','itching'
+],
+
+'injury': [
+'injured', 'wound', 'physical injury', 'bodily harm', 'tissue damage', 'acute injury', 'chronic injury', 'sports injury', 'accidental injury',
+'soft tissue injury', 'muscle injury', 'joint injury', 'bone injury', 'ligament injury', 'nerve injury', 'head injury', 'spinal injury', 'bruise',
+'cut', 'abrasion', 'laceration', 'contusion', 'strain injury', 'sprain injury', 'impact injury', 'blunt force trauma', 'penetrating injury', 'superficial injury',
+'deep tissue injury', 'skin injury', 'crush injury', 'internal injury', 'traumatic wound', 'workplace injury', 'repetitive strain injury', 'overuse injury',
+'thermal injury', 'chemical injury', 'burn injury', 'frostbite', 'puncture wound', 'tendon injury', 'cartilage injury', 'open wound', 'closed injury',
+'localized injury', 'multiple injuries', 'injury with swelling', 'painful injury', 'infected injury'
+],
+
+'jaundice': [
+'icterus', 'yellow skin', 'yellowing of the eyes', 'skin discoloration', 'yellowish tint', 'bilirubin buildup', 'yellow sclera', 'jaundiced appearance',
+'hepatic jaundice', 'neonatal jaundice', 'obstructive jaundice', 'hemolytic jaundice', 'yellowish skin tone', 'liver-related jaundice', 'gallbladder-related jaundice',
+'bile duct obstruction', 'elevated bilirubin levels', 'yellow pigmentation', 'pale stools', 'dark urine', 'liver dysfunction symptoms', 'bile buildup', 'yellow facial skin',
+'chronic jaundice', 'acute jaundice', 'jaundice-induced fatigue', 'itching with jaundice', 'skin yellowing disorder', 'bile pigment imbalance', 'bilirubin-induced yellowing',
+'eye yellowing', 'yellowish mucous membranes', 'jaundice rash', 'jaundice-related weakness', 'jaundice-related nausea', 'jaundice-related abdominal pain', 'hepatitis-related jaundice',
+'gallstone-related jaundice', 'pre-hepatic jaundice', 'post-hepatic jaundice', 'yellow palms', 'yellow tongue', 'biliary jaundice', 'jaundice-related weight loss',
+'yellow skin patches', 'jaundice-associated itching', 'systemic jaundice', 'yellowish complexion', 'jaundice in newborns', 'jaundice symptoms'
+],
+
+'sleepy': [
+'sleeping', 'sleepiness', 'drowsy', 'asleep', 'lethargic', 'groggy', 'tired', 'sluggish', 'heavy-eyed', 'nodding off', 'fatigued', 'dozing',
+'half asleep', 'sleep-deprived', 'exhausted', 'yawning', 'slow-moving', 'low energy', 'ready for bed', 'snoozy', 'sleep-prone', 'droopy eyed', 'barely awake',
+'mentally tired', 'physically tired', 'in need of rest', 'overly relaxed', 'hard to stay awake', 'sleep craving', 'languid', 'wearied', 'brain fog',
+'bed ready', 'sleep drawn', 'lazy eyed', 'unfocused from tiredness', 'nodding head', 'drifting off', 'sleepy sensation', 'slumberous', 'soporific', 'somnolent',
+'half-awake', 'daytime sleepiness', 'overwhelming fatigue', 'rest-seeking', 'near dozing', 'eyes struggling to stay open', 'unable to concentrate', 'dull from tiredness'
+],
+
+'eye weakness': [
+'weakness in eyes', 'weak eyes', 'eyes are weak', 'eyes are becoming weak', 'eye is weak', 'tired eyes', 'eye strain', 'blurred vision',
+'fatigued eyes', 'heavy eyes', 'difficulty focusing', 'eye muscle weakness', 'strained vision', 'eye discomfort', 'droopy eyelids', 'lack of eye strength',
+'vision fatigue', 'eye exhaustion', 'eye tiredness', 'reduced eye stamina', 'difficulty keeping eyes open', 'eye sensitivity', 'failing eye strength',
+'eye fatigue after reading', 'poor eye endurance', 'eye weakness from screen use', 'eye weariness', 'visual tiredness', 'eye fragility', 'weak eye muscles',
+'prolonged eye strain', 'focus difficulty', 'unstable eye movement', 'eye soreness', 'eye heaviness', 'visual exhaustion', 'difficulty maintaining focus',
+'eyes feeling overworked', 'weak visual acuity', 'eye tiredness at night', 'eye discomfort after long tasks', 'loss of eye strength', 'drooping eyes',
+'strained eye muscles', 'eye fatigue with headaches', 'difficulty keeping eyes focused', 'eye tension', 'sensitivity to light', 'eye weakness from fatigue'
+],
+
+
+'leg weakness': [
+'legs are becoming weak', 'weakness in legs', 'leg is weak', 'legs are weak', 'tired legs', 'wobbly legs', 'unsteady legs', 'shaky legs',
+'fatigued legs', 'heavy legs', 'lack of leg strength', 'unstable legs', 'leg muscle weakness', 'difficulty standing', 'difficulty walking', 'leg fatigue',
+'legs giving out', 'trembling legs', 'poor leg endurance', 'reduced leg strength', 'weak leg muscles', 'unstable lower limbs', 'leg instability',
+'feeling of leg collapse', 'limb weakness', 'leg exhaustion', 'legs feel drained', 'weakness in thigh muscles', 'weakness in calf muscles',
+'legs feel powerless', 'numb legs', 'tingling in legs', 'cramping legs', 'difficulty supporting weight', 'legs feel rubbery', 'shaking lower limbs',
+'legs feel unstable after exertion', 'difficulty lifting legs', 'leg weakness while climbing stairs', 'leg weakness after standing long',
+'legs feel like jelly', 'legs feel heavy and weak', 'poor leg control', 'unstable footing', 'weakness after prolonged standing', 'leg stiffness',
+'inability to bear weight on legs', 'sensation of leg failure', 'unresponsive legs'
+],
    }
 
 # NEW CODE COMMENT: Words to exclude from mapping to symptoms through fuzzy/embedding
