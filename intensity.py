@@ -31,9 +31,9 @@ symptom_list = [
 'gas', 'indigestion', 'heartburn', 'mouth sore', 'nosebleed', 'ear ringing', 'dark urine', 'blood in urine', 'blood in stool', 'high blood pressure',
 'low blood pressure', 'excessive thirst', 'dehydration', 'skin burning', 'sweat', 'eye pain',  'eye discharge', 'ear discharge', 'jaundice',
 'hearing loss', 'balance problem', 'irregular heartbeat', 'fainting', 'tremor', 'nervousness', 'panic attack', 'mood swing', 'difficulty concentrating',
-'hallucination', 'lack of motivation', 'exhaustion', 'bone pain', 'wrist pain', 'sprain', 'strain', 'arthritis', 'gout', 'headache', 'injury', 'chills',
+'hallucination', 'lack of motivation', 'exhaustion', 'bone pain', 'wrist pain', 'sprain', 'strain', 'arthritis', 'gout', 'headache', 'injury', 'chills','mouth pain'
 'leg pain', 'hand pain', 'arm pain', 'foot pain', 'knee pain', 'shoulder pain', 'hip pain', 'jaw pain', 'tooth pain','sleepy', 'bone fracture','sleepy','back bone issue',
-'female issue', 'thyroid', 'piles',
+'female issue', 'thyroid', 'piles', 'asthma','pneumonia','sugar',
 # weakness symtom
 'eye weakness','leg weakness'
   #'yellow eyes', 'red eyes'
@@ -116,7 +116,8 @@ symptom_synonyms = {
         'pain from gas buildup', 'pressure in the stomach', 'pain from constipation', 'distended abdomen', 'pain from ulcers', 'pain from bloating', 'pain from food intolerance',
         'sore stomach', 'pain from intestinal issues', 'gastrointestinal pain', 'tenderness in the stomach', 'pain near the navel', 'pain from diarrhea', 'stomach flu pain', 'pain in the lower abdomen',
         'feeling of fullness with pain', 'pain in the upper abdomen', 'stomach cramping', 'sharp abdominal cramps', 'nausea with stomach pain', 'abdominal swelling with pain', 'abdominal pain',
-        'chronic stomach pain', 'pain with digestive issues', 'pain from food poisoning', 'pain from gallbladder issues', 'pain from acid reflux'
+        'chronic stomach pain', 'pain with digestive issues', 'pain from food poisoning', 'pain from gallbladder issues', 'pain from acid reflux', 'pain in stomach', 'burning in stomach', 'itching in stomach', 'numbness in stomach',
+        'stomach discomfort', 'ache in stomach', 'trouble in stomach', 'stomach cramp', 'sharp pain in stomach', 'pain in the stomach', 'stomach is paining', 'stomach is burning','stomach is aching'
     ],
     'weakness': [
         'tiredness', 'extreme tiredness','weariness', 'fatigued feeling', 'lack of energy', 'physical depletion', 'mental fatigue', 'chronic tiredness',
@@ -154,7 +155,7 @@ symptom_synonyms = {
         'muscle effort just to breathe', 'chest oppression', 'suffocating sensation even in open space', 'feeling strangled by lack of air', 'restrictive breathing pattern',
         'breathing feels like pushing through a straw', 'air-starved lungs', 'cannot take a deep breath', 'strained oxygen intake', 'feeling like each breath is a struggle',
         'never fully satisfied inhalation', 'gasping between words', 'needy breathing pattern', 'barely pulling in enough air', 'lungs working at half capacity', 'respiratory distress',
-        'continuous short-windedness', 'feeling I can’t fully inflate lungs'
+        'continuous short-windedness'
     ],
    'rapid breathing': [
          'heavy breathing', 'shallow breathing', 'heart skipping beats'
@@ -175,13 +176,14 @@ symptom_synonyms = {
         'waking up too early', 'difficulty with sleep onset', 'difficulty getting comfortable at night', 'sleep anxiety', 'sleeping problems', 'frequent nighttime awakenings', 'irregular sleep cycle',
         'poor sleep habits', 'nighttime restlessness', 'waking in the middle of the night', 'sleep deprivation symptoms', 'daytime sleepiness from poor sleep', 'sleep fragmentation',
         'restless sleep', 'persistent insomnia', 'sleep troubles', 'light sleeping', 'short sleep duration', 'restorative sleep deprivation', 'fatigue from sleeplessness',
-        'waking up exhausted', 'sleep cycle disruption', 'sleep onset difficulty', 'insomnia due to stress', 'mental hyperactivity preventing sleep', 'cannot sleep', 'unable to sleep'
+        'waking up exhausted', 'sleep cycle disruption', 'sleep onset difficulty', 'insomnia due to stress', 'mental hyperactivity preventing sleep', 'cannot sleep', 'unable to sleep','not able to sleep',
+        'unable to fall asleep', 'not able to fall asleep'
     ],
     'rash': [
         'skin rash', 'redness on skin', 'skin irritation', 'skin inflammation', 'skin breakout', 'itchy rash', 'hives', 'blotchy skin', 'skin eruption', 'skin lesions',
         'red bumps on skin', 'inflamed skin', 'patchy rash', 'discolored skin', 'raised rash', 'painful rash', 'rash with blisters', 'dry rash', 'moist rash', 'allergic rash',
         'eczema', 'psoriasis patches', 'contact dermatitis', 'hives breakout', 'heat rash', 'prickly heat', 'scaly rash', 'rash on face', 'body rash', 'rashes on arms',
-        'welts on skin', 'itchy patches on skin', 'skin redness', 'chronic skin rash', 'dry, scaly rash', 'blistering rash', 'swollen rash', 'rash that won’t heal', 'rash with swelling',
+        'welts on skin', 'itchy patches on skin', 'skin redness', 'chronic skin rash', 'dry, scaly rash', 'blistering rash', 'swollen rash', 'rash with swelling',
         'inflamed, sore rash', 'rash with pus', 'pimple-like rash', 'rash caused by allergic reaction', 'skin irritation with swelling', 'flaky rash', 'raw skin from rash',
         'horrible itching rash', 'rashes from medication', 'painful itching on skin', 'burning sensation from rash'
     ],
@@ -204,8 +206,8 @@ symptom_synonyms = {
     ],
     'sneezing': [
         'Sneezing fits', 'frequent sneezing', 'sneezing spells', 'sneezing bouts', 'sneezing attacks', 'sneezing episodes', 'uncontrollable sneezing', 'explosive sneezes',
-        'repetitive sneezes', 'unstoppable nasal explosions', 'constant “Achoo!”', 'serial sneezing', 'sneeze after sneeze', 'chain-sneezing', 'nasal expulsions',
-        'nasal reflex outbursts', 'convulsive sneezing', 'rapid-fire sneezes', 'machine-gun sneezing', 'persistent nasal expulsions', 'surprise sneezes', 'itching sneeze reflex',
+        'repetitive sneezes', 'unstoppable nasal explosions','serial sneezing', 'sneeze after sneeze', 'chain-sneezing', 'nasal expulsions',
+        'nasal reflex outbursts', 'convulsive sneezing', 'rapid-fire sneezes', 'machine-gun sneezing', 'persistent nasal expulsions', 'surprise sneezes',
         'tickling in nose triggering sneezes', 'staccato sneezing', 'sneeze cascades', 'recurrent sneezing', 'violent sneezing', 'spontaneous sneezes', 'sudden sneezing',
         'blasting sneezes', 'paroxysmal sneezing', 'intense sneezing', 'frequent sneezing attacks', 'sneezing with watery eyes', 'sudden fit of sneezing', 'uncontrollable nasal reflex',
         'hayfever sneezing', 'sneeze bursts', 'non-stop sneezing', 'gasping after sneezing', 'nasal reflex reactions', 'irritated sneezing', 'allergic sneezing', 'multiple sneeze cycles'
@@ -224,7 +226,7 @@ symptom_synonyms = {
         'painful knees', 'painful shoulders', 'pain in elbows', 'wrist joint pain', 'ankle joint pain', 'hip joint pain', 'persistent joint pain', 'severe joint pain', 'uncomfortable joint pressure',
         'popping joints', 'clicking joints', 'cracking joints', 'sore knees', 'joint inflammation in fingers', 'inflamed joints', 'stiffened knee joints', 'swollen ankles', 'excessive joint pain',
         'joint tenderness', 'joint soreness from strain', 'arthralgia', 'aching knees', 'sharp joint pain', 'stabbing joint pain', 'chronic joint ache', 'inflamed elbow joints',
-        'chronic knee pain', 'joint damage', 'strained joint', 'degenerative joint disease', 'discomfort in joints', 'dull joint ache', 'acute joint pain', 'swollen hands', 'weakening joint flexibility',
+        'joint damage', 'strained joint', 'degenerative joint disease', 'discomfort in joints', 'dull joint ache', 'acute joint pain', 'swollen hands', 'weakening joint flexibility',
         'muscle and joint discomfort', 'continuous joint pain', 'painful back joints', 'arthritic inflammation', 'joint locking', 'joint clicking', 'joint popping', 'joint dislocation'
 
     ],
@@ -308,7 +310,9 @@ symptom_synonyms = {
         'sharp eye ache', 'vision-related pain', 'severe eye pain', 'sharp stabbing pain in the eye', 'pain in the eyeball', 'tired eye pain', 'swollen eye discomfort', 'throbbing behind the eyes',
         'pain from light sensitivity', 'pain after reading', 'pain when blinking', 'gritty feeling in the eyes', 'intense eye pressure', 'pain around the eyelids', 'blurry vision with pain', 'puffy eyes with pain',
         'pain near the cornea', 'stinging pain in the eye', 'pain with redness in the eye', 'ocular discomfort', 'persistent eye pain', 'painful feeling when moving eyes', 'pressure sensation in the eyes',
-        'pain from eye strain', 'pain with dry eyes', 'eye irritation', 'eye swelling', 'eye tearing',
+        'pain from eye strain', 'pain with dry eyes', 'eye irritation', 'eye swelling', 'eye tearing','pain in eye','pain in the eyes', 'itching in eye', 'itching in eyes', 'burning in eye', 'burning in eyes',
+        'sore eye', 'sore eyes', 'numbness in eye', 'numbness in eyes', 'eye discomfort', 'ache in eye', 'ache in eyes',
+        'trouble in eye', 'trouble in eyes','pain in my eye','pain in eyes', 'pain in my eyes'
     ],
     'ear pain': [
         'ear ache', 'pain in the ear', 'ear discomfort', 'sharp ear pain', 'throbbing ear ache', 'ear irritation', 'pressure in the ear', 'sharp pain in the ear', 'stabbing ear pain',
@@ -332,7 +336,8 @@ symptom_synonyms = {
         'pain from acid reflux', 'hoarse throat', 'tight throat pain', 'painful voice box', 'pain in the larynx', 'pain with coughing', 'pain with dry mouth', 'pain with difficulty swallowing',
         'pain in the pharynx', 'pain with swollen glands', 'throat congestion', 'pain after excessive talking', 'pain from dry air', 'pain from smoking', 'throat dryness', 'severe throat discomfort',
         'pain after eating', 'pain from post-nasal drip', 'sore and swollen throat', 'pain from throat infection', 'swollen tonsils with pain', 'tightness in the throat', 'pain from sore mouth',
-        'stabbing throat pain', 'pain when swallowing food', 'burning throat pain'
+        'stabbing throat pain', 'pain when swallowing food', 'burning throat pain', 'pain in throat', 'burning in throat', 'itching in throat', 'sore throat', 'numbness in throat',
+        'throat discomfort', 'ache in throat', 'trouble in throat', 'throat irritation','throat is paining'
     ],
     'jaw pain': [
         'pain in the jaw', 'jaw discomfort', 'jaw ache', 'pain in the temporomandibular joint', 'TMJ pain', 'painful jaw muscles', 'pain from jaw clenching', 'tooth-related jaw pain',
@@ -364,21 +369,25 @@ symptom_synonyms = {
         'pain from knee injury', 'pain from knee strain', 'knee swelling', 'pain when bending knee', 'pain while walking', 'pain after exercise', 'pain from knee overuse', 'pain with knee movement',
         'pain in the kneecap', 'pain on the outer knee', 'pain on the inner knee', 'pain from ligament injury', 'pain from torn meniscus', 'sharp pain in the knee cap',
         'knee joint inflammation', 'pain when climbing stairs', 'pain with swelling', 'pain from running', 'pain from twisting knee', 'pain when standing up', 'knee tenderness', 'pain from patella dislocation',
-        'pain with knee instability', 'pain from bursitis', 'pain with osteoarthritis', 'pain from cartilage damage', 'pain after knee surgery', 'pain in the back of the knee'
+        'pain with knee instability', 'pain from bursitis', 'pain with osteoarthritis', 'pain from cartilage damage', 'pain after knee surgery', 'pain in the back of the knee', 'numbness in knee', 'numbness in knees', 'itching in knee', 'itching in knees',
+        'knee discomfort', 'ache in knees', 'sore knee', 'sore knees', 'knee burning', 'burning sensation in knee','pain in knee','pain in knees', 'pain in the knees','knees are paining','knee is paining',
+        'tingling in knees', 'trouble in knee', 'trouble in knees'
     ],
     'foot pain': [
         'pain in the foot', 'plantar pain', 'foot discomfort', 'foot ache', 'pain in the heel', 'sharp foot pain', 'throbbing foot pain', 'pain from foot injury', 'pain in the arch',
         'pain from flat feet', 'pain from bunions', 'pain in the toes', 'pain from corns', 'pain from calluses', 'pain from foot fractures', 'pain from wearing tight shoes', 'pain with walking',
         'pain from arthritis in foot', 'swollen foot', 'pain in the sole', 'pain when standing', 'pain from sprained ankle', 'pain from tendinitis', 'sharp pain in the foot arch', 'pain in foot joints',
         'pain in the ball of the foot', 'numbness in foot with pain', 'heel pain', 'pain from Morton’s neuroma', 'pain in foot after exercise', 'pain from overuse', 'pain after running', 'foot cramping pain',
-        'pain after standing for long periods', 'pain in the toes after walking', 'sharp heel pain', 'foot pain from nerve issues', 'pain from diabetic neuropathy', 'foot pain from swelling', 'pain after wearing heels'
+        'pain after standing for long periods', 'pain in the toes after walking', 'sharp heel pain', 'foot pain from nerve issues', 'pain from diabetic neuropathy', 'foot pain from swelling', 'pain after wearing heels',
+        'pain in feet', 'pain in foot','feet are paining','foot is paining', 'feet are aching','foot is aching'
     ],
     'ankle pain': [
         'ankle discomfort', 'pain in the ankle', 'twisted ankle pain', 'pain from sprained ankle', 'swollen ankle', 'sharp ankle pain', 'throbbing pain in the ankle', 'pain when walking',
         'pain after ankle injury', 'pain from overuse', 'pain after exercise', 'pain with ankle movement', 'pain with swelling', 'pain from torn ligament', 'pain in the outer ankle', 'pain in the inner ankle',
         'pain in the ankle joint', 'pain from ligament strain', 'pain from ankle fracture', 'ankle tenderness', 'pain with ankle instability', 'pain when standing', 'sharp pain in the ankle',
         'pain in ankle tendon', 'pain after running', 'pain from ankle arthritis', 'pain with twisting', 'pain in ankle after jumping', 'pain in the Achilles tendon', 'stabbing pain in ankle',
-        'pain with ankle sprain', 'ankle bruising', 'pain when walking on uneven surfaces', 'pain when bending the foot', 'pain in the heel of the ankle', 'pain during sports activities', 'pain when stretching ankle'
+        'pain with ankle sprain', 'ankle bruising', 'pain when walking on uneven surfaces', 'pain when bending the foot', 'pain in the heel of the ankle', 'pain during sports activities', 'pain when stretching ankle',
+        'ankle is paining', 'ankles are paining', 'pain in ankle','pain in ankles'
     ],
      'wrist pain': [
         'pain in the wrist', 'wrist discomfort', 'carpal pain', 'wrist ache', 'pain in the wrist joint', 'wrist inflammation', 'swollen wrist', 'stiff wrist pain', 'pain from repetitive strain',
@@ -394,7 +403,10 @@ symptom_synonyms = {
         'pain from repetitive motions', 'pain from carpal tunnel syndrome', 'pain from hand overuse', 'hand joint pain', 'pain from hand sprain', 'pain from tendonitis in the hand', 'pain in the wrist with hand use',
         'sharp pain when holding objects', 'burning pain in the hand', 'painful hand cramps', 'dull hand pain', 'pain from hand fracture', 'pain from swelling in the hand', 'joint stiffness in the hand',
         'pain from typing', 'pain after using the hand excessively', 'pain when stretching the hand', 'pain in hand from trauma', 'pain when writing', 'pain with hand dexterity', 'pain in the hand after exercise',
-        'muscle pain in the hand', 'pain from cold in the hand', 'pain after lifting objects'
+        'muscle pain in the hand', 'pain from cold in the hand', 'pain after lifting objects', 'pain in the palm', 'pain in the wrist', 'hand soreness', 'pain from hand injury',
+        'pain from overuse', 'pain from arthritis', 'pain while gripping', 'hand muscle pain', 'pain with swelling', 'pain in the hands', 'numbness in hand', 'numbness in hands', 'itching in hand', 'itching in hands',
+        'burning in hand', 'burning in hands', 'sore hand', 'sore hands', 'hand discomfort', 'ache in hand', 'ache in hands',
+        'trouble in hand', 'trouble in hands','hands are aching','hand is aching', 'hand is paining', 'hands are paining','hand is paining'
     ],
     'arm pain': [
         'pain in the arm', 'upper limb pain', 'arm discomfort', 'sharp arm pain', 'throbbing arm pain', 'pain in the elbow', 'pain in the shoulder', 'pain in the forearm', 'pain in the biceps',
@@ -402,16 +414,24 @@ symptom_synonyms = {
         'pain from arm sprain', 'pain in the wrist and arm', 'stiffness in the arm', 'swollen arm', 'pain when moving the arm', 'burning pain in the arm', 'aching in the arm', 'arm cramping',
         'pain from lifting with the arm', 'pain when raising the arm', 'pain from overuse of the arm', 'pain from arm fracture', 'pain in the arm muscles after exercise', 'pain from muscle strain in the arm',
         'pain from joint inflammation', 'sharp pain in the arm muscles', 'pain in the elbow joint', 'pain in the shoulder joint', 'dull arm pain', 'pain in the forearm when lifting', 'shooting arm pain',
-        'nerve-like pain in the arm'
+        'nerve-like pain in the arm','pain in the arm', 'pain in the arms','arms are paining','pain in the arm','pain in the arms'
     ],
     'leg pain': [
-        'pain in the leg', 'lower limb pain', 'leg discomfort', 'muscle pain in the leg', 'pain in the thigh', 'pain in the calf', 'pain in the knee', 'pain in the shin', 'pain from leg injury',
+        'pain in the leg', 'lower limb pain', 'leg discomfort', 'muscle pain in the leg', 'pain in the thigh', 'pain in the calf', 'pain in the shin', 'pain from leg injury',
         'sharp leg pain', 'throbbing leg pain', 'aching leg pain', 'pain in the leg muscles', 'pain in the leg joints', 'pain when walking', 'pain from leg cramps', 'pain after leg exercise',
         'pain after running', 'pain from overuse', 'pain in the hamstring', 'pain from leg sprain', 'muscle soreness in the leg', 'pain in the calf after activity', 'pain from leg fractures',
         'burning pain in the leg', 'pain from restless legs', 'pain when standing', 'pain in the thigh after sitting', 'pain in the foot and leg', 'pain with leg movement', 'pain from sciatica',
         'leg pain from sitting too long', 'pain when bending the leg', 'pain in the shin muscles', 'swollen leg', 'pain from arthritis in the leg', 'dull pain in the leg', 'sharp pain in the lower leg',
-        'pain when walking on uneven ground', 'pain in the lower back and leg'
+        'pain when walking on uneven ground', 'pain in the lower back and leg', 'pain in the legs', 'pain in leg', 'pain in legs', 'numbness in leg', 'numbness in legs', 'itching in leg', 'itching in legs',
+        'burning in leg', 'burning in legs', 'sore leg', 'sore legs', 'leg discomfort', 'ache in leg', 'ache in legs',
+        'trouble in leg', 'trouble in legs', 'leg cramp', 'sharp pain in leg','legs are paining','leg is paining','pain in the legs','pain in leg'
     ],
+
+    'mouth pain': [
+        'pain in mouth', 'numbness in mouth', 'itching in mouth', 'burning in mouth', 'soreness in mouth',
+        'discomfort in mouth', 'mouth ache', 'trouble in mouth','mouth is paining','mouth is aching'
+    ],
+
     'confusion': [
         'disorientation', 'muddled thinking', 'mental fog', 'trouble thinking clearly', 'brain fog', 'cognitive cloudiness', 'puzzled state', 'jumbled thoughts', 'incoherent reasoning', 'tangled mental process',
         'unclear comprehension', 'befuddled mind', 'scrambled logic', 'perplexed state', 'hazy understanding', 'blurred mental picture', 'fuzzy reasoning', 'perplexity', 'baffled intellect',
@@ -432,11 +452,12 @@ symptom_synonyms = {
         'pain in the back muscles', 'dull back pain', 'throbbing back pain', 'pain when bending over', 'pain when standing', 'pain from sciatica', 'pain from a herniated disc', 'pain from poor posture',
         'pain from back injury', 'sharp pain in the lower back', 'pain from spinal stenosis', 'pain in the upper back', 'pain in the back after lifting', 'pain from overuse of back muscles',
         'chronic back pain', 'pain from spinal degeneration', 'aching back muscles', 'back pain with tingling', 'pain from back strain', 'pain when sitting for too long', 'swollen back muscles',
-        'pain from muscle spasms in the back', 'pain with back movement', 'sharp shooting pain in the back'
+        'pain from muscle spasms in the back', 'pain with back movement', 'sharp shooting pain in the back', 'pain in back', 'numbness in back', 'itching in back', 'burning in back', 'sore back', 'back discomfort',
+        'ache in back', 'trouble in back', 'back stiffness', 'sharp pain in back', 'back tenderness', 'back pains', 'pain in back', 'pain in the back','back is paining','ache in the back','spinal problem'
     ],
     'memory loss': [
         'forgetfulness', 'difficulty recalling', 'poor memory', 'memory lapses', 'amnestic episodes', 'short-term memory issues', 'difficulty remembering recent events', 'blanking out on details',
-        'slip of the mind', 'fuzzy recollections', 'failing memory', 'losing track of thoughts', 'can’t recall names', 'vacant mental storage', 'holes in memory', 'patchy recollection',
+        'slip of the mind', 'fuzzy recollections', 'failing memory', 'losing track of thoughts', 'vacant mental storage', 'holes in memory', 'patchy recollection',
         'vanishing details from mind', 'gaps in remembrance', 'fleeting mental notes', 'mental blanks', 'fragmented memory', 'elusive past events', 'stuttering memory', 'hazy recall',
         'details fading away', 'mental erasures', 'unstable memory bank', 'shaky recollections', 'selective forgetfulness', 'mental blackouts', 'fuzzy mental snapshots', 'misplacing thoughts',
         'memory glitches', 'jumbled recall', 'inability to summon certain facts', 'feeling brain-drained', 'memory going dark', 'fragments of information missing', 'scattering of remembered info',
@@ -513,10 +534,6 @@ symptom_synonyms = {
     'sadness', 'melancholy', 'despair', 'low mood', 'dismay', 'hopelessness', 'discouragement', 'despondency', 'blues', 'dejectedness', 'very sad', 'sad',
     'feeling down', 'feeling hopeless', 'loss of interest', 'unhappiness', 'mental exhaustion', 'loss of joy', 'major depressive disorder',
     'clinical depression', 'chronic depression', 'depressive episode', 'anhedonia', 'negative mood', 'downheartedness'
-],
-
-'nausea': [
-    'queasiness',  'feeling nauseous', 'nauseousness', 'feeling of nausea', 'feeling queasy'
 ],
 
 'cancer': [
@@ -659,7 +676,7 @@ symptom_synonyms = {
     'hypotension', 'low BP', 'decreased blood pressure', 'low arterial pressure', 'reduced blood pressure', 'hypotensive condition', 'low systolic pressure',
     'low diastolic pressure', 'abnormally low blood pressure', 'postural hypotension', 'orthostatic hypotension', 'chronic hypotension', 'mild hypotension',
     'severe hypotension', 'low blood pressure symptoms', 'blood pressure drop', 'low cardiovascular pressure', 'circulatory hypotension', 'inadequate blood pressure',
-    'dizzy blood pressure', 'low blood pressure episode', 'BP is low'
+    'dizzy blood pressure', 'low blood pressure episode', 'BP is low','low blood pressure'
 ],
 
 'excessive thirst': [
@@ -795,8 +812,8 @@ symptom_synonyms = {
 
 'female issue': [
     'women’s health', 'gynecological issue', 'female reproductive health', 'menstrual problems', 'menstrual irregularities', 'PCOS', 'endometriosis', 'fibroids', 'ovarian cysts',
-    'vaginal infection', 'vaginal discharge', 'fertility issues', 'menopause', 'pre-menopause', 'post-menopause', 'infertility', 'vaginal dryness', 'prolapsed uterus',
-    'birth control issues', 'female urinary issues', 'pregnancy complications','white discharge'
+    'vaginal infection', 'vaginal discharge', 'fertility issues', 'menopause', 'pre menopause', 'post menopause', 'infertility', 'vaginal dryness', 'prolapsed uterus',
+    'birth control issues', 'female urinary issues', 'pregnancy complications','white discharge','female issue','female issues'
 ],
 
 'thyroid': [
@@ -926,8 +943,13 @@ symptom_synonyms = {
 'legs feel like jelly', 'legs feel heavy and weak', 'poor leg control', 'unstable footing', 'weakness after prolonged standing', 'leg stiffness',
 'inability to bear weight on legs', 'sensation of leg failure', 'unresponsive legs'
 ],
-   }
 
+'asthma': ['wheezing', 'reactive airway disease', 'hyperresponsive airway disease', 'asthmatic condition', 'asthmas', 'asthama','whistling sound while breathing'],
+
+'pneumonia': ['lung infection','alveolar infection'],
+
+'sugar': ['sugars', 'glucose', 'blood sugar', 'hyperglycemia', 'hypoglycemia'],
+   }
 # NEW CODE COMMENT: Words to exclude from mapping to symptoms through fuzzy/embedding
 filtered_words = ['got', 'old']  # We can add more words here if needed
 
