@@ -1,13 +1,16 @@
 import streamlit as st
-from sentence_transformers import SentenceTransformer, util
-from rapidfuzz import process, fuzz
-import torch
 import re
+import time
 import nltk
+import spacy
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+from sentence_transformers import SentenceTransformer, util
+import torch
 
-# Function to ensure NLTK resources are downloaded
+########################################
+# 0. NLTK Setup
+########################################
 def ensure_nltk_resources(resources):
     for resource in resources:
         try:
@@ -15,11 +18,15 @@ def ensure_nltk_resources(resources):
         except LookupError:
             nltk.download(resource)
 
-# Ensure required NLTK resources are available
-ensure_nltk_resources(['stopwords', 'wordnet'])
+ensure_nltk_resources(["stopwords","wordnet"])
+stop_words = set(stopwords.words('english'))
+lemmatizer = WordNetLemmatizer()
 
-# Initialize models
-model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+########################################
+# 1. Load spaCy and SBERT
+########################################
+nlp_spacy = spacy.load("en_core_web_sm")  # For chunk extraction
+model_sbert = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
 # Symptom list
 symptom_list = [
@@ -953,8 +960,8 @@ symptom_synonyms = {
 # NEW CODE COMMENT: Words to exclude from mapping to symptoms through fuzzy/embedding
 filtered_words = ['got', 'old']  # We can add more words here if needed
 
-# Precompute embeddings
-symptom_embeddings = model.encode(symptom_list, convert_to_tensor=True)
+# Precompute embeddings for canonical only
+symptom_embeddings = model_sbert.encode(symptom_list, convert_to_tensor=True)
 
 # Initialize NLTK components
 lemmatizer = WordNetLemmatizer()
@@ -990,9 +997,6 @@ strict_symptoms = ['itching']
 # Words to exclude from mapping to symptoms through fuzzy/embedding
 filtered_words = ['got', 'old']  # We can add more words here if needed
 
-# Precompute embeddings
-symptom_embeddings = model.encode(symptom_list, convert_to_tensor=True)
-
 # Initialize NLTK components
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
@@ -1020,156 +1024,206 @@ body_parts = [
     'trigeminal', 'spinal', 'peripheral', 'visceral', 'biliary', 'renal', 'hepatic'
 ]
 
-def normalize_text(text):
-    text = re.sub(r'[^a-zA-Z\s]', '', text.lower())
-    tokens = text.split()
-    tokens = [lemmatizer.lemmatize(word) for word in tokens if word not in stop_words]
-    return ' '.join(tokens)
-
-def extract_intensities_in_clause(text):
-    text_lower = text.lower()
-    found_intensity = None
-    found_value = 0
-
-    # Check multi-word intensities first
-    for phrase, val in intensity_words.items():
-        if re.search(r'\b' + re.escape(phrase) + r'\b', text_lower):
-            if val > found_value:
-                found_value = val
-                found_intensity = phrase
-
-    return found_intensity, found_value if found_intensity else (None, 0)
-
-def extract_symptom_keywords_clause(text):
-    keywords_found = [kw for kw in symptom_keywords if re.search(r'\b' + re.escape(kw) + r'\b', text)]
-    return keywords_found
-
-def extract_body_parts_clause(text):
-    body_parts_found = [bp for bp in body_parts if re.search(r'\b' + re.escape(bp) + r'\b', text)]
-    return body_parts_found
-
-def map_synonym(user_input):
-    for symptom, synonyms in symptom_synonyms.items():
-        for synonym in synonyms:
-            pattern = r'\b' + re.escape(synonym.lower()) + r'\b'
-            if re.search(pattern, user_input.lower()):
-                return symptom
+def check_direct_synonym(chunk_text):
+    """
+    Check if chunk_text matches any canonical or synonyms EXACTLY (via substring).
+    Return the canonical symptom if found, else None.
+    """
+    txt_lower = chunk_text.lower()
+    # 1) Check direct match with canonical
+    for canon in symptom_list:
+        pattern = r"\b" + re.escape(canon.lower()) + r"\b"
+        if re.search(pattern, txt_lower):
+            return canon
+    
+    # 2) Check synonyms
+    for canon, syns in symptom_synonyms.items():
+        for s in syns:
+            pattern = r"\b" + re.escape(s.lower()) + r"\b"
+            if re.search(pattern, txt_lower):
+                return canon
+    
     return None
 
-def try_all_methods(normalized_input):
-    # Attempt fuzzy matching
-    fuzzy_result = process.extractOne(normalized_input, symptom_list, scorer=fuzz.partial_ratio)
-    candidate_symptom = None
-    if fuzzy_result and fuzzy_result[1] > 80:
-        candidate_symptom = fuzzy_result[0]
+########################################
+# 4. Single-Pass SBERT
+########################################
+def sbert_match(chunk_text, threshold=0.7):
+    """
+    If no direct substring match for synonyms,
+    do a single SBERT pass for the chunk_text,
+    compare with symptom_list embeddings.
+    Return best match if cos-sim >= threshold, else None.
+    """
+    # Quick check: if chunk_text is a filtered word, skip
+    chunk_lower = chunk_text.lower()
+    if chunk_lower in filtered_words:
+        return None
+    
+    # Encode once
+    emb = model_sbert.encode(chunk_text, convert_to_tensor=True)
+    cos_scores = util.cos_sim(emb, symptom_embeddings)  # shape (1, len(symptom_list))
+    max_score = torch.max(cos_scores).item()
+    if max_score >= threshold:
+        best_idx = torch.argmax(cos_scores).item()
+        return symptom_list[best_idx]
+    return None
+
+########################################
+# 5. Noun Chunk + Minimal n-gram in chunk
+########################################
+def extract_chunk_spans(sentence, max_ngram=4):
+    """
+    Use spaCy to get noun chunks, 
+    then produce sub-ngrams up to max_ngram if chunk is very long.
+    Minimizes number of spans => faster.
+    """
+    doc = nlp_spacy(sentence)
+    all_spans = []
+    for chunk in doc.noun_chunks:
+        tokens = chunk.text.split()
+        n = len(tokens)
+        # If chunk is short, keep as is
+        if 1 <= n <= max_ngram:
+            all_spans.append(chunk.text.strip())
+        elif n > max_ngram:
+            # produce smaller sub-phrases
+            for size in range(1, max_ngram+1):
+                for i in range(n-size+1):
+                    sub = " ".join(tokens[i:i+size])
+                    if len(sub) >= 2:
+                        all_spans.append(sub)
+    # Add the entire chunk if you want
+    # all_spans = list(set(all_spans)) # optional dedup
+    return list(set(all_spans))
+
+def detect_body_part_keyword(chunk_text):
+    """
+    If we find 'knee' + 'pain' => map to something like 'knee pain'.
+    Fallback approach if chunk is not recognized via synonyms or sbert.
+    """
+    chunk_lower = chunk_text.lower()
+    found_bps = []
+    found_kws = []
+    for bp in body_parts:
+        if re.search(r"\b" + re.escape(bp.lower()) + r"\b", chunk_lower):
+            found_bps.append(bp)
+    for kw in symptom_keywords:
+        if re.search(r"\b" + re.escape(kw.lower()) + r"\b", chunk_lower):
+            found_kws.append(kw)
+    # Construct combos
+    combos = []
+    for bp in found_bps:
+        for kw in found_kws:
+            combos.append(f"{bp} {kw}")
+    return combos
+
+########################################
+# 6. Clause-level Symptom Detection
+########################################
+def detect_symptoms_in_clause(clause, threshold=0.7):
+    results = set()
+    # 1) Check direct synonyms/canon
+    direct_match = check_direct_synonym(clause)
+    if direct_match:
+        results.add(direct_match)
     else:
-        # Attempt SBERT embeddings only if fuzzy not successful
-        user_embedding = model.encode(normalized_input, convert_to_tensor=True)
-        cos_scores = util.cos_sim(user_embedding, symptom_embeddings)
-        max_score = torch.max(cos_scores).item()
-        if max_score > 0.7:
-            best_match_idx = torch.argmax(cos_scores)
-            candidate_symptom = symptom_list[best_match_idx]
+        # 2) Single SBERT pass if no direct match
+        sbert_res = sbert_match(clause, threshold=threshold)
+        if sbert_res:
+            results.add(sbert_res)
 
-    # If candidate_symptom is due to a filtered word, discard it
-    if candidate_symptom:
-        for fw in filtered_words:
-            if re.search(r'\b' + re.escape(fw) + r'\b', normalized_input):
-                if fuzz.ratio(fw, candidate_symptom) > 70:
-                    return None
-
-    return candidate_symptom
-
-def remove_redundant_symptoms(symptoms):
-    sorted_symptoms = sorted(symptoms, key=len, reverse=True)
-    filtered = []
-    for sym in sorted_symptoms:
-        if not any(sym in existing_sym for existing_sym in filtered):
-            filtered.append(sym)
-    return filtered
-
-# NEW CODE COMMENT: General function to decide if a symptom should be added based on strict rules
-def should_add_symptom(symptom, clause):
-    # If symptom is in strict_symptoms, verify synonyms appear directly
-    if symptom in strict_symptoms:
-        if map_synonym(clause) == symptom:
-            return True
-        else:
-            return False
-    else:
-        # If not a strict symptom, no special check needed
-        return True
-
-def detect_symptoms_in_clause(clause):
-    results = []
-    normalized_input = normalize_text(clause)
-
-    # Synonym match
-    synonym_match = map_synonym(clause)
-    if synonym_match:
-        # Check if allowed to add (in case synonym_match is strict)
-        if should_add_symptom(synonym_match, clause):
-            results.append(synonym_match)
-
-    # Body part + keyword
-    kw_found = extract_symptom_keywords_clause(normalized_input)
-    bp_found = extract_body_parts_clause(normalized_input)
-    if kw_found and bp_found:
-        for bp in bp_found:
-            for kw in kw_found:
-                combined_symptom = f"{bp} {kw}"
-                if combined_symptom in symptom_list:
-                    if should_add_symptom(combined_symptom, clause):
-                        results.append(combined_symptom)
-                else:
-                    combined_res = try_all_methods(normalize_text(combined_symptom))
-                    if combined_res and should_add_symptom(combined_res, clause):
-                        results.append(combined_res)
-
-    # Fallback to general symptom detection
+    # 3) Body part + keyword combos => if we haven't recognized anything
     if not results:
-        final_res = try_all_methods(normalized_input)
-        if final_res and should_add_symptom(final_res, clause):
-            results.append(final_res)
+        combos = detect_body_part_keyword(clause)
+        if combos:
+            # Try direct or sbert for each combo
+            for combo in combos:
+                # direct check
+                direct_c = check_direct_synonym(combo)
+                if direct_c:
+                    results.add(direct_c)
+                else:
+                    # sbert fallback
+                    sr = sbert_match(combo, threshold=threshold)
+                    if sr:
+                        results.add(sr)
 
-    filtered_results = remove_redundant_symptoms(results)
-    return list(set(filtered_results))
+    return list(results)
 
 def detect_symptoms_and_intensity(user_input):
-    clauses = re.split(r'[.,;]|\band\b', user_input, flags=re.IGNORECASE)
+    # Split the input into clauses
+    clauses = re.split(r"[.,;]| and\b", user_input, flags=re.IGNORECASE)
     clauses = [c.strip() for c in clauses if c.strip()]
-
+    
     final_results = []
     for clause in clauses:
-        # Extract intensity from clause
-        intensity_word, intensity_value = extract_intensities_in_clause(clause)
-        symptoms = detect_symptoms_in_clause(clause)
+        # Extract intensity
+        intensity_word, intensity_val = extract_intensity_clause(clause)
+        
+        # Extract chunk-based subspans
+        chunk_spans = extract_chunk_spans(clause, max_ngram=4)
 
-        for sym in symptoms:
-            if intensity_word:
-                final_results.append((sym, intensity_word, intensity_value))
+        # For speed, do a SINGLE pass for each chunk
+        # But we can do direct check first:
+        matched_syms = set()
+        for sp in chunk_spans:
+            direct_s = check_direct_synonym(sp)
+            if direct_s:
+                matched_syms.add(direct_s)
             else:
-                final_results.append((sym, None, 0))
+                # If not direct found, do one sbert
+                sbert_s = sbert_match(sp, threshold=0.7)
+                if sbert_s:
+                    matched_syms.add(sbert_s)
+
+        # If still empty, fallback clause-level detection
+        if not matched_syms:
+            # This is a final fallback if chunk-based didn't find anything
+            final_fallback = detect_symptoms_in_clause(clause, threshold=0.7)
+            matched_syms.update(final_fallback)
+
+        for sym in matched_syms:
+            final_results.append((sym, intensity_word, intensity_val))
 
     return final_results
 
-# Streamlit UI
-st.title("🩺 Multi-Symptom & Intensity Matcher")
-st.write("Enter a description of your symptoms. The system will extract multiple symptoms, determine their intensities, and show a percentage for intensity.")
+def extract_intensity_clause(clause):
+    """Extract single highest-intensity from the clause."""
+    cl_lower = clause.lower()
+    found_intensity = None
+    found_val = 0
+    for phrase, val in intensity_words.items():
+        if re.search(r"\b" + re.escape(phrase) + r"\b", cl_lower):
+            if val > found_val:
+                found_val = val
+                found_intensity = phrase
+    return found_intensity, found_val
 
-user_input = st.text_input("Describe your symptom(s):")
+########################################
+# 7. Streamlit UI
+########################################
+st.title("FAST Symptom & Intensity Extraction")
+st.write("This version preserves synonyms and tries to detect new phrases with body-part keywords, but keeps speed under 2s by using a single pass approach per chunk/clause.")
 
-if st.button("Find Symptoms"):
+user_input = st.text_area("Describe your symptom(s):", height=100)
+
+if st.button("Extract Symptoms"):
+    t0 = time.time()
     if user_input.strip():
+        # call detection
         matched_symptoms = detect_symptoms_and_intensity(user_input)
+        t1 = time.time()
+        elapsed = t1 - t0
+        
         if matched_symptoms:
-            st.write("**Detected Symptoms:**")
-            for (symptom, intensity_word, intensity_value) in matched_symptoms:
+            st.write(f"**Detected Symptoms** (Time: {elapsed:.2f}s)")
+            for (sym, intensity_word, intensity_val) in matched_symptoms:
                 if intensity_word:
-                    st.write(f"- {symptom} (Intensity: {intensity_word} ~ {intensity_value}% )")
+                    st.write(f"- {sym} (Intensity: {intensity_word} ~ {intensity_val}%)")
                 else:
-                    st.write(f"- {symptom} (Intensity: Not specified)")
+                    st.write(f"- {sym} (no intensity specified)")
         else:
-            st.write("No clear match found")
+            st.write(f"No clear match found. (Time: {elapsed:.2f}s)")
     else:
-        st.warning("Please enter a symptom description.")
+        st.warning("Please enter some text.")
